@@ -34,7 +34,8 @@ jobs:
       uses: gradle/actions/setup-gradle@ec92e829475ac0c2315ea8f9eced72db85bb337a # v3.0.0
       
     - name: Grant execute permission for gradlew
-      run: cd /INUsed_Server/INUsed_Server &&
+      run: pwd &&
+           cd /INUsed_Server/ &&
            chmod +x graldew
 
     - name: Build with Gradle Wrapper
