@@ -1,10 +1,9 @@
-package com.c_comachi.inused.dto.response.auth;
+package com.c_comachi.inused.users.dto.response;
 
 import com.c_comachi.inused.common.ResponseCode;
 import com.c_comachi.inused.common.ResponseMessage;
 import com.c_comachi.inused.dto.response.ResponseDto;
 import lombok.Getter;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

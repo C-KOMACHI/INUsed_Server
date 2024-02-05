@@ -1,6 +1,9 @@
 package com.c_comachi.inused.config;
 
-import com.c_comachi.inused.jwt.*;
+import com.c_comachi.inused.users.jwt.JwtAccessDeniedHandler;
+import com.c_comachi.inused.users.jwt.JwtAuthenticationEntryPoint;
+import com.c_comachi.inused.users.jwt.JwtSecurityConfig;
+import com.c_comachi.inused.users.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

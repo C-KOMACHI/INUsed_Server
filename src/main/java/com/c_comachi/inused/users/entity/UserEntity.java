@@ -1,8 +1,6 @@
-package com.c_comachi.inused.entity;
+package com.c_comachi.inused.users.entity;
 
-import com.c_comachi.inused.dto.request.auth.RegisterRequestDto;
 import jakarta.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Builder;

@@ -1,13 +1,12 @@
-package com.c_comachi.inused.controller;
+package com.c_comachi.inused.users.controller;
 
-import com.c_comachi.inused.dto.response.auth.ReissueResponseDto;
-import com.c_comachi.inused.dto.response.auth.TokenDto;
-import com.c_comachi.inused.dto.request.auth.RegisterRequestDto;
-import com.c_comachi.inused.dto.request.auth.LoginRequestDto;
-import com.c_comachi.inused.dto.request.token.TokenRequestDto;
-import com.c_comachi.inused.dto.response.auth.LoginResponseDto;
-import com.c_comachi.inused.dto.response.auth.RegisterResponseDto;
-import com.c_comachi.inused.service.AuthService;
+import com.c_comachi.inused.users.dto.response.ReissueResponseDto;
+import com.c_comachi.inused.users.dto.request.RegisterRequestDto;
+import com.c_comachi.inused.users.dto.request.LoginRequestDto;
+import com.c_comachi.inused.users.dto.request.TokenRequestDto;
+import com.c_comachi.inused.users.dto.response.LoginResponseDto;
+import com.c_comachi.inused.users.dto.response.RegisterResponseDto;
+import com.c_comachi.inused.users.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

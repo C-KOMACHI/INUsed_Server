@@ -1,4 +1,4 @@
-package com.c_comachi.inused.entity;
+package com.c_comachi.inused.users.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

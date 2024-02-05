@@ -1,12 +1,11 @@
-package com.c_comachi.inused.dto.request.auth;
+package com.c_comachi.inused.users.dto.request;
 
-import com.c_comachi.inused.entity.Authority;
-import com.c_comachi.inused.entity.UserEntity;
+import com.c_comachi.inused.users.entity.Authority;
+import com.c_comachi.inused.users.entity.UserEntity;
 import jakarta.validation.constraints.*;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 

@@ -1,7 +1,7 @@
-package com.c_comachi.inused.jwt;
+package com.c_comachi.inused.users.jwt;
 
 
-import com.c_comachi.inused.dto.response.auth.TokenDto;
+import com.c_comachi.inused.users.dto.response.TokenDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

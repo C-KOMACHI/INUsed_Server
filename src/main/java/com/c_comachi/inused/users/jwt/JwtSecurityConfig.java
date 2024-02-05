@@ -1,4 +1,4 @@
-package com.c_comachi.inused.jwt;
+package com.c_comachi.inused.users.jwt;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;

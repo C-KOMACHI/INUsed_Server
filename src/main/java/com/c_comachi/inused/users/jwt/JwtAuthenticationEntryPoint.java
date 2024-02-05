@@ -1,4 +1,4 @@
-package com.c_comachi.inused.jwt;
+package com.c_comachi.inused.users.jwt;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

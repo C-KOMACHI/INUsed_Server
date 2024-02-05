@@ -1,4 +1,4 @@
-package com.c_comachi.inused.dto.request.token;
+package com.c_comachi.inused.users.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

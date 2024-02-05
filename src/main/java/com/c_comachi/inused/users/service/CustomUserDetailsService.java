@@ -1,7 +1,7 @@
-package com.c_comachi.inused.service;
+package com.c_comachi.inused.users.service;
 
-import com.c_comachi.inused.entity.UserEntity;
-import com.c_comachi.inused.repository.UserRepository;
+import com.c_comachi.inused.users.entity.UserEntity;
+import com.c_comachi.inused.users.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
