@@ -11,7 +11,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity(name="users")
+@Entity
 @Table(name="users")
 public class UserEntity {
     @Id
@@ -28,18 +28,21 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false, name = "profile_image")
     private String profileImage;
 
+    @Column(name = "fire_temperature")
     private Double fireTemperature;
 
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
     @CreatedDate
-    @Column(updatable = false, nullable = false)
+    @Column(updatable = false, nullable = false, name = "created_at")
     private LocalDateTime createdAt;
 
     @LastModifiedDate
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
 
