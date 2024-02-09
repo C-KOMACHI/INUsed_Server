@@ -1,21 +1,15 @@
 package com.c_comachi.inused.domain.users.service.implement;
 
 import com.c_comachi.inused.domain.users.dto.response.EmailCheckResponseDto;
-import com.c_comachi.inused.domain.users.dto.response.RegisterResponseDto;
 import com.c_comachi.inused.domain.users.repository.UserRepository;
 import com.c_comachi.inused.domain.users.service.MailService;
 import jakarta.mail.MessagingException;
-import jakarta.mail.internet.AddressException;
-import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.context.Context;
-import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
@@ -83,6 +77,10 @@ public class MailServiceImplement implements MailService {
     @Override
     public ResponseEntity<? super EmailCheckResponseDto> sendEmail(String email) throws MessagingException, UnsupportedEncodingException {
 
+        // 이메일 존재하면 return 중복 이메일
+        if(userRepository.existsByEmail(email+EMAIL_ADDRESS)){
+            return EmailCheckResponseDto.duplicateEmail();
+        }
         //메일전송에 필요한 정보 설정
         MimeMessage emailForm = createEmailForm(email);
         //실제 메일 전송

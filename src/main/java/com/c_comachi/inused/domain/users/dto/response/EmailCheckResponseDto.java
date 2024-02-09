@@ -20,4 +20,9 @@ public class EmailCheckResponseDto extends ResponseDto {
         EmailCheckResponseDto result = new EmailCheckResponseDto(authCode);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
+    public static ResponseEntity<ResponseDto> duplicateEmail() {
+        ResponseDto result = new ResponseDto(ResponseCode.DUPLICATE_EMAIL, ResponseMessage.DUPLICATE_EMAIL);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
+    }
 }
