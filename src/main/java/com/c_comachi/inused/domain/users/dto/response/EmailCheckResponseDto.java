@@ -9,20 +9,23 @@ import org.springframework.http.ResponseEntity;
 
 @Getter
 public class EmailCheckResponseDto extends ResponseDto {
-    private String authCode;
 
-    private EmailCheckResponseDto (String authCode) {
+    private EmailCheckResponseDto() {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.authCode = authCode;
     }
 
-    public static ResponseEntity<EmailCheckResponseDto> success(String authCode){
-        EmailCheckResponseDto result = new EmailCheckResponseDto(authCode);
+    public static ResponseEntity<EmailCheckResponseDto> success(){
+        EmailCheckResponseDto result = new EmailCheckResponseDto();
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     public static ResponseEntity<ResponseDto> duplicateEmail() {
         ResponseDto result = new ResponseDto(ResponseCode.DUPLICATE_EMAIL, ResponseMessage.DUPLICATE_EMAIL);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
+    }
+
+    public static ResponseEntity<ResponseDto> validationFailed() {
+        ResponseDto result = new ResponseDto(ResponseCode.VALIDATION_FAILED, ResponseMessage.VALIDATION_FAILED);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }
 }
