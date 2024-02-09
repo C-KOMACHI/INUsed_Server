@@ -1,5 +1,6 @@
 package com.c_comachi.inused.domain.users.service;
 
+import com.c_comachi.inused.domain.users.dto.request.MailVerificationRequestDto;
 import com.c_comachi.inused.domain.users.dto.response.EmailCheckResponseDto;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -11,4 +12,6 @@ public interface MailService {
     public void createCode();
     public MimeMessage createEmailForm(String email);
     public ResponseEntity<? super EmailCheckResponseDto> sendEmail(String email) throws MessagingException, UnsupportedEncodingException;
+    public  ResponseEntity<? super EmailCheckResponseDto> verifiedCode(MailVerificationRequestDto requestBody);
+
 }

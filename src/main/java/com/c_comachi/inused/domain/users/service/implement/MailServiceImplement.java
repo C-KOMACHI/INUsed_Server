@@ -1,8 +1,10 @@
 package com.c_comachi.inused.domain.users.service.implement;
 
+import com.c_comachi.inused.domain.users.dto.request.MailVerificationRequestDto;
 import com.c_comachi.inused.domain.users.dto.response.EmailCheckResponseDto;
 import com.c_comachi.inused.domain.users.repository.UserRepository;
 import com.c_comachi.inused.domain.users.service.MailService;
+import com.c_comachi.inused.global.service.RedisService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
+import java.time.Duration;
 import java.util.Random;
 
 
@@ -20,11 +23,19 @@ import java.util.Random;
 public class MailServiceImplement implements MailService {
 
     private final JavaMailSender javaMailSender;
+
     private final UserRepository userRepository;
 
+    private final RedisService redisService;
+
     private String authCode;
+
     @Value("${spring.mail.username}")
     private String senderEmail;
+
+    @Value("${spring.mail.auth-code-expiration-millis}")
+    private Long authCodeExpirationMillis;
+
     private final String EMAIL_ADDRESS = "@inu.ac.kr";
     private final int AUTH_CODE_LENGTH = 8;
     private final String TITLE = "[INUsed] 회원가입 인증 코드";
@@ -86,7 +97,21 @@ public class MailServiceImplement implements MailService {
         //실제 메일 전송
         javaMailSender.send(emailForm);
 
-        return EmailCheckResponseDto.success(authCode);
+        redisService.setValues(email, authCode, Duration.ofMillis(this.authCodeExpirationMillis));
+
+        return EmailCheckResponseDto.success();
+    }
+
+    public ResponseEntity<? super EmailCheckResponseDto> verifiedCode(MailVerificationRequestDto requestBody){
+        String redisAuthCode = redisService.getValues(requestBody.getEmail());
+        boolean authResult = redisService.checkExistsValue(redisAuthCode) && redisAuthCode.equals(requestBody.getAuthCode());
+
+        if(!authResult){
+            return EmailCheckResponseDto.validationFailed();
+
+        }
+
+        return EmailCheckResponseDto.success();
     }
 
     public String createHtml(){
