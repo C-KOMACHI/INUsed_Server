@@ -37,13 +37,14 @@ public class AuthServiceImplement implements AuthService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final String EMAIL_ADDRESS = "@inu.ac.kr";
 
     @Transactional
     @Override
     public ResponseEntity<? super RegisterResponseDto> register(RegisterRequestDto requestDto) {
 
         try {
-            String email = requestDto.getEmail();
+            String email = requestDto.getEmail() + EMAIL_ADDRESS;
             boolean existedEmail = userRepository.existsByEmail(email);
             if (existedEmail) return RegisterResponseDto.duplicateEmail();
 

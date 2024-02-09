@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Getter
 @NoArgsConstructor
 public class RegisterRequestDto {
-    @NotBlank @Email
+    @NotBlank
     private String email;
 
     @NotBlank
@@ -21,9 +21,11 @@ public class RegisterRequestDto {
     @NotBlank
     private String password;
 
+    private final String EMAIL_ADDRESS = "@inu.ac.kr";
+
     public UserEntity toUser(PasswordEncoder passwordEncoder) {
         return UserEntity.builder()
-                .email(email)
+                .email(email+EMAIL_ADDRESS)
                 .password(passwordEncoder.encode(password))
                 .nickname(nickname)
                 .fireTemperature(36.5)
