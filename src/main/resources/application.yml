@@ -5,6 +5,21 @@ spring:
     username: mjk
     password: jamin23
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: bblbblan69@gmail.com
+    password: ckruzuoywgmulxos
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          timeout: 5000
+      auth-code-expiration-millis: 300000  # 5 * 60 * 1000 == 30분
+
   jpa:
     open-in-view: true
     hibernate:
