@@ -24,7 +24,6 @@ import java.io.UnsupportedEncodingException;
 public class AuthController {
 
     private final AuthService authService;
-    private final MailService mailService;
 
     @PostMapping("/register")
     public ResponseEntity<? super RegisterResponseDto> register(@RequestBody @Valid RegisterRequestDto requestBody) {
@@ -43,9 +42,4 @@ public class AuthController {
         return response;
     }
 
-    @PostMapping("/emailCheck")
-    public ResponseEntity<? super EmailCheckResponseDto> EmailCheck(@RequestBody @Valid MailRequestDto requestBody) throws MessagingException, UnsupportedEncodingException {
-        ResponseEntity<? super EmailCheckResponseDto> response = mailService.sendEmail(requestBody.getEmail());
-        return response;
-    }
 }
