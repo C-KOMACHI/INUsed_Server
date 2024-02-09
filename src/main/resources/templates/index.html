@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Window</title>
+</head>
+<body>
+
+<div id="loginContainer">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="button" onclick="login()">Login</button>
+    </form>
+
+    <p>Don't have an account? <a href="registration">Register here</a>.</p>
+</div>
+
+<script>
+    function login() {
+        // Get values from the form
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+
+        // Create a JSON object with the login data
+        var loginData = {
+            email: email,
+            password: password
+        };
+
+        // Send a POST request to the login API
+        fetch('/api/v1/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(loginData)
+        })
+            .then(response => {
+                // Handle the response from the server
+                if (response.ok) {
+                    alert('Login successful!');
+                } else {
+                    alert('Login failed. Please check your credentials.');
+                }
+            })
+            .catch(error => {
+                console.error('Error during login:', error);
+                alert('An error occurred during login.');
+            });
+    }
+</script>
+
+</body>
+</html>
