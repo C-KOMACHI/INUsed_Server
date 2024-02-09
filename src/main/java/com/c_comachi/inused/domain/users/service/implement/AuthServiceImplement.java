@@ -98,6 +98,7 @@ public class AuthServiceImplement implements AuthService {
     }
 
     @Transactional
+    @Override
     public ResponseEntity<? super ReissueResponseDto> reissue(TokenRequestDto tokenRequestDto) {
         TokenDto tokenDto = null;
 
@@ -136,6 +137,5 @@ public class AuthServiceImplement implements AuthService {
         // 토큰 발급
         return ReissueResponseDto.success(tokenDto);
     }
-
 
 }

@@ -2,6 +2,7 @@ package com.c_comachi.inused.domain.users.service.implement;
 
 import com.c_comachi.inused.domain.users.dto.response.EmailCheckResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.RegisterResponseDto;
+import com.c_comachi.inused.domain.users.repository.UserRepository;
 import com.c_comachi.inused.domain.users.service.MailService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.AddressException;
@@ -25,41 +26,21 @@ import java.util.Random;
 public class MailServiceImplement implements MailService {
 
     private final JavaMailSender javaMailSender;
-    private final SpringTemplateEngine templateEngine;
-    private String authCode;
+    private final UserRepository userRepository;
 
+    private String authCode;
     @Value("${spring.mail.username}")
     private String senderEmail;
-
-    private final String emailAddress = "@inu.ac.kr";
-
-//    @Override
-//    public void sendMail(Long id, String email) {
-//        try {
-//            MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
-//            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMailMessage, true);
-//            mimeMessageHelper.setSubject("[INUsed 이메일 인증]");
-//            mimeMessageHelper.setFrom(senderEmail);
-//            mimeMessageHelper.setTo(email);
-//
-//            Context context = new Context();
-//            context.setVariable("id", id);
-//
-//            String html = templateEngine.process("emailTemplate", context);
-//            mimeMessageHelper.setText(html, true);
-//
-//            javaMailSender.send(mimeMailMessage);
-//        } catch (MessagingException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private final String EMAIL_ADDRESS = "@inu.ac.kr";
+    private final int AUTH_CODE_LENGTH = 8;
+    private final String TITLE = "[INUsed] 회원가입 인증 코드";
 
     @Override
     public void createCode() {
         Random random = new Random();
         StringBuffer key = new StringBuffer();
 
-        for(int i=0; i<8; i++) {
+        for(int i=0; i<AUTH_CODE_LENGTH; i++) {
             int idx = random.nextInt(3);
 
             switch (idx) {
@@ -80,33 +61,15 @@ public class MailServiceImplement implements MailService {
     @Override
     public MimeMessage createEmailForm(String email) {
         createCode();
-        String toEmail = email + emailAddress;
-        String title = "[INUsed] 회원가입 인증 코드";
+        String toEmail = email + EMAIL_ADDRESS;
+        String title = TITLE;
 
         MimeMessage message = javaMailSender.createMimeMessage();
         try{
-
             message.addRecipients(MimeMessage.RecipientType.TO, toEmail);
             message.setSubject(title);
 
-            // 메일 내용 HTML
-            String msgOfEmail = "<div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; border-radius: 10px;'>";
-            msgOfEmail += "<div style='text-align: center; margin-bottom: 20px;'>";
-            msgOfEmail += "<img src='https://private-user-images.githubusercontent.com/79833638/294596482-792baf8a-209e-4307-aee8-094635c09ed1.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDczMDY0MTksIm5iZiI6MTcwNzMwNjExOSwicGF0aCI6Ii83OTgzMzYzOC8yOTQ1OTY0ODItNzkyYmFmOGEtMjA5ZS00MzA3LWFlZTgtMDk0NjM1YzA5ZWQxLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAyMDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMjA3VDExNDE1OVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTZiMmVjYWNjNTZjMzYzYmNlMDQ4YTBlNWFjMzk1MjY4ZjViMmQwODg4NjcyNjkyYjM1OWQ2YmE0YjNiZDZmMDQmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.FzTrZwSMpkugxjlSDefb5cA_GQVA99IyGLdLWv89bsQ' alt='INUsed Logo' style='width: 150px;'>";
-            msgOfEmail += "<h2 style='color: #007bff;'>회원가입 인증 코드</h2>";
-            msgOfEmail += "</div>";
-            msgOfEmail += "<div style='background-color: #ffffff; padding: 30px; border-radius: 10px;'>";
-            msgOfEmail += "<p style='font-size: 16px; text-align: center; color: #333333;'>안녕하세요, INUsed에 오신 것을 환영합니다!</p>";
-            msgOfEmail += "<br>";
-            msgOfEmail += "<p style='font-size: 16px; text-align: center; color: #333333;'>아래 인증코드를 입력해주세요.</p>";
-            msgOfEmail += "<div style='text-align: center; margin-top: 30px;'>";
-            msgOfEmail += "<div style='background-color: #007bff; color: #ffffff; padding: 15px 30px; border-radius: 5px; display: inline-block;'>";
-            msgOfEmail += "<h1 style='font-size: 36px; margin: 0;'>" + authCode + "</h1>";
-            msgOfEmail += "</div>";
-            msgOfEmail += "</div>";
-            msgOfEmail += "<p style='font-size: 16px; text-align: center; margin-top: 30px; color: #333333;'>감사합니다.</p>";
-            msgOfEmail += "</div>";
-            msgOfEmail += "</div>";
+            String msgOfEmail = createHtml();
 
             message.setFrom(senderEmail);
             message.setText(msgOfEmail, "utf-8", "html");
@@ -128,16 +91,24 @@ public class MailServiceImplement implements MailService {
         return EmailCheckResponseDto.success(authCode);
     }
 
-    @Override
-    public boolean isValidEmailAddress(String email) {
-        boolean result = true;
-        try {
-            InternetAddress emailAddress = new InternetAddress(email);
-            emailAddress.validate();
-        } catch (AddressException e) {
-            result = false;
-        }
+    public String createHtml(){
+        String msgOfEmail = "<div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; border-radius: 10px;'>";
+        msgOfEmail += "<div style='text-align: center; margin-bottom: 20px;'>";
+        msgOfEmail += "<h2 style='color: #007bff;'>회원가입 인증 코드</h2>";
+        msgOfEmail += "</div>";
+        msgOfEmail += "<div style='background-color: #ffffff; padding: 30px; border-radius: 10px;'>";
+        msgOfEmail += "<p style='font-size: 16px; text-align: center; color: #333333;'>안녕하세요, INUsed에 오신 것을 환영합니다!</p>";
+        msgOfEmail += "<br>";
+        msgOfEmail += "<p style='font-size: 16px; text-align: center; color: #333333;'>아래 인증코드를 입력해주세요.</p>";
+        msgOfEmail += "<div style='text-align: center; margin-top: 30px;'>";
+        msgOfEmail += "<div style='background-color: #007bff; color: #ffffff; padding: 15px 30px; border-radius: 5px; display: inline-block;'>";
+        msgOfEmail += "<h1 style='font-size: 36px; margin: 0;'>" + authCode + "</h1>";
+        msgOfEmail += "</div>";
+        msgOfEmail += "</div>";
+        msgOfEmail += "<p style='font-size: 16px; text-align: center; margin-top: 30px; color: #333333;'>감사합니다.</p>";
+        msgOfEmail += "</div>";
+        msgOfEmail += "</div>";
 
-        return result;
+        return msgOfEmail;
     }
 }

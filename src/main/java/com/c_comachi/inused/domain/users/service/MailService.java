@@ -11,5 +11,4 @@ public interface MailService {
     public void createCode();
     public MimeMessage createEmailForm(String email);
     public ResponseEntity<? super EmailCheckResponseDto> sendEmail(String email) throws MessagingException, UnsupportedEncodingException;
-    public boolean isValidEmailAddress(String email);
 }
