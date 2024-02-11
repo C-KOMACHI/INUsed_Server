@@ -102,13 +102,13 @@ public class MailServiceImplement implements MailService {
         return EmailCheckResponseDto.success();
     }
 
+    @Override
     public ResponseEntity<? super EmailCheckResponseDto> verifiedCode(MailVerificationRequestDto requestBody){
         String redisAuthCode = redisService.getValues(requestBody.getEmail());
         boolean authResult = redisService.checkExistsValue(redisAuthCode) && redisAuthCode.equals(requestBody.getAuthCode());
 
         if(!authResult){
             return EmailCheckResponseDto.validationFailed();
-
         }
 
         return EmailCheckResponseDto.success();

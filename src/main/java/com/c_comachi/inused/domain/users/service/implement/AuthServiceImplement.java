@@ -133,8 +133,6 @@ public class AuthServiceImplement implements AuthService {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-
-
         // 토큰 발급
         return ReissueResponseDto.success(tokenDto);
     }

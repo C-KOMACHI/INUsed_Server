@@ -16,17 +16,17 @@ import java.io.UnsupportedEncodingException;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/api/v1/emails")
 public class MailController {
 
     private final MailService mailService;
 
-    @PostMapping("/emails/verification-requests")
+    @PostMapping("/verification-requests")
     public ResponseEntity<? super EmailCheckResponseDto> EmailCheck(@RequestBody @Valid MailRequestDto requestBody) throws MessagingException, UnsupportedEncodingException {
         ResponseEntity<? super EmailCheckResponseDto> response = mailService.sendEmail(requestBody.getEmail());
         return response;
     }
-    @PostMapping("/emails/verifications")
+    @PostMapping("/verifications")
     public ResponseEntity<? super EmailCheckResponseDto> verificationEmail(@RequestBody @Valid MailVerificationRequestDto requestBody) {
         ResponseEntity<? super EmailCheckResponseDto> response = mailService.verifiedCode(requestBody);
         return response;
