@@ -1,14 +1,14 @@
 package com.c_comachi.inused.global.config;
 
-import com.c_comachi.inused.domain.users.jwt.JwtAccessDeniedHandler;
-import com.c_comachi.inused.domain.users.jwt.JwtAuthenticationEntryPoint;
-import com.c_comachi.inused.domain.users.jwt.JwtSecurityConfig;
-import com.c_comachi.inused.domain.users.jwt.TokenProvider;
+import com.c_comachi.inused.domain.users.jwt.*;
+import com.c_comachi.inused.global.service.RedisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +22,7 @@ import org.springframework.web.filter.CorsFilter;
 public class WebSecurityConfig {
 
     private final TokenProvider tokenProvider;
+    private final RedisService redisService;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final CorsFilter corsFilter;
@@ -62,7 +63,7 @@ public class WebSecurityConfig {
 
                 // JwtFilter 를 addFilterBefore 로 등록했던 JwtSecurityConfig 클래스를 적용
                 .and()
-                .apply(new JwtSecurityConfig(tokenProvider));
+                .apply(new JwtSecurityConfig(tokenProvider, redisService));
 
         return httpSecurity.build();
     }
