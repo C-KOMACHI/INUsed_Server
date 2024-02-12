@@ -6,17 +6,22 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.util.Arrays;
+
 
 @Configuration
 public class CorsConfig {
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE"));
         config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
+        config.addExposedHeader("Authorization");
+        config.addExposedHeader("Refresh");
 
         source.registerCorsConfiguration("/api/**", config);
         return new CorsFilter(source);

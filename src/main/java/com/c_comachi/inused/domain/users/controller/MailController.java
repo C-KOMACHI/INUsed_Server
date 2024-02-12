@@ -26,7 +26,7 @@ public class MailController {
         ResponseEntity<? super EmailCheckResponseDto> response = mailService.sendEmail(requestBody.getEmail());
         return response;
     }
-    @PostMapping("/verifications")
+    @GetMapping("/verifications")
     public ResponseEntity<? super EmailCheckResponseDto> verificationEmail(@RequestBody @Valid MailVerificationRequestDto requestBody) {
         ResponseEntity<? super EmailCheckResponseDto> response = mailService.verifiedCode(requestBody);
         return response;

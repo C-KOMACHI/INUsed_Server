@@ -6,11 +6,13 @@ import com.c_comachi.inused.domain.users.dto.request.RegisterRequestDto;
 import com.c_comachi.inused.domain.users.dto.request.TokenRequestDto;
 import com.c_comachi.inused.domain.users.dto.response.EmailCheckResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.LoginResponseDto;
+import com.c_comachi.inused.domain.users.dto.response.LogoutResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.RegisterResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.ReissueResponseDto;
 import com.c_comachi.inused.domain.users.service.AuthService;
 import com.c_comachi.inused.domain.users.service.MailService;
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -36,9 +38,15 @@ public class AuthController {
         return response;
     }
 
-    @PostMapping("/reissue")
+    @PatchMapping("/reissue")
     public ResponseEntity<? super ReissueResponseDto> reissue(@RequestBody @Valid TokenRequestDto requestBody) {
         ResponseEntity<? super ReissueResponseDto> response = authService.reissue(requestBody);
+        return response;
+    }
+
+    @PatchMapping("/logout")
+    public ResponseEntity<? super LogoutResponseDto> logout(@RequestBody @Valid TokenRequestDto requestBody) {
+        ResponseEntity<? super LogoutResponseDto> response = authService.logout(requestBody);
         return response;
     }
 
