@@ -38,7 +38,7 @@ public class AuthController {
         return response;
     }
 
-    @PostMapping("/reissue")
+    @PatchMapping("/reissue")
     public ResponseEntity<? super ReissueResponseDto> reissue(@RequestBody @Valid TokenRequestDto requestBody) {
         ResponseEntity<? super ReissueResponseDto> response = authService.reissue(requestBody);
         return response;
