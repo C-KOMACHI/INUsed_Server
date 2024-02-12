@@ -10,10 +10,8 @@ import com.c_comachi.inused.domain.users.dto.request.LoginRequestDto;
 import com.c_comachi.inused.global.dto.ResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.LoginResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.RegisterResponseDto;
-import com.c_comachi.inused.domain.users.entity.RefreshToken;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
 import com.c_comachi.inused.domain.users.jwt.TokenProvider;
-import com.c_comachi.inused.domain.users.repository.RefreshTokenRepository;
 import com.c_comachi.inused.domain.users.repository.UserRepository;
 import com.c_comachi.inused.global.service.RedisService;
 import lombok.RequiredArgsConstructor;
@@ -38,11 +36,7 @@ public class AuthServiceImplement implements AuthService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final UserRepository userRepository;
     private final TokenProvider tokenProvider;
-    private final RefreshTokenRepository refreshTokenRepository;
     private final RedisService redisService;
-
-    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30; // 30분
-
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final String EMAIL_ADDRESS = "@inu.ac.kr";
 
@@ -86,13 +80,8 @@ public class AuthServiceImplement implements AuthService {
             // 3. 인증 정보를 기반으로 JWT 토큰 생성
             tokenDto = tokenProvider.generateTokenDto(authentication);
 
-            // 4. RefreshToken 저장
-            RefreshToken refreshToken = RefreshToken.builder()
-                    .key(authentication.getName())
-                    .value(tokenDto.getRefreshToken())
-                    .build();
-
-            refreshTokenRepository.save(refreshToken);
+            long refreshTokenExpirationMillis = tokenProvider.getRefreshTokenExpirationMillis();
+            redisService.setValues(authentication.getName(), tokenDto.getRefreshToken(), Duration.ofMillis(refreshTokenExpirationMillis));
 
         } catch (UsernameNotFoundException | BadCredentialsException | LockedException e) {
             return LoginResponseDto.loginFailed();
@@ -112,18 +101,17 @@ public class AuthServiceImplement implements AuthService {
 
         try {
             // 1. Refresh Token 검증
-            if (!tokenProvider.validateToken(tokenRequestDto.getRefreshToken())) {
+            if (verifiedRefreshToken(tokenRequestDto)) {
                 return ReissueResponseDto.validationFailed(); // VF
             }
             // 2. Access Token 에서 User ID 가져오기
             Authentication authentication = tokenProvider.getAuthentication(tokenRequestDto.getAccessToken());
 
             // 3. 저장소에서 User ID 를 기반으로 Refresh Token 값 가져옴
-            RefreshToken refreshToken = refreshTokenRepository.findByKey(authentication.getName())
-                    .orElseThrow(() -> new RuntimeException()); // LU
+            String refreshToken = redisService.getValues(authentication.getName());
 
             // 4. Refresh Token 일치하는지 검사
-            if (!refreshToken.getValue().equals(tokenRequestDto.getRefreshToken())) {
+            if (!refreshToken.equals(tokenRequestDto.getRefreshToken())) {
                 return ReissueResponseDto.mismatchedToken(); // MT
             }
 
@@ -131,8 +119,8 @@ public class AuthServiceImplement implements AuthService {
             tokenDto = tokenProvider.generateTokenDto(authentication);
 
             // 6. 저장소 정보 업데이트
-            RefreshToken newRefreshToken = refreshToken.updateValue(tokenDto.getRefreshToken());
-            refreshTokenRepository.save(newRefreshToken);
+            long refreshTokenExpirationMillis = tokenProvider.getRefreshTokenExpirationMillis();
+            redisService.setValues(authentication.getName(), tokenDto.getRefreshToken(), Duration.ofMillis(refreshTokenExpirationMillis));
 
         } catch(RuntimeException runtimeException) {
             return ReissueResponseDto.loggedOutUser();
@@ -146,15 +134,36 @@ public class AuthServiceImplement implements AuthService {
 
     @Override
     public ResponseEntity<? super LogoutResponseDto> logout(TokenRequestDto tokenRequestDto) {
-        if(tokenRequestDto.getRefreshToken() == null){
+        try {
+            // 1. Refresh Token 검증
+            if (verifiedRefreshToken(tokenRequestDto)) {
+                return LogoutResponseDto.validationFailed(); // VF
+            }
+            // 2. Access Token 에서 User ID 가져오기
+            Authentication authentication = tokenProvider.getAuthentication(tokenRequestDto.getAccessToken());
 
+            // 3. key 값이 User ID를 통해서 value 가져오기
+            String redisRefreshToken = redisService.getValues(authentication.getName());
+
+            if(redisService.checkExistsValue(redisRefreshToken)){
+                // 4. Value 값인 refreshToken 삭제
+                redisService.deleteValues(authentication.getName());
+
+                // 5. accessToken 블랙리스트 등록
+                long accessTokenExpirationMillis  = tokenProvider.getAccessTokenExpirationMillis();
+                redisService.setValues(tokenRequestDto.getAccessToken(), "logout", Duration.ofMillis(accessTokenExpirationMillis));
+            }
+
+        } catch (Exception exception){
+            exception.printStackTrace();
         }
 
-        redisService.setValues(tokenRequestDto.getAccessToken(),"logout", Duration.ofMillis(ACCESS_TOKEN_EXPIRE_TIME));
+        return LogoutResponseDto.success();
+    }
 
 
-
-        return null;
+    private boolean verifiedRefreshToken(TokenRequestDto tokenRequestDto) {
+        return !tokenProvider.validateToken(tokenRequestDto.getRefreshToken());
     }
 
 }
