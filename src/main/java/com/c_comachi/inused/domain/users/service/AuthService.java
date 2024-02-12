@@ -14,6 +14,5 @@ public interface AuthService {
     ResponseEntity<? super RegisterResponseDto> register(RegisterRequestDto requestDto);
     ResponseEntity<? super LoginResponseDto> login(LoginRequestDto loginRequestDto);
     ResponseEntity<? super ReissueResponseDto> reissue(TokenRequestDto tokenRequestDto);
-
     ResponseEntity<? super LogoutResponseDto> logout(TokenRequestDto tokenRequestDto);
 }
