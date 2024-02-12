@@ -1,6 +1,7 @@
 package com.c_comachi.inused.domain.users.service.implement;
 
 import com.c_comachi.inused.domain.users.dto.request.TokenRequestDto;
+import com.c_comachi.inused.domain.users.dto.response.LogoutResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.ReissueResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.TokenDto;
 import com.c_comachi.inused.domain.users.service.AuthService;
@@ -14,6 +15,7 @@ import com.c_comachi.inused.domain.users.entity.UserEntity;
 import com.c_comachi.inused.domain.users.jwt.TokenProvider;
 import com.c_comachi.inused.domain.users.repository.RefreshTokenRepository;
 import com.c_comachi.inused.domain.users.repository.UserRepository;
+import com.c_comachi.inused.global.service.RedisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -27,6 +29,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImplement implements AuthService {
@@ -35,6 +39,9 @@ public class AuthServiceImplement implements AuthService {
     private final UserRepository userRepository;
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final RedisService redisService;
+
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30; // 30분
 
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final String EMAIL_ADDRESS = "@inu.ac.kr";
@@ -135,6 +142,19 @@ public class AuthServiceImplement implements AuthService {
         }
         // 토큰 발급
         return ReissueResponseDto.success(tokenDto);
+    }
+
+    @Override
+    public ResponseEntity<? super LogoutResponseDto> logout(TokenRequestDto tokenRequestDto) {
+        if(tokenRequestDto.getRefreshToken() == null){
+
+        }
+
+        redisService.setValues(tokenRequestDto.getAccessToken(),"logout", Duration.ofMillis(ACCESS_TOKEN_EXPIRE_TIME));
+
+
+
+        return null;
     }
 
 }
