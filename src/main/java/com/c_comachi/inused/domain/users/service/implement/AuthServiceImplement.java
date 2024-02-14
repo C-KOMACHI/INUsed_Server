@@ -161,6 +161,14 @@ public class AuthServiceImplement implements AuthService {
         return LogoutResponseDto.success();
     }
 
+    @Override
+    public ResponseEntity<? super RegisterResponseDto> nicknameCheck(String nickname) {
+        boolean existedNickname = userRepository.existsByNickname(nickname);
+        if (existedNickname) return RegisterResponseDto.duplicateNickname();
+
+        return RegisterResponseDto.success();
+    }
+
 
     private boolean verifiedRefreshToken(TokenRequestDto tokenRequestDto) {
         return !tokenProvider.validateToken(tokenRequestDto.getRefreshToken());

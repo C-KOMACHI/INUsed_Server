@@ -11,6 +11,7 @@ import com.c_comachi.inused.domain.users.dto.response.RegisterResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.ReissueResponseDto;
 import com.c_comachi.inused.domain.users.service.AuthService;
 import com.c_comachi.inused.domain.users.service.MailService;
+import com.c_comachi.inused.global.dto.ResponseDto;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -47,6 +48,12 @@ public class AuthController {
     @PatchMapping("/logout")
     public ResponseEntity<? super LogoutResponseDto> logout(@RequestBody @Valid TokenRequestDto requestBody) {
         ResponseEntity<? super LogoutResponseDto> response = authService.logout(requestBody);
+        return response;
+    }
+
+    @GetMapping("/nickname-check")
+    public ResponseEntity<? super RegisterResponseDto> login(@RequestBody @Valid String nickname) {
+        ResponseEntity<? super RegisterResponseDto> response = authService.nicknameCheck(nickname);
         return response;
     }
 
