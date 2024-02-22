@@ -23,6 +23,12 @@ public class RegisterRequestDto {
 
     private final String EMAIL_ADDRESS = "@inu.ac.kr";
 
+    public RegisterRequestDto(String email, String nickname, String password) {
+        this.email = email;
+        this.nickname = nickname;
+        this.password = password;
+    }
+
     public UserEntity toUser(PasswordEncoder passwordEncoder) {
         return UserEntity.builder()
                 .email(email+EMAIL_ADDRESS)

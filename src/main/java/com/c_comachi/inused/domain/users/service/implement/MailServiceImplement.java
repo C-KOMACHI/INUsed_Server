@@ -1,5 +1,6 @@
 package com.c_comachi.inused.domain.users.service.implement;
 
+import com.c_comachi.inused.domain.users.dto.request.MailRequestDto;
 import com.c_comachi.inused.domain.users.dto.request.MailVerificationRequestDto;
 import com.c_comachi.inused.domain.users.dto.response.EmailCheckResponseDto;
 import com.c_comachi.inused.domain.users.repository.UserRepository;
@@ -86,7 +87,8 @@ public class MailServiceImplement implements MailService {
     }
 
     @Override
-    public ResponseEntity<? super EmailCheckResponseDto> sendEmail(String email) throws MessagingException, UnsupportedEncodingException {
+    public ResponseEntity<? super EmailCheckResponseDto> sendEmail(MailRequestDto requestBody) throws MessagingException, UnsupportedEncodingException {
+        String email = requestBody.getEmail();
 
         // 이메일 존재하면 return 중복 이메일
         if(userRepository.existsByEmail(email+EMAIL_ADDRESS)){

@@ -23,7 +23,7 @@ public class MailController {
 
     @PostMapping("/verification-requests")
     public ResponseEntity<? super EmailCheckResponseDto> EmailCheck(@RequestBody @Valid MailRequestDto requestBody) throws MessagingException, UnsupportedEncodingException {
-        ResponseEntity<? super EmailCheckResponseDto> response = mailService.sendEmail(requestBody.getEmail());
+        ResponseEntity<? super EmailCheckResponseDto> response = mailService.sendEmail(requestBody);
         return response;
     }
     @GetMapping("/verifications")
