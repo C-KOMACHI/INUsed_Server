@@ -129,7 +129,7 @@ public class TokenProvider {
             return e.getClaims();
         }
     }
-    // Request Header에 Access Token 정보를 추출하는 메서드
+    // Request Header 에 Access Token 정보를 추출하는 메서드
     public String resolveAccessToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
