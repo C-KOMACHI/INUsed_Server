@@ -2,6 +2,7 @@ package com.c_comachi.inused.domain.users.controller;
 
 import com.c_comachi.inused.domain.users.dto.request.LoginRequestDto;
 import com.c_comachi.inused.domain.users.dto.request.MailRequestDto;
+import com.c_comachi.inused.domain.users.dto.request.NicknameRequestDto;
 import com.c_comachi.inused.domain.users.dto.request.RegisterRequestDto;
 import com.c_comachi.inused.domain.users.dto.request.TokenRequestDto;
 import com.c_comachi.inused.domain.users.dto.response.EmailCheckResponseDto;
@@ -51,9 +52,9 @@ public class AuthController {
         return response;
     }
 
-    @GetMapping("/nickname-check")
-    public ResponseEntity<? super RegisterResponseDto> login(@RequestBody @Valid String nickname) {
-        ResponseEntity<? super RegisterResponseDto> response = authService.nicknameCheck(nickname);
+    @GetMapping("/nickname-check/{nickname}")
+    public ResponseEntity<? super RegisterResponseDto> nicknameCheck(@RequestBody @Valid NicknameRequestDto requestBody) {
+        ResponseEntity<? super RegisterResponseDto> response = authService.nicknameCheck(requestBody);
         return response;
     }
 

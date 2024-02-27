@@ -1,5 +1,6 @@
 package com.c_comachi.inused.domain.users.service;
 
+import com.c_comachi.inused.domain.users.dto.request.NicknameRequestDto;
 import com.c_comachi.inused.domain.users.dto.request.TokenRequestDto;
 import com.c_comachi.inused.domain.users.dto.response.LogoutResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.ReissueResponseDto;
@@ -16,5 +17,5 @@ public interface AuthService {
     ResponseEntity<? super LoginResponseDto> login(LoginRequestDto loginRequestDto);
     ResponseEntity<? super ReissueResponseDto> reissue(TokenRequestDto tokenRequestDto);
     ResponseEntity<? super LogoutResponseDto> logout(TokenRequestDto tokenRequestDto);
-    ResponseEntity<? super RegisterResponseDto> nicknameCheck(String nickname);
+    ResponseEntity<? super RegisterResponseDto> nicknameCheck(NicknameRequestDto nicknameRequestDto);
 }

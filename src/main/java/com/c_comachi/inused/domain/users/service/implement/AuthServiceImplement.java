@@ -1,5 +1,6 @@
 package com.c_comachi.inused.domain.users.service.implement;
 
+import com.c_comachi.inused.domain.users.dto.request.NicknameRequestDto;
 import com.c_comachi.inused.domain.users.dto.request.TokenRequestDto;
 import com.c_comachi.inused.domain.users.dto.response.LogoutResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.ReissueResponseDto;
@@ -165,8 +166,8 @@ public class AuthServiceImplement implements AuthService {
 
     @Transactional
     @Override
-    public ResponseEntity<? super RegisterResponseDto> nicknameCheck(String nickname) {
-        boolean existedNickname = userRepository.existsByNickname(nickname);
+    public ResponseEntity<? super RegisterResponseDto> nicknameCheck(NicknameRequestDto nicknameRequestDto) {
+        boolean existedNickname = userRepository.existsByNickname(nicknameRequestDto.getNickname());
         if (existedNickname) return RegisterResponseDto.duplicateNickname();
 
         return RegisterResponseDto.success();
