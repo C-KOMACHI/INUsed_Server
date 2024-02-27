@@ -80,6 +80,7 @@ public class AuthServiceImplement implements AuthService {
             // 3. 인증 정보를 기반으로 JWT 토큰 생성
             tokenDto = tokenProvider.generateTokenDto(authentication);
 
+            // 4. Redis 에 RefreshToken 저장
             long refreshTokenExpirationMillis = tokenProvider.getRefreshTokenExpirationMillis();
             redisService.setValues(authentication.getName(), tokenDto.getRefreshToken(), Duration.ofMillis(refreshTokenExpirationMillis));
 
@@ -132,6 +133,7 @@ public class AuthServiceImplement implements AuthService {
         return ReissueResponseDto.success(tokenDto);
     }
 
+    @Transactional
     @Override
     public ResponseEntity<? super LogoutResponseDto> logout(TokenRequestDto tokenRequestDto) {
         try {
@@ -161,6 +163,7 @@ public class AuthServiceImplement implements AuthService {
         return LogoutResponseDto.success();
     }
 
+    @Transactional
     @Override
     public ResponseEntity<? super RegisterResponseDto> nicknameCheck(String nickname) {
         boolean existedNickname = userRepository.existsByNickname(nickname);
