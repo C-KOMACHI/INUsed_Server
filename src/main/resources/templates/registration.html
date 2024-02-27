@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Membership Registration</title>
+</head>
+<body>
+
+<div id="registrationContainer">
+  <h2>Membership Registration</h2>
+  <form id="registrationForm">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+
+    <label for="nickname">Nickname:</label>
+    <input type="text" id="nickname" name="nickname" required>
+
+    <button type="button" onclick="register()">Register</button>
+  </form>
+</div>
+
+<script>
+  function register() {
+    // Get values from the form
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    var nickname = document.getElementById("nickname").value;
+
+    // Create a JSON object with the registration data
+    var registrationData = {
+      email: email,
+      password: password,
+      nickname: nickname
+    };
+
+    // Send a POST request to the registration API
+    fetch('/api/v1/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(registrationData)
+    })
+            .then(response => {
+              // Handle the response from the server
+              if (response.ok) {
+                alert('Registration successful!');
+                // You can redirect to a login page or perform other actions as needed.
+                window.location.href = "/";
+
+              } else {
+                alert('Registration failed. Please check your information.');
+              }
+            })
+            .catch(error => {
+              console.error('Error during registration:', error);
+              alert('An error occurred during registration.');
+            });
+  }
+</script>
+
+</body>
+</html>
