@@ -2,11 +2,8 @@ package com.c_comachi.inused.domain.users.service;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import com.c_comachi.inused.domain.users.dto.request.LoginRequestDto;
-import com.c_comachi.inused.domain.users.dto.request.MailRequestDto;
-import com.c_comachi.inused.domain.users.dto.request.MailVerificationRequestDto;
 import com.c_comachi.inused.domain.users.dto.request.RegisterRequestDto;
 import com.c_comachi.inused.domain.users.repository.UserRepository;
-import com.c_comachi.inused.global.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -70,7 +67,6 @@ public class UserServiceTest {
         //then
         assertThat(authService.register(addUser).getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
-
 
     @Test
     @DisplayName("로그인 실패")
