@@ -1,6 +1,8 @@
 package com.c_comachi.inused.domain.post.entity;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,6 +23,9 @@ public class CategoryEntity {
 
     @Column(nullable = false)
     private String image;
+
+    @OneToMany(mappedBy = "category")
+    private List<PostEntity> Posts = new ArrayList<>();
 
     @Builder
     public CategoryEntity(Long id, String name, String image) {
