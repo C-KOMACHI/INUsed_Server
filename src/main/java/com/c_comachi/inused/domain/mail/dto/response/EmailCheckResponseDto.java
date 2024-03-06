@@ -1,4 +1,4 @@
-package com.c_comachi.inused.domain.users.dto.response;
+package com.c_comachi.inused.domain.mail.dto.response;
 
 import com.c_comachi.inused.global.common.ResponseCode;
 import com.c_comachi.inused.global.common.ResponseMessage;

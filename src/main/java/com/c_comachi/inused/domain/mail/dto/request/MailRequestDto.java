@@ -1,4 +1,4 @@
-package com.c_comachi.inused.domain.users.dto.request;
+package com.c_comachi.inused.domain.mail.dto.request;
 
 import lombok.Data;
 import lombok.Getter;

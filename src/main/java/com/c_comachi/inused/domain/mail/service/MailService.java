@@ -1,8 +1,8 @@
-package com.c_comachi.inused.domain.users.service;
+package com.c_comachi.inused.domain.mail.service;
 
-import com.c_comachi.inused.domain.users.dto.request.MailRequestDto;
-import com.c_comachi.inused.domain.users.dto.request.MailVerificationRequestDto;
-import com.c_comachi.inused.domain.users.dto.response.EmailCheckResponseDto;
+import com.c_comachi.inused.domain.mail.dto.request.MailRequestDto;
+import com.c_comachi.inused.domain.mail.dto.request.MailVerificationRequestDto;
+import com.c_comachi.inused.domain.mail.dto.response.EmailCheckResponseDto;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.http.ResponseEntity;

@@ -1,14 +1,12 @@
-package com.c_comachi.inused.domain.users.controller;
+package com.c_comachi.inused.domain.mail.controller;
 
-import com.c_comachi.inused.domain.users.dto.request.MailRequestDto;
-import com.c_comachi.inused.domain.users.dto.request.MailVerificationRequestDto;
-import com.c_comachi.inused.domain.users.dto.response.EmailCheckResponseDto;
-import com.c_comachi.inused.domain.users.service.MailService;
+import com.c_comachi.inused.domain.mail.dto.request.MailRequestDto;
+import com.c_comachi.inused.domain.mail.dto.request.MailVerificationRequestDto;
+import com.c_comachi.inused.domain.mail.dto.response.EmailCheckResponseDto;
+import com.c_comachi.inused.domain.mail.service.MailService;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

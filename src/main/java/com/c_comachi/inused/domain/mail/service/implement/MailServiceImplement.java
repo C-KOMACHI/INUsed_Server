@@ -1,10 +1,10 @@
-package com.c_comachi.inused.domain.users.service.implement;
+package com.c_comachi.inused.domain.mail.service.implement;
 
-import com.c_comachi.inused.domain.users.dto.request.MailRequestDto;
-import com.c_comachi.inused.domain.users.dto.request.MailVerificationRequestDto;
-import com.c_comachi.inused.domain.users.dto.response.EmailCheckResponseDto;
+import com.c_comachi.inused.domain.mail.dto.request.MailRequestDto;
+import com.c_comachi.inused.domain.mail.dto.request.MailVerificationRequestDto;
+import com.c_comachi.inused.domain.mail.dto.response.EmailCheckResponseDto;
 import com.c_comachi.inused.domain.users.repository.UserRepository;
-import com.c_comachi.inused.domain.users.service.MailService;
+import com.c_comachi.inused.domain.mail.service.MailService;
 import com.c_comachi.inused.global.service.RedisService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
