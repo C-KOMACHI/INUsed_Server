@@ -31,7 +31,7 @@ public class UserEntity {
     @Column(nullable = false, name = "profile_image")
     private String profileImage;
 
-    @Column(name = "fire_temperature")
+    @Column(name = "fire_temperature", nullable = false)
     private Double fireTemperature;
 
     @Enumerated(EnumType.STRING)
