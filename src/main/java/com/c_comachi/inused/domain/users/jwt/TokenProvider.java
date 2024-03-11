@@ -50,6 +50,8 @@ public class TokenProvider {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
+
+
     public TokenDto generateTokenDto(Authentication authentication){
         // 권한들 가져오기
         String authorities = authentication.getAuthorities().stream()
@@ -68,8 +70,9 @@ public class TokenProvider {
                 .compact();
 
         // Refresh Token 생성
+        Date refreshTokenExpiresIn = new Date(now + refreshTokenExpirationMillis);
         String refreshToken = Jwts.builder()
-                .setExpiration(new Date(now + refreshTokenExpirationMillis))
+                .setExpiration(refreshTokenExpiresIn)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
 
