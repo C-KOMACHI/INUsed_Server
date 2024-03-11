@@ -24,9 +24,6 @@ public class CategoryEntity {
     @Column(nullable = false)
     private String image;
 
-    @OneToMany(mappedBy = "category")
-    private List<PostEntity> Posts = new ArrayList<>();
-
     @Builder
     public CategoryEntity(Long id, String name, String image) {
         this.id = id;
