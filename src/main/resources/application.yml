@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3305/inused?useUnicode=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mariadb://localhost:3306/inused?useUnicode=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: mjk
     password: jamin23
 
