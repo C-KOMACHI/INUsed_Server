@@ -1,18 +1,16 @@
 package com.c_comachi.inused.domain.users.service;
 
-import com.c_comachi.inused.domain.users.dto.UserDto;
+import com.c_comachi.inused.domain.users.dto.UserEditInfo;
 import com.c_comachi.inused.domain.users.dto.response.GetLoginUserResponseDto;
-import com.c_comachi.inused.domain.users.entity.UserEntity;
 import org.springframework.http.ResponseEntity;
-
-import java.util.Optional;
 
 public interface UserService {
 
-    ResponseEntity<? super GetLoginUserResponseDto> getLoginUser(String userId);
+    ResponseEntity<? super GetLoginUserResponseDto> getLoginUser(String email);
 
-    public UserDto getUserWithAuthorities(String email);
+    void editUser(String email, UserEditInfo requestDto);
 
-    public Optional<UserEntity> getMyUserWithAuthorities();
+    void deleteUser(String email);
+
 
 }
