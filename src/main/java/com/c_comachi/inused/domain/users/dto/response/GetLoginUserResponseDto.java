@@ -1,5 +1,6 @@
 package com.c_comachi.inused.domain.users.dto.response;
 
+import com.c_comachi.inused.domain.users.entity.Authority;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
 import com.c_comachi.inused.global.common.ResponseCode;
 import com.c_comachi.inused.global.common.ResponseMessage;
@@ -15,6 +16,7 @@ public class GetLoginUserResponseDto extends ResponseDto  {
     private String nickname;
     private String profileImage;
     private Double fireTemperature;
+    private Authority authority;
 
     private GetLoginUserResponseDto(UserEntity userEntity){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
@@ -22,6 +24,7 @@ public class GetLoginUserResponseDto extends ResponseDto  {
         this.nickname = userEntity.getNickname();
         this.profileImage = userEntity.getProfileImage();
         this.fireTemperature = userEntity.getFireTemperature();
+        this.authority = userEntity.getAuthority();
     }
 
     public static ResponseEntity<GetLoginUserResponseDto> success(UserEntity user) {
