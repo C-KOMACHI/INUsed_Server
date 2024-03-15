@@ -2,12 +2,10 @@ package com.c_comachi.inused.domain.users.controller;
 
 import com.c_comachi.inused.domain.users.dto.request.UserEditRequestDto;
 import com.c_comachi.inused.domain.users.dto.response.GetLoginUserResponseDto;
-import com.c_comachi.inused.domain.users.dto.response.UserEditResponseDto;
 import com.c_comachi.inused.domain.users.service.UserService;
 import com.c_comachi.inused.global.dto.ResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
