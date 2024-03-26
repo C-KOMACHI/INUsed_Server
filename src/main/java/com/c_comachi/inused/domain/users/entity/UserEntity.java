@@ -1,5 +1,6 @@
 package com.c_comachi.inused.domain.users.entity;
 
+import com.c_comachi.inused.domain.users.dto.UserEditInfo;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
@@ -31,7 +32,7 @@ public class UserEntity {
     @Column(nullable = false, name = "profile_image")
     private String profileImage;
 
-    @Column(name = "fire_temperature")
+    @Column(name = "fire_temperature", nullable = false)
     private Double fireTemperature;
 
     @Enumerated(EnumType.STRING)
@@ -54,5 +55,10 @@ public class UserEntity {
         this.fireTemperature = fireTemperature;
         this.authority = authority;
         this.createdAt = createdAt;
+    }
+
+    public void userEdit(UserEditInfo info){
+        this.profileImage = info.getProfileImage();
+        this.nickname = info.getNickname();
     }
 }

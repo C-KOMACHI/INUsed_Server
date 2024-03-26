@@ -2,8 +2,9 @@ package com.c_comachi.inused.domain.users.service;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import com.c_comachi.inused.domain.users.dto.request.MailRequestDto;
-import com.c_comachi.inused.domain.users.dto.request.MailVerificationRequestDto;
+import com.c_comachi.inused.domain.mail.dto.request.MailRequestDto;
+import com.c_comachi.inused.domain.mail.dto.request.MailVerificationRequestDto;
+import com.c_comachi.inused.domain.mail.service.MailService;
 import com.c_comachi.inused.domain.users.dto.request.RegisterRequestDto;
 import com.c_comachi.inused.domain.users.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;

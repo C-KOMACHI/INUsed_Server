@@ -1,25 +1,18 @@
 package com.c_comachi.inused.domain.users.controller;
 
 import com.c_comachi.inused.domain.users.dto.request.LoginRequestDto;
-import com.c_comachi.inused.domain.users.dto.request.MailRequestDto;
+import com.c_comachi.inused.domain.users.dto.request.NicknameRequestDto;
 import com.c_comachi.inused.domain.users.dto.request.RegisterRequestDto;
 import com.c_comachi.inused.domain.users.dto.request.TokenRequestDto;
-import com.c_comachi.inused.domain.users.dto.response.EmailCheckResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.LoginResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.LogoutResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.RegisterResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.ReissueResponseDto;
 import com.c_comachi.inused.domain.users.service.AuthService;
-import com.c_comachi.inused.domain.users.service.MailService;
-import com.c_comachi.inused.global.dto.ResponseDto;
-import jakarta.mail.MessagingException;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.UnsupportedEncodingException;
 
 @RestController
 @RequiredArgsConstructor
@@ -52,8 +45,8 @@ public class AuthController {
     }
 
     @GetMapping("/nickname-check")
-    public ResponseEntity<? super RegisterResponseDto> login(@RequestBody @Valid String nickname) {
-        ResponseEntity<? super RegisterResponseDto> response = authService.nicknameCheck(nickname);
+    public ResponseEntity<? super RegisterResponseDto> nicknameCheck(@RequestBody @Valid NicknameRequestDto requestBody) {
+        ResponseEntity<? super RegisterResponseDto> response = authService.nicknameCheck(requestBody);
         return response;
     }
 

@@ -1,5 +1,6 @@
 package com.c_comachi.inused.domain.users.service.implement;
 
+import com.c_comachi.inused.domain.users.dto.request.NicknameRequestDto;
 import com.c_comachi.inused.domain.users.dto.request.TokenRequestDto;
 import com.c_comachi.inused.domain.users.dto.response.LogoutResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.ReissueResponseDto;
@@ -14,6 +15,7 @@ import com.c_comachi.inused.domain.users.entity.UserEntity;
 import com.c_comachi.inused.domain.users.jwt.TokenProvider;
 import com.c_comachi.inused.domain.users.repository.UserRepository;
 import com.c_comachi.inused.global.service.RedisService;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -70,6 +72,10 @@ public class AuthServiceImplement implements AuthService {
         TokenDto tokenDto = null;
 
         try {
+            // 0. id 검증
+            Optional<UserEntity> email = userRepository.findByEmail(loginRequestDto.getEmail());
+            if(email.isEmpty()) return LoginResponseDto.loginFailed();
+
             // 1. Login ID/PW 를 기반으로 AuthenticationToken 생성
             UsernamePasswordAuthenticationToken authenticationToken = loginRequestDto.toAuthentication();
 
@@ -165,8 +171,8 @@ public class AuthServiceImplement implements AuthService {
 
     @Transactional
     @Override
-    public ResponseEntity<? super RegisterResponseDto> nicknameCheck(String nickname) {
-        boolean existedNickname = userRepository.existsByNickname(nickname);
+    public ResponseEntity<? super RegisterResponseDto> nicknameCheck(NicknameRequestDto nicknameRequestDto) {
+        boolean existedNickname = userRepository.existsByNickname(nicknameRequestDto.getNickname());
         if (existedNickname) return RegisterResponseDto.duplicateNickname();
 
         return RegisterResponseDto.success();
