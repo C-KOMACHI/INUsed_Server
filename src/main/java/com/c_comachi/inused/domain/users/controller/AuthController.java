@@ -1,5 +1,6 @@
 package com.c_comachi.inused.domain.users.controller;
 
+import com.c_comachi.inused.domain.mail.dto.response.EmailCheckResponseDto;
 import com.c_comachi.inused.domain.users.dto.request.LoginRequestDto;
 import com.c_comachi.inused.domain.users.dto.request.NicknameRequestDto;
 import com.c_comachi.inused.domain.users.dto.request.RegisterRequestDto;
@@ -10,6 +11,10 @@ import com.c_comachi.inused.domain.users.dto.response.RegisterResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.ReissueResponseDto;
 import com.c_comachi.inused.domain.users.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -25,6 +30,9 @@ public class AuthController {
 
     private final AuthService authService;
 
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "인증 보내기 성공", content = @Content(schema = @Schema(implementation = RegisterResponseDto.class))),
+    })
     @Operation(summary = "회원 가입")
     @PostMapping("/register")
     public ResponseEntity<? super RegisterResponseDto> register(@RequestBody @Valid RegisterRequestDto requestBody) {
@@ -32,6 +40,9 @@ public class AuthController {
         return response;
     }
 
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "인증 보내기 성공", content = @Content(schema = @Schema(implementation = LoginResponseDto.class))),
+    })
     @Operation(summary = "로그인")
     @PostMapping("/login")
     public ResponseEntity<? super LoginResponseDto> login(@RequestBody @Valid LoginRequestDto requestBody) {
@@ -40,6 +51,9 @@ public class AuthController {
     }
 
 
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "인증 보내기 성공", content = @Content(schema = @Schema(implementation = ReissueResponseDto.class))),
+    })
     @Operation(summary = "토큰 재발급")
     @PatchMapping("/reissue")
     public ResponseEntity<? super ReissueResponseDto> reissue(@RequestBody @Valid TokenRequestDto requestBody) {
@@ -47,6 +61,9 @@ public class AuthController {
         return response;
     }
 
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "인증 보내기 성공", content = @Content(schema = @Schema(implementation = LogoutResponseDto.class))),
+    })
     @Operation(summary = "로그아웃")
     @PatchMapping("/logout")
     public ResponseEntity<? super LogoutResponseDto> logout(@RequestBody @Valid TokenRequestDto requestBody) {
@@ -54,6 +71,9 @@ public class AuthController {
         return response;
     }
 
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "인증 보내기 성공", content = @Content(schema = @Schema(implementation = RegisterResponseDto.class))),
+    })
     @Operation(summary = "닉네임 중복 확인")
     @GetMapping("/nickname-check")
     public ResponseEntity<? super RegisterResponseDto> nicknameCheck(@RequestBody @Valid NicknameRequestDto requestBody) {
