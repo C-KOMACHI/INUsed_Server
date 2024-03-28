@@ -21,7 +21,6 @@ public class RegisterRequestDto {
     @NotBlank
     private String password;
 
-    private final String EMAIL_ADDRESS = "@inu.ac.kr";
 
     public RegisterRequestDto(String email, String nickname, String password) {
         this.email = email;
@@ -30,6 +29,8 @@ public class RegisterRequestDto {
     }
 
     public UserEntity toUser(PasswordEncoder passwordEncoder) {
+        String EMAIL_ADDRESS = "@inu.ac.kr";
+
         return UserEntity.builder()
                 .email(email+EMAIL_ADDRESS)
                 .password(passwordEncoder.encode(password))
