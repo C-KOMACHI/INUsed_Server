@@ -50,16 +50,17 @@ public class AuthController {
         return response;
     }
 
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "인증 보내기 성공", content = @Content(schema = @Schema(implementation = ReissueResponseDto.class))),
-    })
-    @Operation(summary = "토큰 재발급")
+    @Operation(summary = "비밀번호 찾기")
     @PatchMapping("/password-find")
     public ResponseEntity<ResponseDto> passwordFind(@RequestBody @Valid PasswordFindRequestDto passwordFindRequestDto){
         authService.passwordFinder(passwordFindRequestDto);
         return ResponseDto.suc();
     }
-    
+
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "인증 보내기 성공", content = @Content(schema = @Schema(implementation = ReissueResponseDto.class))),
+    })
+    @Operation(summary = "토큰 재발급")
     @PatchMapping("/reissue")
     public ResponseEntity<? super ReissueResponseDto> reissue(@RequestBody @Valid TokenRequestDto requestBody) {
         ResponseEntity<? super ReissueResponseDto> response = authService.reissue(requestBody);
