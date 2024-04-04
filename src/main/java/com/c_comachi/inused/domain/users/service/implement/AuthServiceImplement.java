@@ -1,13 +1,10 @@
 package com.c_comachi.inused.domain.users.service.implement;
 
-import com.c_comachi.inused.domain.users.dto.request.NicknameRequestDto;
-import com.c_comachi.inused.domain.users.dto.request.TokenRequestDto;
+import com.c_comachi.inused.domain.users.dto.request.*;
 import com.c_comachi.inused.domain.users.dto.response.LogoutResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.ReissueResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.TokenDto;
 import com.c_comachi.inused.domain.users.service.AuthService;
-import com.c_comachi.inused.domain.users.dto.request.RegisterRequestDto;
-import com.c_comachi.inused.domain.users.dto.request.LoginRequestDto;
 import com.c_comachi.inused.global.dto.ResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.LoginResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.RegisterResponseDto;
@@ -176,6 +173,14 @@ public class AuthServiceImplement implements AuthService {
         if (existedNickname) return RegisterResponseDto.duplicateNickname();
 
         return RegisterResponseDto.success();
+    }
+
+    @Override
+    public void passwordFinder(PasswordFindRequestDto passwordFindRequestDto) {
+        UserEntity user = userRepository.findByEmail(passwordFindRequestDto.getEmail()).get();
+        user.passwordChange(passwordEncoder, passwordFindRequestDto.getPassword());
+
+        userRepository.save(user);
     }
 
 
