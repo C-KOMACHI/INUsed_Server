@@ -2,6 +2,7 @@ package com.c_comachi.inused.domain.users.service;
 
 import com.c_comachi.inused.domain.users.dto.request.*;
 import com.c_comachi.inused.domain.users.dto.response.LogoutResponseDto;
+import com.c_comachi.inused.domain.users.dto.response.PasswordFindResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.ReissueResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.LoginResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.RegisterResponseDto;
@@ -16,5 +17,5 @@ public interface AuthService {
     ResponseEntity<? super LogoutResponseDto> logout(TokenRequestDto tokenRequestDto);
     ResponseEntity<? super RegisterResponseDto> nicknameCheck(NicknameRequestDto nicknameRequestDto);
 
-    void passwordFinder(PasswordFindRequestDto passwordFindRequestDto);
+    ResponseEntity<? super PasswordFindResponseDto> passwordFinder(PasswordFindRequestDto passwordFindRequestDto);
 }

@@ -2,6 +2,7 @@ package com.c_comachi.inused.domain.users.service.implement;
 
 import com.c_comachi.inused.domain.users.dto.request.*;
 import com.c_comachi.inused.domain.users.dto.response.LogoutResponseDto;
+import com.c_comachi.inused.domain.users.dto.response.PasswordFindResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.ReissueResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.TokenDto;
 import com.c_comachi.inused.domain.users.service.AuthService;
@@ -176,11 +177,27 @@ public class AuthServiceImplement implements AuthService {
     }
 
     @Override
-    public void passwordFinder(PasswordFindRequestDto passwordFindRequestDto) {
-        UserEntity user = userRepository.findByEmail(passwordFindRequestDto.getEmail()).get();
-        user.passwordChange(passwordEncoder, passwordFindRequestDto.getPassword());
+    public ResponseEntity<? super PasswordFindResponseDto> passwordFinder(PasswordFindRequestDto passwordFindRequestDto) {
+        try{
+            if(!userRepository.existsByEmail(passwordFindRequestDto.getEmail())){
+                return PasswordFindResponseDto.notExistedEmail();
+            }
 
-        userRepository.save(user);
+            UserEntity user = userRepository.findByEmail(passwordFindRequestDto.getEmail()).get();
+
+
+            if(passwordEncoder.matches(passwordFindRequestDto.getPassword(), user.getPassword())){
+                return PasswordFindResponseDto.samePassword();
+            }
+
+
+            user.passwordChange(passwordEncoder, passwordFindRequestDto.getPassword());
+            userRepository.save(user);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return PasswordFindResponseDto.success();
     }
 
 
