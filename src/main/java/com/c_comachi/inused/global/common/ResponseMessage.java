@@ -11,6 +11,7 @@ public interface ResponseMessage {
     String  UNHEALTHY_NICKNAME = "Unhealthy nickname";
     String NOT_EXISTED_USER = "Not Existed user";
     String MISMATCHED_TOKEN = "Mismatched Token";
+    String SAME_PASSWORD = "Same Password";
 
     // Http Status 401
     String LOGIN_FAILED = "Login failed";
