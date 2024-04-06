@@ -7,6 +7,7 @@ import com.c_comachi.inused.domain.users.dto.request.TokenRequestDto;
 import com.c_comachi.inused.domain.users.dto.request.*;
 import com.c_comachi.inused.domain.users.dto.response.LoginResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.LogoutResponseDto;
+import com.c_comachi.inused.domain.users.dto.response.PasswordFindResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.RegisterResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.ReissueResponseDto;
 import com.c_comachi.inused.domain.users.service.AuthService;
@@ -50,11 +51,14 @@ public class AuthController {
         return response;
     }
 
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "인증 보내기 성공", content = @Content(schema = @Schema(implementation = PasswordFindResponseDto.class))),
+    })
     @Operation(summary = "비밀번호 찾기")
     @PatchMapping("/password-find")
-    public ResponseEntity<ResponseDto> passwordFind(@RequestBody @Valid PasswordFindRequestDto passwordFindRequestDto){
-        authService.passwordFinder(passwordFindRequestDto);
-        return ResponseDto.suc();
+    public ResponseEntity<? super PasswordFindResponseDto> passwordFind(@RequestBody @Valid PasswordFindRequestDto passwordFindRequestDto){
+        ResponseEntity<? super PasswordFindResponseDto> response = authService.passwordFinder(passwordFindRequestDto);
+        return response;
     }
 
     @ApiResponses({
