@@ -61,8 +61,8 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/v1/auth/**", "/", "/registration","/api/v1/emails/**").permitAll()
                 .requestMatchers("/h2-console/**", "/favicon.ico", "/error", "/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs/**").permitAll()
                 .requestMatchers("/api/v1/admin/**").hasAuthority("ROLE_ADMIN")
-                .requestMatchers("/api/v1/user/**", "/api/v1/posts/**", "/api/v1/comments/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
-                .anyRequest().authenticated()   // 나머지 API 는 전부 거절
+                .requestMatchers("/api/v1/user/**", "/api/v1/posts/**", "/api/v1/comments/**", "/api/v1/notice/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+                .anyRequest().denyAll()   // 나머지 API 는 전부 거절
 
                 // JwtFilter 를 addFilterBefore 로 등록했던 JwtSecurityConfig 클래스를 적용
                 .and()
