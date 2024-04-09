@@ -49,7 +49,6 @@ public class NoticeController {
     public ResponseEntity<? super ViewNoticeResponseDto> viewNotice(){
         ResponseEntity<? super ViewNoticeResponseDto> response = noticeService.getNotices();
         return response;
-
     }
 
 }
