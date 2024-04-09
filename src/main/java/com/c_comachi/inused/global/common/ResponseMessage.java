@@ -12,6 +12,7 @@ public interface ResponseMessage {
     String NOT_EXISTED_USER = "Not Existed user";
     String MISMATCHED_TOKEN = "Mismatched Token";
     String SAME_PASSWORD = "Same Password";
+    String NOT_EXISTED_NOTICE = "Not Existed Notice";
 
     // Http Status 401
     String LOGIN_FAILED = "Login failed";
