@@ -14,10 +14,11 @@ import org.springframework.http.ResponseEntity;
 @Getter
 public class SearchNoticeResponseDto extends ResponseDto {
 
-    String content;
     String title;
+    String content;
     String image;
     LocalDateTime createdAt;
+    LocalDateTime updatedAt;
 
     private SearchNoticeResponseDto(NoticeEntity noticeEntity){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
@@ -25,11 +26,17 @@ public class SearchNoticeResponseDto extends ResponseDto {
         this.title = noticeEntity.getTitle();
         this.image = noticeEntity.getImage();
         this.createdAt = noticeEntity.getCreatedAt();
+        this.updatedAt = noticeEntity.getUpdatedAt();
     }
 
     public static ResponseEntity<SearchNoticeResponseDto> success(NoticeEntity noticeEntity) {
         SearchNoticeResponseDto result = new SearchNoticeResponseDto(noticeEntity);
         return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    public static ResponseEntity<ResponseDto> notExistedNotice() {
+        ResponseDto result = new ResponseDto(ResponseCode.NOT_EXISTED_NOTICE, ResponseMessage.NOT_EXISTED_NOTICE);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }
 
 
