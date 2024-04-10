@@ -15,7 +15,7 @@ public interface UserInquiryRepository extends JpaRepository<UserInquiryEntity, 
 
     Optional<UserInquiryEntity> findById(Long userInquiryId);
 
-    @Query("SELECT ui FROM UserInquiryEntity ui WHERE ui.user = :user")
+    @Query("SELECT ui FROM UserInquiryEntity ui WHERE ui.user = :user ORDER BY ui.createdAt DESC")
     List<UserInquiryEntity> findListByUser(@Param("user") UserEntity user);
 
 }
