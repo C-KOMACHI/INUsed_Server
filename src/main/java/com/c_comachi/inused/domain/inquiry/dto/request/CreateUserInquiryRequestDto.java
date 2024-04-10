@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
-public class CreateInquiryRequestDto {
+public class CreateUserInquiryRequestDto {
 
     private String title;
     private String content;
 
-    public CreateInquiryRequestDto(String title, String content){
+    public CreateUserInquiryRequestDto(String title, String content){
         this.title = title;
         this.content = content;
     }
