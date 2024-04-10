@@ -38,8 +38,7 @@ public class UserInquiryEntity {
     private UserEntity user;
 
     @Builder
-    public UserInquiryEntity(Long id, String title, String content, LocalDateTime createdAt, UserEntity user) {
-        this.id = id;
+    public UserInquiryEntity(String title, String content, LocalDateTime createdAt, UserEntity user) {
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
