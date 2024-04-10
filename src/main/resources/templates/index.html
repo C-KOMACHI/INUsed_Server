@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Window</title>
+</head>
+<body>
+
+<div id="loginContainer">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="button" onclick="login()">Login</button>
+    </form>
+</div>
+
+<script>
+    function login() {
+        // Get values from the form
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+
+        // Create a JSON object with the login data
+        var loginData = {
+            email: email,
+            password: password
+        };
+
+        // Send a POST request to the login API
+        fetch('/api/v1/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(loginData)
+        })
+            .then(response => {
+                // Handle the response from the server
+                if (response.ok) {
+                    // Extract the access token from the response
+                    return response.json();
+                } else {
+                    throw new Error('Login failed. Please check your credentials.');
+                }
+            })
+            .then(data => {
+                // Extract the access token from the response data
+                var accessToken = data.accessToken;
+
+                // Store the access token in localStorage
+                localStorage.setItem('accessToken', accessToken);
+
+                // Send a GET request to the admin main endpoint with the token in the header
+                var headers = {
+                    'Authorization': 'Bearer ' + accessToken
+                };
+
+                fetch('/api/v1/admin/main', {
+                    method: 'GET',
+                    headers: headers
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            // If the response is successful, you may proceed with handling the data
+                            // For example, you could redirect the user to the admin main page
+                            window.location.href = '/api/v1/admin/main';
+                        } else {
+                            // If the response is not successful, handle the error
+                            throw new Error('Failed to fetch admin data');
+                        }
+                    })
+                    .catch(error => {
+                        // Handle errors
+                        console.error('Error:', error);
+                    });
+            })
+            .catch(error => {
+                // Handle login errors
+                console.error('Error during login:', error);
+                alert('An error occurred during login.');
+            });
+    }
+
+
+</script>
+
+</body>
+</html>
