@@ -43,8 +43,9 @@ public class InquiryController {
     })
     @Operation(summary = "문의 조회 (단건 조회)")
     @GetMapping("/{userInquiryId}")
-    public ResponseEntity<? super GetUserInquiryResponseDto> getUserInquiry(@PathVariable("userInquiryId") Long userInquiryId) {
-        ResponseEntity<? super GetUserInquiryResponseDto> response = userInquiryService.getUserInquiry(userInquiryId);
+    public ResponseEntity<? super GetUserInquiryResponseDto> getUserInquiry(@PathVariable("userInquiryId") Long userInquiryId
+                                                                            , @AuthenticationPrincipal UserDetails user) {
+        ResponseEntity<? super GetUserInquiryResponseDto> response = userInquiryService.getUserInquiry(userInquiryId, user.getUsername());
         return response;
     }
 

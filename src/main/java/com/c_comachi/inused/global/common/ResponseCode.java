@@ -14,6 +14,7 @@ public interface ResponseCode {
     String MISMATCHED_TOKEN = "MT";
     String SAME_PASSWORD = "SP";
     String NOT_EXISTED_NOTICE = "NN";
+    String NOT_EXISTED_INQUIRY = "NI";
 
     // Http Status 401
     String LOGIN_FAILED = "LF";

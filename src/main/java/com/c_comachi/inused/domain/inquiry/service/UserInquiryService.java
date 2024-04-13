@@ -44,12 +44,17 @@ public class UserInquiryService {
         return GetAllUserInquiryResponseDto.success(userInquiryList);
     }
 
-    public ResponseEntity<? super GetUserInquiryResponseDto> getUserInquiry(Long userInquiryId){
+    public ResponseEntity<? super GetUserInquiryResponseDto> getUserInquiry(Long userInquiryId, String email){
         UserInquiryEntity userInquiry = null;
         ManagerInquiryInfo managerInquiryInfo = null;
 
         try{
+            if(!userInquiryRepository.existsById(userInquiryId)) return GetUserInquiryResponseDto.notExistedInquiry();
             userInquiry = userInquiryRepository.findById(userInquiryId).get();
+
+            String userEmail = userInquiry.getUser().getEmail();
+
+            if(!userEmail.equals(email)) return GetUserInquiryResponseDto.authorizationFailed();
 
             if(managerInquiryRepository.existsByUserInquiryId(userInquiry)){
                 ManagerInquiryEntity managerInquiry = managerInquiryRepository.findByUserInquiryId(userInquiry).get();

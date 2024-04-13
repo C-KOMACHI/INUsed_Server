@@ -33,4 +33,14 @@ public class GetUserInquiryResponseDto extends ResponseDto {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
+    public static ResponseEntity<ResponseDto> authorizationFailed(){
+        ResponseDto result = new ResponseDto(ResponseCode.AUTHORIZATION_FAILED, ResponseMessage.AUTHORIZATION_FAILED);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(result);
+    }
+
+    public static ResponseEntity<ResponseDto> notExistedInquiry(){
+        ResponseDto result = new ResponseDto(ResponseCode.NOT_EXISTED_INQUIRY, ResponseMessage.NOT_EXISTED_INQUIRY);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
+    }
+
 }
