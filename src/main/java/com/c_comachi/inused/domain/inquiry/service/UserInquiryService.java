@@ -1,13 +1,17 @@
 package com.c_comachi.inused.domain.inquiry.service;
 
+import com.c_comachi.inused.domain.inquiry.dto.ManagerInquiryInfo;
 import com.c_comachi.inused.domain.inquiry.dto.UserInquiryEditInfo;
 import com.c_comachi.inused.domain.inquiry.dto.request.CreateUserInquiryRequestDto;
 import com.c_comachi.inused.domain.inquiry.dto.response.GetAllUserInquiryResponseDto;
 import com.c_comachi.inused.domain.inquiry.dto.response.GetUserInquiryResponseDto;
+import com.c_comachi.inused.domain.inquiry.entity.ManagerInquiryEntity;
 import com.c_comachi.inused.domain.inquiry.entity.UserInquiryEntity;
+import com.c_comachi.inused.domain.inquiry.repository.ManagerInquiryRepository;
 import com.c_comachi.inused.domain.inquiry.repository.UserInquiryRepository;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
 import com.c_comachi.inused.domain.users.repository.UserRepository;
+import com.c_comachi.inused.global.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,6 +24,7 @@ public class UserInquiryService {
 
     private final UserRepository userRepository;
     private final UserInquiryRepository userInquiryRepository;
+    private final ManagerInquiryRepository managerInquiryRepository;
 
 
     public void createInquiry(CreateUserInquiryRequestDto createUserInquiryRequestDto, String email){
@@ -40,9 +45,21 @@ public class UserInquiryService {
     }
 
     public ResponseEntity<? super GetUserInquiryResponseDto> getUserInquiry(Long userInquiryId){
-        UserInquiryEntity userInquiry = userInquiryRepository.findById(userInquiryId).get();
+        UserInquiryEntity userInquiry = null;
+        ManagerInquiryInfo managerInquiryInfo = null;
 
-        return GetUserInquiryResponseDto.success(userInquiry);
+        try{
+            userInquiry = userInquiryRepository.findById(userInquiryId).get();
+
+            if(managerInquiryRepository.existsByUserInquiryId(userInquiry)){
+                ManagerInquiryEntity managerInquiry = managerInquiryRepository.findByUserInquiryId(userInquiry).get();
+                managerInquiryInfo = new ManagerInquiryInfo(managerInquiry);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return GetUserInquiryResponseDto.success(userInquiry, managerInquiryInfo);
     }
 
 

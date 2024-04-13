@@ -1,5 +1,6 @@
 package com.c_comachi.inused.domain.inquiry.dto.response;
 
+import com.c_comachi.inused.domain.inquiry.dto.ManagerInquiryInfo;
 import com.c_comachi.inused.domain.inquiry.entity.UserInquiryEntity;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
 import com.c_comachi.inused.global.common.ResponseCode;
@@ -16,17 +17,19 @@ public class GetUserInquiryResponseDto extends ResponseDto {
     private String content;
     private LocalDateTime createdAt;
     private String nickname;
+    private ManagerInquiryInfo managerInquiryInfo;
 
-    private GetUserInquiryResponseDto(UserInquiryEntity userInquiry) {
+    private GetUserInquiryResponseDto(UserInquiryEntity userInquiry, ManagerInquiryInfo managerInquiryInfo) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.title = userInquiry.getTitle();
         this.content = userInquiry.getContent();
         this.createdAt = userInquiry.getCreatedAt();
         this.nickname = userInquiry.getUser().getNickname();
+        this.managerInquiryInfo = managerInquiryInfo;
     }
 
-    public static ResponseEntity<GetUserInquiryResponseDto> success(UserInquiryEntity userInquiry){
-        GetUserInquiryResponseDto result = new GetUserInquiryResponseDto(userInquiry);
+    public static ResponseEntity<GetUserInquiryResponseDto> success(UserInquiryEntity userInquiry, ManagerInquiryInfo managerInquiryInfo){
+        GetUserInquiryResponseDto result = new GetUserInquiryResponseDto(userInquiry, managerInquiryInfo);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 

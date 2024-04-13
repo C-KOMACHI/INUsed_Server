@@ -5,8 +5,8 @@ import lombok.Getter;
 
 @Getter
 public class UserInquiryEditInfo {
-    String title;
-    String content;
+    private String title;
+    private String content;
 
     @Builder
     public UserInquiryEditInfo(String title, String content){
