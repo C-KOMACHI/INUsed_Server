@@ -1,7 +1,9 @@
 package com.c_comachi.inused.domain.inquiry.entity;
 
+import com.c_comachi.inused.domain.inquiry.dto.UserInquiryEditInfo;
 import com.c_comachi.inused.domain.post.entity.PostEntity;
 import com.c_comachi.inused.domain.report.entity.ReportCategoryEntity;
+import com.c_comachi.inused.domain.users.dto.UserEditInfo;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -38,11 +40,15 @@ public class UserInquiryEntity {
     private UserEntity user;
 
     @Builder
-    public UserInquiryEntity(Long id, String title, String content, LocalDateTime createdAt, UserEntity user) {
-        this.id = id;
+    public UserInquiryEntity(String title, String content, LocalDateTime createdAt, UserEntity user) {
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
         this.user = user;
+    }
+
+    public void userInquiryEdit (UserInquiryEditInfo info){
+        this.title = info.getTitle();
+        this.content = info.getContent();
     }
 }

@@ -14,11 +14,11 @@ import org.springframework.http.ResponseEntity;
 @Getter
 public class SearchNoticeResponseDto extends ResponseDto {
 
-    String title;
-    String content;
-    String image;
-    LocalDateTime createdAt;
-    LocalDateTime updatedAt;
+    private String title;
+    private String content;
+    private String image;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     private SearchNoticeResponseDto(NoticeEntity noticeEntity){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
