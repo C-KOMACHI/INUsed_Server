@@ -40,8 +40,7 @@ public class UserReportEntity {
     private UserEntity reportee;
 
     @Builder
-    public UserReportEntity(Long id, String reportContent, LocalDateTime createdAt, ReportCategoryEntity reportCategory, UserEntity reporter, UserEntity reportee) {
-        this.id = id;
+    public UserReportEntity(String reportContent, LocalDateTime createdAt, ReportCategoryEntity reportCategory, UserEntity reporter, UserEntity reportee) {
         this.reportContent = reportContent;
         this.createdAt = createdAt;
         this.reportCategory = reportCategory;
