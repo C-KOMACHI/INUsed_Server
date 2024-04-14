@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 
-@Tag(name = "Mail" , description = "Mail 인증 API 구현")
+@Tag(name = "Mail" , description = "Mail 인증 API 모음")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/emails")
