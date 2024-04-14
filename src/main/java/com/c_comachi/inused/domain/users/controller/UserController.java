@@ -15,6 +15,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -35,8 +37,8 @@ public class UserController {
     })
     @Operation(summary = "회원 조회", description = "header 에 토큰 넣어서")
     @GetMapping("/get")
-    public ResponseEntity<? super GetLoginUserResponseDto> getUser(Authentication authentication) {
-        ResponseEntity<? super GetLoginUserResponseDto> response = userService.getLoginUser(authentication.getName());
+    public ResponseEntity<? super GetLoginUserResponseDto> getUser(@AuthenticationPrincipal UserDetails user) {
+        ResponseEntity<? super GetLoginUserResponseDto> response = userService.getLoginUser(user.getUsername());
         return response;
     }
 
@@ -46,8 +48,8 @@ public class UserController {
     })
     @Operation(summary = "회원 수정", description = "header 에 토큰 넣어서")
     @PatchMapping("/edit")
-    public ResponseEntity<ResponseDto> editUser(Authentication authentication, @RequestBody @Valid UserEditRequestDto requestDto) {
-        userService.editUser(authentication.getName(), requestDto.toUserEditInfo());
+    public ResponseEntity<ResponseDto> editUser(@AuthenticationPrincipal UserDetails user, @RequestBody @Valid UserEditRequestDto requestDto) {
+        userService.editUser(user.getUsername(), requestDto.toUserEditInfo());
         return ResponseDto.suc();
     }
 
@@ -57,8 +59,8 @@ public class UserController {
     })
     @Operation(summary = "회원 탈퇴", description = "header 에 토큰 넣어서")
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseDto> deleteUser(Authentication authentication) {
-        userService.deleteUser(authentication.getName());
+    public ResponseEntity<ResponseDto> deleteUser(@AuthenticationPrincipal UserDetails user) {
+        userService.deleteUser(user.getUsername());
         return ResponseDto.suc();
     }
 }

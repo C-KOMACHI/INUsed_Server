@@ -1,13 +1,11 @@
 package com.c_comachi.inused.domain.users.service.implement;
 
-import com.c_comachi.inused.domain.users.dto.request.NicknameRequestDto;
-import com.c_comachi.inused.domain.users.dto.request.TokenRequestDto;
+import com.c_comachi.inused.domain.users.dto.request.*;
 import com.c_comachi.inused.domain.users.dto.response.LogoutResponseDto;
+import com.c_comachi.inused.domain.users.dto.response.PasswordFindResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.ReissueResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.TokenDto;
 import com.c_comachi.inused.domain.users.service.AuthService;
-import com.c_comachi.inused.domain.users.dto.request.RegisterRequestDto;
-import com.c_comachi.inused.domain.users.dto.request.LoginRequestDto;
 import com.c_comachi.inused.global.dto.ResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.LoginResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.RegisterResponseDto;
@@ -176,6 +174,30 @@ public class AuthServiceImplement implements AuthService {
         if (existedNickname) return RegisterResponseDto.duplicateNickname();
 
         return RegisterResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super PasswordFindResponseDto> passwordFinder(PasswordFindRequestDto passwordFindRequestDto) {
+        try{
+            if(!userRepository.existsByEmail(passwordFindRequestDto.getEmail())){
+                return PasswordFindResponseDto.notExistedEmail();
+            }
+
+            UserEntity user = userRepository.findByEmail(passwordFindRequestDto.getEmail()).get();
+
+
+            if(passwordEncoder.matches(passwordFindRequestDto.getPassword(), user.getPassword())){
+                return PasswordFindResponseDto.samePassword();
+            }
+
+
+            user.passwordChange(passwordEncoder, passwordFindRequestDto.getPassword());
+            userRepository.save(user);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return PasswordFindResponseDto.success();
     }
 
 

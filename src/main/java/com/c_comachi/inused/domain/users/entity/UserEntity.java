@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -60,5 +61,10 @@ public class UserEntity {
     public void userEdit(UserEditInfo info){
         this.profileImage = info.getProfileImage();
         this.nickname = info.getNickname();
+    }
+
+    public void passwordChange(PasswordEncoder passwordEncoder, String password){
+        this.password = passwordEncoder.encode(password);
+
     }
 }

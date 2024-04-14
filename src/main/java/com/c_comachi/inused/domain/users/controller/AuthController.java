@@ -1,12 +1,13 @@
 package com.c_comachi.inused.domain.users.controller;
 
-import com.c_comachi.inused.domain.mail.dto.response.EmailCheckResponseDto;
 import com.c_comachi.inused.domain.users.dto.request.LoginRequestDto;
 import com.c_comachi.inused.domain.users.dto.request.NicknameRequestDto;
 import com.c_comachi.inused.domain.users.dto.request.RegisterRequestDto;
 import com.c_comachi.inused.domain.users.dto.request.TokenRequestDto;
+import com.c_comachi.inused.domain.users.dto.request.*;
 import com.c_comachi.inused.domain.users.dto.response.LoginResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.LogoutResponseDto;
+import com.c_comachi.inused.domain.users.dto.response.PasswordFindResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.RegisterResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.ReissueResponseDto;
 import com.c_comachi.inused.domain.users.service.AuthService;
@@ -16,7 +17,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.persistence.Table;
+import com.c_comachi.inused.global.dto.ResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +51,15 @@ public class AuthController {
         return response;
     }
 
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "인증 보내기 성공", content = @Content(schema = @Schema(implementation = PasswordFindResponseDto.class))),
+    })
+    @Operation(summary = "비밀번호 찾기")
+    @PatchMapping("/password-find")
+    public ResponseEntity<? super PasswordFindResponseDto> passwordFind(@RequestBody @Valid PasswordFindRequestDto passwordFindRequestDto){
+        ResponseEntity<? super PasswordFindResponseDto> response = authService.passwordFinder(passwordFindRequestDto);
+        return response;
+    }
 
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "인증 보내기 성공", content = @Content(schema = @Schema(implementation = ReissueResponseDto.class))),
