@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.c_comachi.inused.domain.s3.dto.AwsS3;
+import com.c_comachi.inused.domain.s3.dto.request.S3RemoveRequestDto;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -72,7 +73,7 @@ public class AwsS3Service {
         return Optional.empty();
     }
 
-    public void remove(AwsS3 awsS3) {
+    public void remove(S3RemoveRequestDto awsS3) {
         if (!amazonS3.doesObjectExist(bucket, awsS3.getKey())) {
             throw new AmazonS3Exception("Object " +awsS3.getKey()+ " does not exist!");
         }

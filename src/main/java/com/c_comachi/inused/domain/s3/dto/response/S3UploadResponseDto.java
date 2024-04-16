@@ -1,10 +1,10 @@
-package com.c_comachi.inused.domain.s3.dto;
+package com.c_comachi.inused.domain.s3.dto.response;
 
+import com.c_comachi.inused.domain.s3.dto.AwsS3;
 import com.c_comachi.inused.global.common.ResponseCode;
 import com.c_comachi.inused.global.common.ResponseMessage;
 import com.c_comachi.inused.global.dto.ResponseDto;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

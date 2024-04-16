@@ -1,7 +1,8 @@
 package com.c_comachi.inused.domain.s3.controller;
 
 import com.c_comachi.inused.domain.s3.dto.AwsS3;
-import com.c_comachi.inused.domain.s3.dto.S3UploadResponseDto;
+import com.c_comachi.inused.domain.s3.dto.request.S3RemoveRequestDto;
+import com.c_comachi.inused.domain.s3.dto.response.S3UploadResponseDto;
 import com.c_comachi.inused.domain.s3.service.AwsS3Service;
 import com.c_comachi.inused.global.dto.ResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,8 +35,8 @@ public class AwsS3Controller {
 
     @DeleteMapping("/resource")
     @Operation(summary = "사진 삭제")
-    public ResponseEntity<ResponseDto> remove(AwsS3 awsS3){
-        awsS3Service.remove(awsS3);
+    public ResponseEntity<ResponseDto> remove(@RequestBody S3RemoveRequestDto requestDto){
+        awsS3Service.remove(requestDto);
         return ResponseDto.suc();
     }
 }
