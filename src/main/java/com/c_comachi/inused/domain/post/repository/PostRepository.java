@@ -12,6 +12,9 @@ import java.util.Optional;
 public interface PostRepository extends JpaRepository<PostEntity, Long> {
     List<PostEntity> findAllByOrderByCreatedAtDesc();
     Optional<PostEntity> findById(Long id);
+    List<PostEntity> findAllByOrderByLastRepostingDesc();
+
+    boolean existsById(Long id);
 
 //    Optional<PostEntity> postOptional = postsRepository.findById(postId);
 //    if (postOptional.isPresent()) {
