@@ -15,6 +15,7 @@ public interface ResponseCode {
     String SAME_PASSWORD = "SP";
     String NOT_EXISTED_NOTICE = "NN";
     String NOT_EXISTED_INQUIRY = "NI";
+    String TOO_FAST_REPOSTING = "TR";
 
     // Http Status 401
     String LOGIN_FAILED = "LF";

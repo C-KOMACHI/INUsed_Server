@@ -1,11 +1,10 @@
 package com.c_comachi.inused.domain.post.service;
 
+import com.c_comachi.inused.domain.notice.dto.response.ViewNoticeResponseDto;
+import com.c_comachi.inused.domain.notice.entity.NoticeEntity;
 import com.c_comachi.inused.domain.post.dto.request.CreatePostRequestDto;
 import com.c_comachi.inused.domain.post.dto.request.UpdatePostRequestDto;
-import com.c_comachi.inused.domain.post.dto.response.CreatePostResponseDto;
-import com.c_comachi.inused.domain.post.dto.response.DeletePostResponseDto;
-import com.c_comachi.inused.domain.post.dto.response.GetPostResponseDto;
-import com.c_comachi.inused.domain.post.dto.response.UpdatePostResponseDto;
+import com.c_comachi.inused.domain.post.dto.response.*;
 import com.c_comachi.inused.domain.post.entity.Status;
 import com.c_comachi.inused.domain.post.repository.CategoryRepository;
 import com.c_comachi.inused.domain.post.repository.PostRepository;
@@ -16,6 +15,10 @@ import org.springframework.http.ResponseEntity;
 import com.c_comachi.inused.domain.post.entity.PostEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -56,6 +59,20 @@ public class PostService {
                 //.orElseThrow(() -> new PostNotFoundException("해당 게시물을 찾을 수 없습니다."));
         postsRepository.deleteById(postId);
         return DeletePostResponseDto.success();
+    }
+
+    public ResponseEntity<? super RePostResponseDto> rePost(Long postId){
+        PostEntity post = postsRepository.findById(postId).get();
+        Duration duration = Duration.between(LocalDateTime.now(), post.getLastReposting());
+        if(duration.toHours() < 24){
+            return RePostResponseDto.fastRePosting();
+        }
+        return RePostResponseDto.success();
+    }
+
+    public ResponseEntity<? super AllGetPostResponseDto> getAllPost(){
+        List<PostEntity> posts = postsRepository.findAllByOrderByLastRepostingDesc();
+        return AllGetPostResponseDto.success(posts);
     }
 
 }
