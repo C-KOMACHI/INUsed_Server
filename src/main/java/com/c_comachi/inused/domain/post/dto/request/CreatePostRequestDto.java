@@ -51,7 +51,7 @@ public class CreatePostRequestDto {
                 .productState(Status.ON_SALE)
                 .createdAt(LocalDateTime.now())
                 //끌올 설정
-                .lastReposting(null)
+                .lastReposting(LocalDateTime.now())
                 .wishCount(0)
                 .viewCount(0)
                 .build();
