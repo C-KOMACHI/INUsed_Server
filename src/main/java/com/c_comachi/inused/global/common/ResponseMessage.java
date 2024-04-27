@@ -14,6 +14,7 @@ public interface ResponseMessage {
     String SAME_PASSWORD = "Same Password";
     String NOT_EXISTED_NOTICE = "Not Existed Notice";
     String NOT_EXISTED_INQUIRY = "Not Existed Inquiry";
+    String TOO_FAST_REPOSTING = "Too Fast Reposting";
 
     // Http Status 401
     String LOGIN_FAILED = "Login failed";
