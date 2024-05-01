@@ -86,8 +86,8 @@ public class AuthController {
     })
     @Operation(summary = "닉네임 중복 확인")
     @GetMapping("/nickname-check")
-    public ResponseEntity<? super RegisterResponseDto> nicknameCheck(@RequestBody @Valid NicknameRequestDto requestBody) {
-        ResponseEntity<? super RegisterResponseDto> response = authService.nicknameCheck(requestBody);
+    public ResponseEntity<? super RegisterResponseDto> nicknameCheck(@RequestParam(value = "nickname") String nickname) {
+        ResponseEntity<? super RegisterResponseDto> response = authService.nicknameCheck(nickname);
         return response;
     }
 

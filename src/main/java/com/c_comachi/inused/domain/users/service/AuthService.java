@@ -15,7 +15,7 @@ public interface AuthService {
     ResponseEntity<? super LoginResponseDto> login(LoginRequestDto loginRequestDto);
     ResponseEntity<? super ReissueResponseDto> reissue(TokenRequestDto tokenRequestDto);
     ResponseEntity<? super LogoutResponseDto> logout(TokenRequestDto tokenRequestDto);
-    ResponseEntity<? super RegisterResponseDto> nicknameCheck(NicknameRequestDto nicknameRequestDto);
+    ResponseEntity<? super RegisterResponseDto> nicknameCheck(String  nickname);
 
     ResponseEntity<? super PasswordFindResponseDto> passwordFinder(PasswordFindRequestDto passwordFindRequestDto);
 }
