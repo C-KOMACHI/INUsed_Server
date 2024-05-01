@@ -169,8 +169,8 @@ public class AuthServiceImplement implements AuthService {
 
     @Transactional
     @Override
-    public ResponseEntity<? super RegisterResponseDto> nicknameCheck(NicknameRequestDto nicknameRequestDto) {
-        boolean existedNickname = userRepository.existsByNickname(nicknameRequestDto.getNickname());
+    public ResponseEntity<? super RegisterResponseDto> nicknameCheck(String nickname) {
+        boolean existedNickname = userRepository.existsByNickname(nickname);
         if (existedNickname) return RegisterResponseDto.duplicateNickname();
 
         return RegisterResponseDto.success();
