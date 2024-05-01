@@ -20,10 +20,11 @@ public class CorsConfig {
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE"));
         config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
+        config.addExposedHeader("*");
         config.addExposedHeader("Authorization");
         config.addExposedHeader("Refresh");
 
-        source.registerCorsConfiguration("/api/**", config);
+        source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
 }
