@@ -1,11 +1,11 @@
 package com.c_comachi.inused.domain.post.entity;
 
+import com.c_comachi.inused.domain.post.dto.request.UpdatePostRequestDto;
+import com.c_comachi.inused.domain.post.dto.response.UpdatePostResponseDto;
+import com.c_comachi.inused.domain.post.repository.CategoryRepository;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -36,6 +36,7 @@ public class PostEntity {
     @Column(name = "view_count",nullable = false)
     private Integer viewCount;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "product_state",nullable = false)
     private Status productState;
 
@@ -59,10 +60,9 @@ public class PostEntity {
     private CategoryEntity category;
 
     @Builder
-    public PostEntity(Long id, String title, String content, Integer price, Integer wishCount,
+    public PostEntity(String title, String content, Integer price, Integer wishCount,
                       Integer viewCount, Status productState, LocalDateTime createdAt, LocalDateTime updatedAt,
                       LocalDateTime lastReposting, UserEntity user, CategoryEntity category) {
-        this.id = id;
         this.title = title;
         this.content = content;
         this.price = price;
@@ -74,5 +74,20 @@ public class PostEntity {
         this.lastReposting = lastReposting;
         this.user = user;
         this.category = category;
+    }
+
+    public void setViewCount(Integer viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public void update(UpdatePostRequestDto post, CategoryRepository categoryRepository) {
+        CategoryEntity category = categoryRepository.findById(post.getCategoryId()).get();
+
+        this.title = post.getTitle();
+        this.content = post.getContent();
+        this.price = post.getPrice();
+        this.category = category;
+        this.productState = post.getProductState();
+        this.updatedAt = LocalDateTime.now();
     }
 }
