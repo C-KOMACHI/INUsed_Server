@@ -13,6 +13,6 @@ public interface MailService {
     public void createCode();
     public MimeMessage createEmailForm(String email);
     public ResponseEntity<? super EmailCheckResponseDto> sendEmail(MailRequestDto requestBody) throws MessagingException, UnsupportedEncodingException;
-    public  ResponseEntity<? super EmailCheckResponseDto> verifiedCode(MailVerificationRequestDto requestBody);
+    public  ResponseEntity<? super EmailCheckResponseDto> verifiedCode(String email, String authCode);
 
 }

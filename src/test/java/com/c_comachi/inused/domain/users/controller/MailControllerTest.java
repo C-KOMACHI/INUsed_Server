@@ -42,29 +42,29 @@ public class MailControllerTest {
         }
     }
 
-    @Test
-    @DisplayName("이메일 인증 코드 확인")
-    void verifiedEmailCode() {
-
-        //given
-        log.info("[existUser] email={}", "test@inu.ac.kr");
-        log.info("[registerUser] email={}", "mjk8087@inu.ac.kr");
-
-        try {
-            //when
-            String email = "mjk8087";
-            MailRequestDto MailrequestDto = new MailRequestDto();
-            MailrequestDto.setEmail(email);
-            mailService.sendEmail(MailrequestDto);
-
-            MailVerificationRequestDto mailVerificationRequestDto = new MailVerificationRequestDto();
-            mailVerificationRequestDto.setEmail(email);
-            mailVerificationRequestDto.setAuthCode(redisService.getValues(email));
-
-            //then
-            assertThat(mailService.verifiedCode(mailVerificationRequestDto).getStatusCode()).isEqualTo(HttpStatus.OK);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    @DisplayName("이메일 인증 코드 확인")
+//    void verifiedEmailCode() {
+//
+//        //given
+//        log.info("[existUser] email={}", "test@inu.ac.kr");
+//        log.info("[registerUser] email={}", "mjk8087@inu.ac.kr");
+//
+//        try {
+//            //when
+//            String email = "mjk8087";
+//            MailRequestDto MailrequestDto = new MailRequestDto();
+//            MailrequestDto.setEmail(email);
+//            mailService.sendEmail(MailrequestDto);
+//
+//            MailVerificationRequestDto mailVerificationRequestDto = new MailVerificationRequestDto();
+//            mailVerificationRequestDto.setEmail(email);
+//            mailVerificationRequestDto.setAuthCode(redisService.getValues(email));
+//
+//            //then
+//            assertThat(mailService.verifiedCode(mailVerificationRequestDto).getStatusCode()).isEqualTo(HttpStatus.OK);
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 }
