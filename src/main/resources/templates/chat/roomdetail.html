@@ -57,7 +57,8 @@
             roomName: '',
             message: '',
             messages: [],
-            token: ''
+            token: '',
+            nickname: ''
         },
         created() {
             this.roomId = localStorage.getItem('wschat.roomId');
@@ -70,7 +71,8 @@
                 }
             }).then(response => {
                 _this.token = response.data.token;
-                ws.connect({"token": _this.token}, function(frame) {
+                _this.nickname = response.data.nickname;
+                ws.connect({"token": _this.token, "nickname": _this.nickname}, function(frame) {
                     ws.subscribe("/sub/chat/room/"+_this.roomId, function(message) {
                         var recv = JSON.parse(message.body);
                         _this.recvMessage(recv);
@@ -84,7 +86,7 @@
         },
         methods: {
             sendMessage: function(type) {
-                ws.send("/pub/chat/message", {"token": this.token}, JSON.stringify({type:type, roomId:this.roomId, message:this.message}));
+                ws.send("/pub/chat/message", {"token": this.token, "nickname" : this.nickname}, JSON.stringify({type:type, roomId:this.roomId, message:this.message}));
                 this.message = '';
             },
             recvMessage: function(recv) {

@@ -23,10 +23,10 @@ public class StompHandler implements ChannelInterceptor {
         StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
         System.out.println("message:" + message);
         System.out.println("헤더 : " + message.getHeaders());
-        System.out.println("토큰" + accessor.getNativeHeader("Authorization"));
+        System.out.println("토큰" + accessor.getNativeHeader("token"));
 
         if (StompCommand.CONNECT == (accessor.getCommand())) {
-            tokenProvider.validateToken(Objects.requireNonNull(accessor.getFirstNativeHeader("Authorization")).substring(7));
+            tokenProvider.validateToken(Objects.requireNonNull(accessor.getFirstNativeHeader("token")));
         }
 
         return message;

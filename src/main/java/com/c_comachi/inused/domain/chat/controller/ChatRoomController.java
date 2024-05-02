@@ -29,6 +29,7 @@ public class ChatRoomController {
 
     private final ChatRoomRepository chatRoomRepository;
     private final TokenProvider tokenProvider;
+    private final UserRepository userRepository;
 
     @GetMapping("/rooms")
     @ResponseBody
@@ -52,10 +53,11 @@ public class ChatRoomController {
     @ResponseBody
     public LoginInfo getUserInfo(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email =  auth.getName();
+       // UserEntity user = userRepository.findByEmail(auth.getName()).get();
+        String nickname =  auth.getName();
         TokenDto tokenDto = tokenProvider.generateTokenDto(auth);
         String token = tokenDto.getAccessToken();
-        return LoginInfo.builder().email(email).token(token).build();
+        return LoginInfo.builder().nickname(nickname).token(token).build();
     }
 }
 
