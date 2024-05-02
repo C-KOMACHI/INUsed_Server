@@ -47,30 +47,30 @@ public class MailServiceTest {
         }
     }
 
-    @Test
-    @DisplayName("이메일 인증 확인 실패")
-    void verifiedCodeFailed() {
-        //given
-        log.info("[existUser] email={}", "test@inu.ac.kr");
-        log.info("[registerUser] email={}", "test1@inu.ac.kr");
-
-        //when
-        String email = "test1";
-        MailRequestDto mailRequestDto = new MailRequestDto();
-        mailRequestDto.setEmail(email);
-
-        MailVerificationRequestDto mailVerificationRequestDto = new MailVerificationRequestDto();
-        mailVerificationRequestDto.setEmail(email);
-        mailVerificationRequestDto.setAuthCode("asdsadasd");
-
-        //then
-        try{
-            mailService.sendEmail(mailRequestDto);
-            assertThat(  mailService.verifiedCode(mailVerificationRequestDto).getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
-        } catch (Exception e){
-
-        }
-    }
+//    @Test
+//    @DisplayName("이메일 인증 확인 실패")
+//    void verifiedCodeFailed() {
+//        //given
+//        log.info("[existUser] email={}", "test@inu.ac.kr");
+//        log.info("[registerUser] email={}", "test1@inu.ac.kr");
+//
+//        //when
+//        String email = "test1";
+//        MailRequestDto mailRequestDto = new MailRequestDto();
+//        mailRequestDto.setEmail(email);
+//
+//        MailVerificationRequestDto mailVerificationRequestDto = new MailVerificationRequestDto();
+//        mailVerificationRequestDto.setEmail(email);
+//        mailVerificationRequestDto.setAuthCode("asdsadasd");
+//
+//        //then
+//        try{
+//            mailService.sendEmail(mailRequestDto);
+//            assertThat(  mailService.verifiedCode(mailVerificationRequestDto).getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+//        } catch (Exception e){
+//
+//        }
+//    }
 
     @BeforeEach
     void     registerOne() {

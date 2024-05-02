@@ -37,7 +37,7 @@ public class WebSecurityConfig {
         // CSRF 설정 Disable
         httpSecurity.csrf().disable()
 
-                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(corsFilter, CorsFilter.class)
 
                 // exception handling 할 때 우리가 만든 클래스를 추가
                 .exceptionHandling()

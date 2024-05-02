@@ -18,12 +18,15 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE"));
-        config.addAllowedOrigin("*");
+        config.addAllowedOrigin("http://localhost:5173");
+        config.addAllowedOrigin("https://inused.store");
+        config.addAllowedOrigin("http://127.0.0.1:5173");
         config.addAllowedHeader("*");
+        config.addExposedHeader("*");
         config.addExposedHeader("Authorization");
         config.addExposedHeader("Refresh");
 
-        source.registerCorsConfiguration("/api/**", config);
+        source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
 }

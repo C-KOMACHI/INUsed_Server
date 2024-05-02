@@ -42,8 +42,9 @@ public class MailController {
     })
     @Operation(summary = "mail 인증 확인")
     @GetMapping("/verifications")
-    public ResponseEntity<? super EmailCheckResponseDto> verificationEmail(@RequestBody @Valid MailVerificationRequestDto requestBody) {
-        ResponseEntity<? super EmailCheckResponseDto> response = mailService.verifiedCode(requestBody);
+    public ResponseEntity<? super EmailCheckResponseDto> verificationEmail(@RequestParam(value = "email") String email,
+                                                                           @RequestParam(value = "authCode") String authCode) {
+        ResponseEntity<? super EmailCheckResponseDto> response = mailService.verifiedCode(email, authCode);
         return response;
     }
 
