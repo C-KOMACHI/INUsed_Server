@@ -1,6 +1,6 @@
 package com.c_comachi.inused.global.service;
 
-import com.c_comachi.inused.domain.chat.moel.ChatMessage;
+import com.c_comachi.inused.domain.chat.entity.ChatMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;

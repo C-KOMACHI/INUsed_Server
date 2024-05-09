@@ -1,6 +1,6 @@
 package com.c_comachi.inused.global.service;
 
-import com.c_comachi.inused.domain.chat.moel.ChatMessage;
+import com.c_comachi.inused.domain.chat.entity.ChatMessage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
