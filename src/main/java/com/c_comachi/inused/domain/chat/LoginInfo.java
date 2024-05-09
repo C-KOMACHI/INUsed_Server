@@ -5,12 +5,12 @@ import lombok.Getter;
 
 @Getter
 public class LoginInfo {
-    private String nickname;
+    private String email;
     private String token;
 
     @Builder
-    public LoginInfo(String nickname, String token){
-        this.nickname = nickname;
+    public LoginInfo(String email, String token){
+        this.email = email;
         this.token = token;
     }
 }
