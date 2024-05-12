@@ -43,7 +43,7 @@ public class ChatRoomController {
     @Operation(summary = "채팅방 조회 (전체 조회)")
     @GetMapping("/rooms")
     public ResponseEntity<? super ViewAllChatRoomResponseDto> ViewAllChatroom(@AuthenticationPrincipal UserDetails user) {
-        ResponseEntity<? super ViewAllChatRoomResponseDto> response = chatRoomService.findAllRoom(user.getUsername());
+        ResponseEntity<? super ViewAllChatRoomResponseDto> response = chatRoomService.findAllRoom(user);
         return response;
     }
 

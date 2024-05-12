@@ -33,8 +33,11 @@ public class ChatRoomService {
     //private HashOperations<String, String, ChatRoom> opsHashChatRoom;
 
     // 모든 채팅방 조회
-    public ResponseEntity<? super ViewAllChatRoomResponseDto> findAllRoom(String email) {
-        UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
+    public ResponseEntity<? super ViewAllChatRoomResponseDto> findAllRoom(UserDetails userDetails) {
+        if(userDetails == null){
+            throw new AuthenticationException(ErrorCode.EXPIRED_TOKEN);
+        }
+        UserEntity user = userRepository.findByEmail(userDetails.getUsername()).orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
         List<ChatRoom> chatRooms = chatRoomRepository.findAllByOrderByUserId(user);
 
         return ViewAllChatRoomResponseDto.success(chatRooms);
