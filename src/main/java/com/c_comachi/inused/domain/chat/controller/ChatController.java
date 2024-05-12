@@ -2,16 +2,10 @@ package com.c_comachi.inused.domain.chat.controller;
 
 
 import com.c_comachi.inused.domain.chat.dto.request.ChatMessageRequestDto;
-import com.c_comachi.inused.domain.chat.entity.ChatMessage;
 import com.c_comachi.inused.domain.chat.service.ChatMessageService;
-import com.c_comachi.inused.domain.users.entity.UserEntity;
-import com.c_comachi.inused.domain.users.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 
 @RequiredArgsConstructor

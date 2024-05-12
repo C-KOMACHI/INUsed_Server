@@ -1,24 +1,17 @@
 package com.c_comachi.inused.domain.chat.entity;
 
 
+import com.c_comachi.inused.domain.post.entity.PostEntity;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
-import com.c_comachi.inused.global.entity.BaseTimeEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import java.time.LocalDateTime;
-import java.util.Date;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -39,6 +32,10 @@ public class ChatRoom {
     @JoinColumn(name = "receiver_id")
     private UserEntity receiver;
 
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private PostEntity post;
+
     @CreatedDate
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -48,9 +45,10 @@ public class ChatRoom {
     private LocalDateTime lastModifiedTime;
 
     @Builder
-    public ChatRoom(UserEntity sender, UserEntity receiver) {
+    public ChatRoom(UserEntity sender, UserEntity receiver, PostEntity post) {
         this.sender = sender;
         this.receiver = receiver;
+        this.post = post;
         this.createdAt = LocalDateTime.now();
         this.lastModifiedTime = LocalDateTime.now();
     }

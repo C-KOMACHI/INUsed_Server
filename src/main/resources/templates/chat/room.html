@@ -63,7 +63,7 @@
           // 서버 응답에서 채팅방 정보를 받아와서 chatrooms 배열에 할당
           this.chatrooms = response.data.chatRooms.map(room => ({
             roomId: room.id,
-            name: room.receiver.nickname // receiver의 nickname을 채팅방 이름으로 사용
+            name: room.post.title // 글의 제목을 채팅방 이름으로 사용
           }));
         }).catch(error => {
           console.error("Error fetching chat rooms: ", error);

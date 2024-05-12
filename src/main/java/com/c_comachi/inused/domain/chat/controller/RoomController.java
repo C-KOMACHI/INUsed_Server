@@ -20,7 +20,7 @@ public class RoomController {
     }
 
     @GetMapping("room/enter/{roomId}")
-    public String roomDetail(Model model, @PathVariable String roomId) {
+    public String roomDetail(Model model, @PathVariable(value = "roomId") String roomId) {
         model.addAttribute("roomId", roomId);
         return "/chat/roomdetail";
     }
