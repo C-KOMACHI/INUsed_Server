@@ -23,4 +23,5 @@ public class ChatController {
         chatMessageService.sendMessage(chatMessageRequestDto, email);
         // Websocket에 발행된 메시지를 redis로 발행(publish)
     }
+
 }

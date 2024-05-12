@@ -61,9 +61,9 @@
             email: ''
         },
         created() {
-            this.roomId = localStorage.getItem('wschat.roomId');
-            this.roomName = localStorage.getItem('wschat.roomName');
             var _this = this;
+            _this.roomId = localStorage.getItem('wschat.roomId');
+            this.roomName = localStorage.getItem('wschat.roomName');
             _this.token = localStorage.getItem('accessToken');
             axios.get('/chat/user', {
                 headers: {
@@ -72,6 +72,9 @@
             }).then(response => {
                 _this.token = response.data.token;
                 _this.email = response.data.email;
+                // 이전 메시지 불러오기
+                _this.getMessagesFromDatabase();
+
                 ws.connect({"token": _this.token, "email": _this.email}, function(frame) {
                     ws.subscribe("/sub/chat/room/"+_this.roomId, function(message) {
                         var recv = JSON.parse(message.body);
@@ -85,6 +88,19 @@
             });
         },
         methods: {
+            // 데이터베이스에서 이전 메시지 가져오기
+            getMessagesFromDatabase: function() {
+                axios.get('/chat/chats', {
+                    params: {
+                        roomId: this.roomId
+                    }
+                }).then(response => {
+                    this.messages = response.data; // 받은 메시지를 화면에 표시
+                }).catch(error => {
+                    console.error('이전 메시지를 가져오는 동안 오류가 발생했습니다:', error);
+                });
+            },
+
             sendMessage: function(type) {
                 ws.send("/pub/chat/message", {"token": this.token, "email" : this.email}, JSON.stringify({type:type, roomId:this.roomId, message:this.message}));
                 this.message = '';

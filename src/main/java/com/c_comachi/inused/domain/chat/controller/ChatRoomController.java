@@ -3,7 +3,9 @@ package com.c_comachi.inused.domain.chat.controller;
 import com.c_comachi.inused.domain.chat.LoginInfo;
 import com.c_comachi.inused.domain.chat.dto.request.CreateChatRoomRequestDto;
 import com.c_comachi.inused.domain.chat.dto.response.ViewAllChatRoomResponseDto;
+import com.c_comachi.inused.domain.chat.entity.ChatMessage;
 import com.c_comachi.inused.domain.chat.entity.ChatRoom;
+import com.c_comachi.inused.domain.chat.repository.ChatMessageRepository;
 import com.c_comachi.inused.domain.chat.service.ChatRoomService;
 import com.c_comachi.inused.domain.users.dto.response.TokenDto;
 import com.c_comachi.inused.domain.users.jwt.TokenProvider;
@@ -21,6 +23,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/chat")
@@ -28,6 +32,7 @@ public class ChatRoomController {
 
     private final ChatRoomService chatRoomService;
     private final TokenProvider tokenProvider;
+    private final ChatMessageRepository chatMessageRepository;
 
 //    @GetMapping("/rooms")
 //    @ResponseBody
@@ -72,7 +77,14 @@ public class ChatRoomController {
         String email =  auth.getName();
         TokenDto tokenDto = tokenProvider.generateTokenDto(auth);
         String token = tokenDto.getAccessToken();
-        return LoginInfo.builder().email(email).token(token).build();
+        return LoginInfo.builder().email(email).build();
+    }
+
+    @GetMapping("/chats")
+    @ResponseBody
+    public List<ChatMessage> getChats(@RequestParam(value = "roomId") Long roomId){
+        return chatMessageRepository.findAllByRoomId(roomId);
+
     }
 }
 
