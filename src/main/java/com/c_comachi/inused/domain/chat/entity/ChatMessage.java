@@ -36,4 +36,5 @@ public class ChatMessage {
         this.roomId = roomId;
         this.createdTime = ZonedDateTime.now().format(DateTimeFormatter.ISO_ZONED_DATE_TIME);
     }
+
 }

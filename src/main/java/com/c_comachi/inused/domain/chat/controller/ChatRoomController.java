@@ -72,12 +72,12 @@ public class ChatRoomController {
 
     @GetMapping("/user")
     @ResponseBody
-    public LoginInfo getUserInfo(){
+    public LoginInfo getUserInfo(@AuthenticationPrincipal UserDetails user){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email =  auth.getName();
         TokenDto tokenDto = tokenProvider.generateTokenDto(auth);
         String token = tokenDto.getAccessToken();
-        return LoginInfo.builder().email(email).build();
+        return LoginInfo.builder().email(email).token(token).build();
     }
 
     @GetMapping("/chats")

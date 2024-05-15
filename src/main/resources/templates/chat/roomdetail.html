@@ -48,7 +48,6 @@
     // websocket & stomp initialize
     var sock = new SockJS("/ws-stomp");
     var ws = Stomp.over(sock);
-    var reconnect = 0;
     // vue.js
     var vm = new Vue({
         el: '#app',
@@ -80,7 +79,7 @@
                         var recv = JSON.parse(message.body);
                         _this.recvMessage(recv);
                     });
-                    //_this.sendMessage('ENTER');
+                    _this.sendMessage('ENTER');
                 }, function(error) {
                     alert("서버 연결에 실패 하였습니다. 다시 접속해 주십시요.");
                     location.href="/chat/room";
@@ -88,6 +87,11 @@
             });
         },
         methods: {
+            sendMessage: function(type) {
+                ws.send("/pub/chat/message", {"token": this.token, "email" : this.email}, JSON.stringify({type:type, roomId:this.roomId, message:this.message}));
+                this.message = '';
+            },
+
             // 데이터베이스에서 이전 메시지 가져오기
             getMessagesFromDatabase: function() {
                 axios.get('/chat/chats', {
@@ -99,11 +103,6 @@
                 }).catch(error => {
                     console.error('이전 메시지를 가져오는 동안 오류가 발생했습니다:', error);
                 });
-            },
-
-            sendMessage: function(type) {
-                ws.send("/pub/chat/message", {"token": this.token, "email" : this.email}, JSON.stringify({type:type, roomId:this.roomId, message:this.message}));
-                this.message = '';
             },
             recvMessage: function(recv) {
                 this.messages.unshift({"type":recv.type,"sender":recv.sender,"message":recv.message})
