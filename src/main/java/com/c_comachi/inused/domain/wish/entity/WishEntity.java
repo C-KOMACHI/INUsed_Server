@@ -1,15 +1,12 @@
 package com.c_comachi.inused.domain.wish.entity;
 
-import com.c_comachi.inused.domain.users.entity.Authority;
+import com.c_comachi.inused.domain.post.entity.PostEntity;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -27,10 +24,10 @@ public class WishEntity {
 
     @ManyToOne
     @JoinColumn(name = "post_id")
-    private UserEntity post;
+    private PostEntity post;
 
     @Builder
-    public WishEntity(Long id, UserEntity user, UserEntity post){
+    public WishEntity(Long id, UserEntity user, PostEntity post){
         this.id = id;
         this.user = user;
         this.post = post;
