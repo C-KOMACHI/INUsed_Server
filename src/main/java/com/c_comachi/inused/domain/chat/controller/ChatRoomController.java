@@ -12,6 +12,7 @@ import com.c_comachi.inused.domain.users.dto.response.TokenDto;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
 import com.c_comachi.inused.domain.users.jwt.TokenProvider;
 import com.c_comachi.inused.domain.users.repository.UserRepository;
+import com.c_comachi.inused.global.dto.ResponseDto;
 import com.c_comachi.inused.global.exception.EntityNotFoundException;
 import com.c_comachi.inused.global.exception.ErrorCode;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,6 +20,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/chat")
+@Tag(name = "ChatRoom" , description = "ChatRoom 관련 API 모음")
 public class ChatRoomController {
 
     private final ChatRoomService chatRoomService;
@@ -61,6 +64,7 @@ public class ChatRoomController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "채팅방 만들기 성공 (받는 사람 userId를 포함시켜주세요)")
     })
+    @Operation(summary = "채팅방 만들기")
     @PostMapping("/room")
     public ChatRoom createRoom(@AuthenticationPrincipal UserDetails user, @RequestBody @Valid CreateChatRoomRequestDto requestDto) {
         return chatRoomService.createChatRoom(user, requestDto);
@@ -77,22 +81,32 @@ public class ChatRoomController {
     }
 
     @GetMapping("/user")
+    @Operation(summary = "유저 정보 추출 (nickname 및 token)")
     @ResponseBody
     public LoginInfo getUserInfo(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email =  auth.getName();
         UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
-        email = user.getNickname();
+        String nickname = user.getNickname();
         TokenDto tokenDto = tokenProvider.generateTokenDto(auth);
         String token = tokenDto.getAccessToken();
-        return LoginInfo.builder().email(email).token(token).build();
+        return LoginInfo.builder().nickname(nickname).token(token).build();
     }
 
     @GetMapping("/chats")
+    @Operation(summary = "채팅 내역 조회")
     @ResponseBody
     public List<ChatMessage> getChats(@RequestParam(value = "roomId") Long roomId){
         return chatMessageRepository.findAllByRoomId(roomId);
 
+    }
+
+    @DeleteMapping("/room/{roomId}")
+    @Operation(summary = "채팅방 삭제")
+    @ResponseBody
+    public ResponseEntity<ResponseDto> deleteChatRoom(@PathVariable(value = "roomId") Long roomId){
+       chatRoomService.deleteChatRoom(roomId);
+       return ResponseDto.suc();
     }
 }
 
