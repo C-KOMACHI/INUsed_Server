@@ -21,6 +21,7 @@ public class CorsConfig {
         config.addAllowedOrigin("http://localhost:5173");
         config.addAllowedOrigin("https://inused.store");
         config.addAllowedOrigin("https://www.inused.store");
+        config.addAllowedHeader("https://api.inused.store");
         config.addAllowedHeader("*");
         config.addExposedHeader("*");
         config.addExposedHeader("Authorization");
