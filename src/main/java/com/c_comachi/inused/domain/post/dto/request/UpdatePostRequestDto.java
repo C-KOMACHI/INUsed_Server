@@ -23,6 +23,8 @@ public class UpdatePostRequestDto {
     @NotBlank
     private String content;
 
+    private String imageUrl;
+
     @NotNull
     private Integer price;
 
@@ -31,12 +33,13 @@ public class UpdatePostRequestDto {
 
     private Status productState;
 
-    public UpdatePostRequestDto(String title, String content, Integer price, Long categoryId, Status productState) {
+    public UpdatePostRequestDto(String title, String content, Integer price, Long categoryId, Status productState, String imageUrl) {
         this.title = title;
         this.content = content;
         this.price = price;
         this.categoryId = categoryId;
         this.productState = productState;
+        this.imageUrl = imageUrl;
     }
 
     public PostEntity updatePost(CategoryRepository categoryRepository) {
@@ -48,9 +51,10 @@ public class UpdatePostRequestDto {
                 .price(price)
                 .category(category)
                 .productState(Status.RESERVED)
+                .imageUrl(imageUrl)
                 .updatedAt(LocalDateTime.now())
                 //끌올 설정
-                .lastReposting(null)
+                .lastReposting(LocalDateTime.now())
                 .build();
     }
 }
