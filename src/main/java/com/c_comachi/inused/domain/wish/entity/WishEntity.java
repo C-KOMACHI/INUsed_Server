@@ -1,6 +1,7 @@
 package com.c_comachi.inused.domain.wish.entity;
 
 import com.c_comachi.inused.domain.post.entity.PostEntity;
+import com.c_comachi.inused.domain.users.entity.Authority;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

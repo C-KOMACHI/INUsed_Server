@@ -30,6 +30,11 @@ public class PostEntity {
     @Column(nullable = false)
     private Integer price;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
+    private String tag;
+
     @Column(name = "wish_count",nullable = false)
     private Integer wishCount;
 
@@ -62,7 +67,7 @@ public class PostEntity {
     @Builder
     public PostEntity(String title, String content, Integer price, Integer wishCount,
                       Integer viewCount, Status productState, LocalDateTime createdAt, LocalDateTime updatedAt,
-                      LocalDateTime lastReposting, UserEntity user, CategoryEntity category) {
+                      LocalDateTime lastReposting, UserEntity user, CategoryEntity category, String imageUrl, String tag) {
         this.title = title;
         this.content = content;
         this.price = price;
@@ -74,6 +79,8 @@ public class PostEntity {
         this.lastReposting = lastReposting;
         this.user = user;
         this.category = category;
+        this.imageUrl = imageUrl;
+        this.tag = tag;
     }
 
     public void setViewCount(Integer viewCount) {
@@ -91,6 +98,7 @@ public class PostEntity {
         this.content = post.getContent();
         this.price = post.getPrice();
         this.category = category;
+        this.imageUrl = post.getImageUrl();
         this.productState = post.getProductState();
         this.updatedAt = LocalDateTime.now();
     }

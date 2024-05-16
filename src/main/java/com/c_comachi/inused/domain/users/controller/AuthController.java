@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/auth")
+@CrossOrigin
 public class AuthController {
 
     private final AuthService authService;
@@ -86,8 +87,8 @@ public class AuthController {
     })
     @Operation(summary = "닉네임 중복 확인")
     @GetMapping("/nickname-check")
-    public ResponseEntity<? super RegisterResponseDto> nicknameCheck(@RequestBody @Valid NicknameRequestDto requestBody) {
-        ResponseEntity<? super RegisterResponseDto> response = authService.nicknameCheck(requestBody);
+    public ResponseEntity<? super RegisterResponseDto> nicknameCheck(@RequestParam(value = "nickname") String nickname) {
+        ResponseEntity<? super RegisterResponseDto> response = authService.nicknameCheck(nickname);
         return response;
     }
 

@@ -90,6 +90,10 @@ public class MailServiceImplement implements MailService {
     public ResponseEntity<? super EmailCheckResponseDto> sendEmail(MailRequestDto requestBody) throws MessagingException, UnsupportedEncodingException {
         String email = requestBody.getEmail();
 
+        if(email.isEmpty()){
+            return EmailCheckResponseDto.validationFailed();
+        }
+
         // 이메일 존재하면 return 중복 이메일
         if(userRepository.existsByEmail(email+EMAIL_ADDRESS)){
             return EmailCheckResponseDto.duplicateEmail();
@@ -105,9 +109,9 @@ public class MailServiceImplement implements MailService {
     }
 
     @Override
-    public ResponseEntity<? super EmailCheckResponseDto> verifiedCode(MailVerificationRequestDto requestBody){
-        String redisAuthCode = redisService.getValues(requestBody.getEmail());
-        boolean authResult = redisService.checkExistsValue(redisAuthCode) && redisAuthCode.equals(requestBody.getAuthCode());
+    public ResponseEntity<? super EmailCheckResponseDto> verifiedCode(String email, String authCode){
+        String redisAuthCode = redisService.getValues(email);
+        boolean authResult = redisService.checkExistsValue(redisAuthCode) && redisAuthCode.equals(authCode);
 
         if(!authResult){
             return EmailCheckResponseDto.validationFailed();

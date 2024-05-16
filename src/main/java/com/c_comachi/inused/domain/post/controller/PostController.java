@@ -19,6 +19,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
@@ -35,8 +38,8 @@ public class PostController {
     })
     @Operation(summary = "게시글 생성")
     @PostMapping("/create")
-    public ResponseEntity<? super CreatePostResponseDto> createPost(@RequestBody @Valid CreatePostRequestDto requestsDto, Authentication authentication) {
-        ResponseEntity<? super CreatePostResponseDto> response = postService.createPost(authentication.getName(), requestsDto);
+    public ResponseEntity<? super CreatePostResponseDto> createPost(@RequestBody @Valid CreatePostRequestDto requestsDto, @AuthenticationPrincipal UserDetails user) {
+        ResponseEntity<? super CreatePostResponseDto> response = postService.createPost(user.getUsername(), requestsDto);
         return response;
     }
 
@@ -86,8 +89,18 @@ public class PostController {
     })
     @Operation(summary = "게시물 조회(전체 조회)")
     @GetMapping("")
-    public ResponseEntity<? super AllGetPostResponseDto> viewNotice(){
-        ResponseEntity<? super AllGetPostResponseDto> response = postService.getAllPost();
+    public ResponseEntity<? super AllGetPostResponseDto> viewNotice(@AuthenticationPrincipal UserDetails user){
+        ResponseEntity<? super AllGetPostResponseDto> response = postService.getAllPost(user);
+        return response;
+    }
+
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "검색 성공", content = @Content(schema = @Schema(implementation = AllGetPostResponseDto.class))),
+    })
+    @Operation(summary = "게시물 검색")
+    @GetMapping("/search")
+    public ResponseEntity<? super AllGetPostResponseDto> searchPost(@AuthenticationPrincipal UserDetails user,@RequestParam(value = "search") String search){
+        ResponseEntity<? super AllGetPostResponseDto> response = postService.searchPost(user, search);
         return response;
     }
 }

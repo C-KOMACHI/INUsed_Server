@@ -149,4 +149,23 @@ public class TokenProvider {
         }
         return null;
     }
+
+    public String getEmailFromToken(String accessToken){
+        if (StringUtils.hasText(accessToken) && accessToken.startsWith(BEARER_PREFIX)) {
+            accessToken = accessToken.split(" ")[1].trim();
+        }
+
+        String email = getClaims(accessToken).getBody().getId();
+        return email;
+    }
+
+    private Jws<Claims> getClaims(String accessToken){
+        try {
+            return Jwts.parser().setSigningKey(key).parseClaimsJws(accessToken);
+        } catch (IllegalArgumentException ex){
+            log.error("JWT claims string is empty.");
+            throw ex;
+        }
+    }
+
 }
