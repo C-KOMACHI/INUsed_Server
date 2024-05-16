@@ -20,9 +20,9 @@ public class ChatController {
      * websocket "/pub/chat/message"로 들어오는 메시징을 처리한다.
      */
     @MessageMapping("/chat/message")
-    public void message(@Header(value = "email") String email, ChatMessageRequestDto chatMessageRequestDto) {
+    public void message(@Header(value = "nickname") String nickname, ChatMessageRequestDto chatMessageRequestDto) {
 
-        chatMessageService.sendMessage(chatMessageRequestDto, email);
+        chatMessageService.sendMessage(chatMessageRequestDto, nickname);
         // Websocket에 발행된 메시지를 MongoDB 로 발행
     }
 

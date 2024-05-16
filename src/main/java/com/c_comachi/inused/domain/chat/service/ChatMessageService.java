@@ -21,9 +21,7 @@ public class ChatMessageService {
     private final ChannelTopic channelTopic;
     private final ChatMessageRepository chatMessageRepository;
 
-    public void sendMessage(ChatMessageRequestDto chatMessageRequestDto, String email){
-        //UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
-        String nickname = email;
+    public void sendMessage(ChatMessageRequestDto chatMessageRequestDto, String nickname){
         chatMessageRequestDto.setSender(nickname);
 
         ChatMessage chatMessage = chatMessageRequestDto.toChatMessage();

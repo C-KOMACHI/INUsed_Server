@@ -4,6 +4,7 @@ import com.c_comachi.inused.domain.chat.dto.request.CreateChatRoomRequestDto;
 import com.c_comachi.inused.domain.chat.dto.response.ViewAllChatRoomResponseDto;
 import com.c_comachi.inused.domain.chat.dto.response.ViewChatRoomResponseDto;
 import com.c_comachi.inused.domain.chat.entity.ChatRoom;
+import com.c_comachi.inused.domain.chat.repository.ChatMessageRepository;
 import com.c_comachi.inused.domain.chat.repository.ChatRoomRepository;
 import com.c_comachi.inused.domain.post.entity.PostEntity;
 import com.c_comachi.inused.domain.post.repository.PostRepository;
@@ -14,6 +15,7 @@ import com.c_comachi.inused.global.exception.EntityNotFoundException;
 import com.c_comachi.inused.global.exception.ErrorCode;
 import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -40,6 +42,8 @@ public class ChatRoomService {
     private final PostRepository postRepository;
     private final ChatRoomRepository chatRoomRepository;
     private final UserRepository userRepository;
+    @Autowired
+    private ChatMessageRepository chatMessageRepository;
 
     // 모든 채팅방 조회
     public ResponseEntity<? super ViewAllChatRoomResponseDto> findAllRoom(UserDetails userDetails) {
@@ -76,6 +80,11 @@ public class ChatRoomService {
         ChatRoom chatRoom = new ChatRoom(sender, receiver, post);
         chatRoomRepository.save(chatRoom);
         return chatRoom;
+    }
+
+    public void deleteChatRoom(Long RoomId){
+        chatRoomRepository.deleteById(RoomId);
+        chatMessageRepository.deleteAllByRoomId(RoomId);
     }
 
     // 유저가 입장한 채팅방ID와 유저 세션ID 맵핑 정보 저장

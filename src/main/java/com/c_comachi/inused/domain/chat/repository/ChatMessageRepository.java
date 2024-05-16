@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 public interface ChatMessageRepository extends MongoRepository<ChatMessage, String> {
     List<ChatMessage> findAllByRoomId(Long roomId);
 
+    void deleteAllByRoomId(Long roomId);
+
     //ChatMessage findTopByRoomNumberOrderByCreatedTimeDesc(Long roomNumber);
 
     //List<ChatMessage> findAllByRoomNumber(Long roomNumber);
