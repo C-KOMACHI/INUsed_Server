@@ -22,14 +22,13 @@ public class ChatMessageService {
     private final ChatMessageRepository chatMessageRepository;
 
     public void sendMessage(ChatMessageRequestDto chatMessageRequestDto, String email){
-        UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
-        String nickname = user.getNickname();
+        //UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
+        String nickname = email;
         chatMessageRequestDto.setSender(nickname);
 
         ChatMessage chatMessage = chatMessageRequestDto.toChatMessage();
 
         chatMessageRepository.save(chatMessage);
-
         redisTemplate.convertAndSend(channelTopic.getTopic(), chatMessage);
     }
 }

@@ -14,12 +14,12 @@ public class RoomController {
     public String login(){
         return "login";
     }
-    @GetMapping("room")
+    @GetMapping("/room")
     public String rooms(Model model) {
-        return "chat/room";
+        return "/chat/room";
     }
 
-    @GetMapping("room/enter/{roomId}")
+    @GetMapping("/room/enter/{roomId}")
     public String roomDetail(Model model, @PathVariable(value = "roomId") String roomId) {
         model.addAttribute("roomId", roomId);
         return "/chat/roomdetail";

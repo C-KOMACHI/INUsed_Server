@@ -19,6 +19,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
@@ -35,8 +37,8 @@ public class PostController {
     })
     @Operation(summary = "게시글 생성")
     @PostMapping("/create")
-    public ResponseEntity<? super CreatePostResponseDto> createPost(@RequestBody @Valid CreatePostRequestDto requestsDto, Authentication authentication) {
-        ResponseEntity<? super CreatePostResponseDto> response = postService.createPost(authentication.getName(), requestsDto);
+    public ResponseEntity<? super CreatePostResponseDto> createPost(@RequestBody @Valid CreatePostRequestDto requestsDto, @AuthenticationPrincipal UserDetails user) {
+        ResponseEntity<? super CreatePostResponseDto> response = postService.createPost(user.getUsername(), requestsDto);
         return response;
     }
 

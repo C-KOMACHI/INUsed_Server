@@ -21,7 +21,7 @@ public class ChatController {
     public void message(@Header(value = "email") String email, ChatMessageRequestDto chatMessageRequestDto) {
 
         chatMessageService.sendMessage(chatMessageRequestDto, email);
-        // Websocket에 발행된 메시지를 redis로 발행(publish)
+        // Websocket에 발행된 메시지를 MongoDB 로 발행
     }
 
 }

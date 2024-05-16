@@ -61,9 +61,10 @@
         },
         created() {
             var _this = this;
-            _this.roomId = localStorage.getItem('wschat.roomId');
+            this.roomId = localStorage.getItem('wschat.roomId');
             this.roomName = localStorage.getItem('wschat.roomName');
-            _this.token = localStorage.getItem('accessToken');
+            this.token = localStorage.getItem('accessToken');
+
             axios.get('/chat/user', {
                 headers: {
                     'Authorization' : _this.token
@@ -79,7 +80,7 @@
                         var recv = JSON.parse(message.body);
                         _this.recvMessage(recv);
                     });
-                    _this.sendMessage('ENTER');
+                    //_this.sendMessage('ENTER');
                 }, function(error) {
                     alert("서버 연결에 실패 하였습니다. 다시 접속해 주십시요.");
                     location.href="/chat/room";
@@ -91,7 +92,6 @@
                 ws.send("/pub/chat/message", {"token": this.token, "email" : this.email}, JSON.stringify({type:type, roomId:this.roomId, message:this.message}));
                 this.message = '';
             },
-
             // 데이터베이스에서 이전 메시지 가져오기
             getMessagesFromDatabase: function() {
                 axios.get('/chat/chats', {
