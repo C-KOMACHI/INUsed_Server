@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
@@ -88,8 +89,8 @@ public class PostController {
     })
     @Operation(summary = "게시물 조회(전체 조회)")
     @GetMapping("")
-    public ResponseEntity<? super AllGetPostResponseDto> viewNotice(){
-        ResponseEntity<? super AllGetPostResponseDto> response = postService.getAllPost();
+    public ResponseEntity<? super AllGetPostResponseDto> viewNotice(@AuthenticationPrincipal UserDetails user){
+        ResponseEntity<? super AllGetPostResponseDto> response = postService.getAllPost(user);
         return response;
     }
 }

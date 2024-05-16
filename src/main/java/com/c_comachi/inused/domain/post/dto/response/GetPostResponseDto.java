@@ -9,22 +9,26 @@ import com.c_comachi.inused.global.common.ResponseCode;
 import com.c_comachi.inused.global.common.ResponseMessage;
 import com.c_comachi.inused.global.dto.ResponseDto;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 public class GetPostResponseDto extends ResponseDto {
     private PostEntity post;
+    private boolean check_liked;
 
-    private GetPostResponseDto(PostEntity post){
+    private GetPostResponseDto(PostEntity post, boolean check_liked){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.post = post;
+        this.check_liked = check_liked;
     }
 
-    public static ResponseEntity<GetPostResponseDto> success(PostEntity post) {
-        GetPostResponseDto result = new GetPostResponseDto(post);
+    public static ResponseEntity<GetPostResponseDto> success(PostEntity post, boolean check_liked) {
+        GetPostResponseDto result = new GetPostResponseDto(post, check_liked);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 

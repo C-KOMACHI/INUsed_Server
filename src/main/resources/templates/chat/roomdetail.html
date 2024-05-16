@@ -75,6 +75,7 @@
                 // 이전 메시지 불러오기
                 _this.getMessagesFromDatabase();
 
+                // 웹 소켓 연결
                 ws.connect({"token": _this.token, "nickname": _this.nickname}, function(frame) {
                     ws.subscribe("/sub/chat/room/"+_this.roomId, function(message) {
                         var recv = JSON.parse(message.body);
