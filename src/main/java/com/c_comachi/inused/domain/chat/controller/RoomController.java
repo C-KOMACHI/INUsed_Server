@@ -16,13 +16,13 @@ public class RoomController {
     }
     @GetMapping("/room")
     public String rooms(Model model) {
-        return "/chat/room";
+        return "/room";
     }
 
     @GetMapping("/room/enter/{roomId}")
     public String roomDetail(Model model, @PathVariable(value = "roomId") String roomId) {
         model.addAttribute("roomId", roomId);
-        return "/chat/roomdetail";
+        return "/roomdetail";
     }
 
 }
