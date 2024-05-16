@@ -1,7 +1,6 @@
 package com.c_comachi.inused.domain.post.service;
 
 import com.c_comachi.inused.domain.post.dto.MainPostInfo;
-import com.c_comachi.inused.domain.post.dto.PostInfo;
 import com.c_comachi.inused.domain.post.dto.request.CreatePostRequestDto;
 import com.c_comachi.inused.domain.post.dto.request.UpdatePostRequestDto;
 import com.c_comachi.inused.domain.post.dto.response.*;
@@ -10,7 +9,6 @@ import com.c_comachi.inused.domain.post.repository.PostRepository;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
 import com.c_comachi.inused.domain.users.repository.UserRepository;
 import com.c_comachi.inused.domain.wish.repository.WishRepository;
-import com.c_comachi.inused.global.dto.ResponseDto;
 import com.c_comachi.inused.global.exception.EntityNotFoundException;
 import com.c_comachi.inused.global.common.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -40,11 +38,9 @@ public class PostService {
         post.setViewCount(post.getViewCount()+1);
         postsRepository.save(post);
         boolean check_liked = wishRepository.existsByUserAndPost(post.getUser().getEmail(), postId);
-        MainPostInfo mainPostInfo = new MainPostInfo(post);
+        MainPostInfo mainPostInfo = new MainPostInfo(post, check_liked);
 
-        PostInfo postInfo = new PostInfo(mainPostInfo, check_liked);
-
-        return GetPostResponseDto.success(postInfo);
+        return GetPostResponseDto.success(mainPostInfo);
     }
 
     @Transactional
@@ -82,33 +78,29 @@ public class PostService {
 
     public ResponseEntity<? super AllGetPostResponseDto> getAllPost(UserDetails user){
         List<PostEntity> posts = postsRepository.findAllByOrderByLastRepostingDesc();
-        List<PostInfo> postInfos = new ArrayList<>();
+        List<MainPostInfo> mainPostInfos = new ArrayList<>();
 
 
         for (PostEntity post : posts) {
             boolean checkLiked = wishRepository.existsByUserAndPost(user.getUsername(), post.getId());
-            PostInfo postInfo = new PostInfo();
-            MainPostInfo mainPostInfo = new MainPostInfo(post);
-            postInfo.setPost(mainPostInfo);
-            postInfo.setCheckLiked(checkLiked);
-            postInfos.add(postInfo);
+            MainPostInfo mainPostInfo = new MainPostInfo(post,checkLiked);
+            mainPostInfos.add(mainPostInfo);
         }
 
-        return AllGetPostResponseDto.success(postInfos);
+        return AllGetPostResponseDto.success(mainPostInfos);
     }
 
     public ResponseEntity<? super AllGetPostResponseDto> searchPost(UserDetails user,String search){
         List<PostEntity> posts = postsRepository.findAllByTitleContainingOrContentContainingOrderByLastRepostingDesc(search, search);
-        List<PostInfo> postInfos = new ArrayList<>();
+        List<MainPostInfo> mainPostInfos = new ArrayList<>();
 
         for (PostEntity post : posts) {
             boolean checkLiked = wishRepository.existsByUserAndPost(user.getUsername(), post.getId());
-            MainPostInfo mainPostInfo = new MainPostInfo(post);
-            PostInfo postInfo = new PostInfo(mainPostInfo, checkLiked);
-            postInfos.add(postInfo);
+            MainPostInfo mainPostInfo = new MainPostInfo(post, checkLiked);
+            mainPostInfos.add(mainPostInfo);
         }
 
-        return AllGetPostResponseDto.success(postInfos);
+        return AllGetPostResponseDto.success(mainPostInfos);
     }
 
 }
