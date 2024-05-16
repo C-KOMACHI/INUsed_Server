@@ -3,7 +3,7 @@ package com.c_comachi.inused.global.handler;
 import com.c_comachi.inused.global.dto.ErrorResponse;
 import com.c_comachi.inused.global.exception.AuthenticationException;
 import com.c_comachi.inused.global.exception.BusinessException;
-import com.c_comachi.inused.global.exception.ErrorCode;
+import com.c_comachi.inused.global.common.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

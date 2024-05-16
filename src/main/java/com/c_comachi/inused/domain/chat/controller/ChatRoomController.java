@@ -14,7 +14,7 @@ import com.c_comachi.inused.domain.users.jwt.TokenProvider;
 import com.c_comachi.inused.domain.users.repository.UserRepository;
 import com.c_comachi.inused.global.dto.ResponseDto;
 import com.c_comachi.inused.global.exception.EntityNotFoundException;
-import com.c_comachi.inused.global.exception.ErrorCode;
+import com.c_comachi.inused.global.common.ErrorCode;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

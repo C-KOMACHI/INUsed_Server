@@ -1,6 +1,6 @@
 package com.c_comachi.inused.global.dto;
 
-import com.c_comachi.inused.global.exception.ErrorCode;
+import com.c_comachi.inused.global.common.ErrorCode;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
