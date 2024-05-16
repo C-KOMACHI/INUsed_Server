@@ -1,5 +1,6 @@
 package com.c_comachi.inused.domain.post.dto.response;
 
+import com.c_comachi.inused.domain.post.dto.PostInfo;
 import com.c_comachi.inused.domain.post.entity.CategoryEntity;
 import com.c_comachi.inused.domain.post.entity.PostEntity;
 import com.c_comachi.inused.domain.post.entity.Status;
@@ -18,17 +19,15 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class GetPostResponseDto extends ResponseDto {
-    private PostEntity post;
-    private boolean check_liked;
+    private PostInfo post;
 
-    private GetPostResponseDto(PostEntity post, boolean check_liked){
+    private GetPostResponseDto(PostInfo post){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.post = post;
-        this.check_liked = check_liked;
     }
 
-    public static ResponseEntity<GetPostResponseDto> success(PostEntity post, boolean check_liked) {
-        GetPostResponseDto result = new GetPostResponseDto(post, check_liked);
+    public static ResponseEntity<GetPostResponseDto> success(PostInfo post) {
+        GetPostResponseDto result = new GetPostResponseDto(post);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 

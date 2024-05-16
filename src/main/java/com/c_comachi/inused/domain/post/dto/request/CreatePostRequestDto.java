@@ -5,6 +5,8 @@ import com.c_comachi.inused.domain.post.entity.PostEntity;
 import com.c_comachi.inused.domain.post.entity.Status;
 import com.c_comachi.inused.domain.post.repository.CategoryRepository;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
+import com.c_comachi.inused.global.exception.EntityNotFoundException;
+import com.c_comachi.inused.global.common.ErrorCode;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -44,7 +46,7 @@ public class CreatePostRequestDto {
     }
 
     public PostEntity toPost(UserEntity user, CategoryRepository categoryRepository) {
-        CategoryEntity category = categoryRepository.findById(categoryId).get();
+        CategoryEntity category = categoryRepository.findById(categoryId).orElseThrow(() -> new EntityNotFoundException(ErrorCode.CATEGORY_NOT_FOUND));
 
         return PostEntity.builder()
                 .user(user)

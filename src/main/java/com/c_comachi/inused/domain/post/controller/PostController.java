@@ -93,4 +93,14 @@ public class PostController {
         ResponseEntity<? super AllGetPostResponseDto> response = postService.getAllPost(user);
         return response;
     }
+
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "검색 성공", content = @Content(schema = @Schema(implementation = AllGetPostResponseDto.class))),
+    })
+    @Operation(summary = "게시물 검색")
+    @GetMapping("/search")
+    public ResponseEntity<? super AllGetPostResponseDto> searchPost(@AuthenticationPrincipal UserDetails user,@RequestParam(value = "search") String search){
+        ResponseEntity<? super AllGetPostResponseDto> response = postService.searchPost(user, search);
+        return response;
+    }
 }
