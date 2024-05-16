@@ -1,54 +1,46 @@
 package com.c_comachi.inused.domain.wish.service;
 
-import com.c_comachi.inused.domain.post.dto.request.CreatePostRequestDto;
-import com.c_comachi.inused.domain.post.dto.response.CreatePostResponseDto;
 import com.c_comachi.inused.domain.post.entity.PostEntity;
 import com.c_comachi.inused.domain.post.repository.PostRepository;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
 import com.c_comachi.inused.domain.users.repository.UserRepository;
 import com.c_comachi.inused.domain.wish.dto.request.CreateWishRequestDto;
-import com.c_comachi.inused.domain.wish.dto.response.CreateWishResponseDto;
-import com.c_comachi.inused.domain.wish.dto.response.DeleteWishResponseDto;
 import com.c_comachi.inused.domain.wish.entity.WishEntity;
 import com.c_comachi.inused.domain.wish.repository.WishRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.c_comachi.inused.global.dto.ResponseDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@RequiredArgsConstructor
 @Service
 public class WishService {
-    @Autowired
-    private WishRepository wishRepository;
-    @Autowired
-    private PostRepository postRepository;
-    @Autowired
-    private UserRepository userRepository;
-    @Transactional
-    public ResponseEntity<? super CreateWishResponseDto> addWish(CreateWishRequestDto requestsDto,UserEntity user,PostEntity post) {
-        //UserEntity user = userRepository.findById(userId).get();
-                //.orElseThrow(() -> new RuntimeException("User not found"));
-        //PostEntity post = postRepository.findById().get();
-                //.orElseThrow(() -> new RuntimeException("Post not found"));
-        WishEntity wish = requestsDto.toWish(user,postRepository);
-        wishRepository.save(wish);
-        return CreateWishResponseDto.success(user, post);
-    }
-
-    //    public void addWish(UserEntity userEntity, PostEntity postEntity) {
-//        if (!wishRepository.existsByUserIdAndPostId(userEntity.getId(), postEntity.getId())) {
-//            WishEntity wish = WishEntity.builder()
-//                    .user(userEntity)
-//                    .post(postEntity)
-//                    .build();
-//            wishRepository.save(wish);
-//        }
-//    }
+    private final WishRepository wishRepository;
+    private final  PostRepository postRepository;
+    private final UserRepository userRepository;
 
     @Transactional
-    public ResponseEntity<? super DeleteWishResponseDto> deleteWish(PostEntity post, UserEntity user){
-        final WishEntity wish = wishRepository.findByUserIdAndPostId(user.getId(),post.getId()).get();
-        wishRepository.deleteById(wish.getId());
-        return DeleteWishResponseDto.success();
+    public ResponseEntity<ResponseDto> addWish(CreateWishRequestDto requestsDto, UserDetails user) {
+        UserEntity userEntity = userRepository.findByEmail(user.getUsername()).get();
+        PostEntity post = postRepository.findById(requestsDto.getPostId()).get();
+
+        // 좋아요 정보가 없으면 추가
+        if(!wishRepository.existsByUserAndPost(user.getUsername(), requestsDto.getPostId())) {
+            WishEntity wish = requestsDto.toWish(userEntity ,postRepository);
+            post.setWishCount(post.getWishCount()+1);
+            wishRepository.save(wish);
+            postRepository.save(post);
+        }
+        // 좋아요 정보가 있으면 삭제
+        else if(wishRepository.existsByUserAndPost(user.getUsername(), requestsDto.getPostId())) {
+            WishEntity wish = wishRepository.findByUserIdAndPostId(userEntity.getId(),requestsDto.getPostId()).get();
+            post.setWishCount(post.getWishCount()-1);
+            wishRepository.deleteById(wish.getId());
+            postRepository.save(post);
+        }
+        return ResponseDto.suc();
     }
+
 }

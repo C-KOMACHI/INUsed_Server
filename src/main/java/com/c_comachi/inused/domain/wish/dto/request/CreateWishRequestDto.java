@@ -8,8 +8,13 @@ import com.c_comachi.inused.domain.users.entity.UserEntity;
 import com.c_comachi.inused.domain.wish.entity.WishEntity;
 import com.c_comachi.inused.domain.wish.repository.WishRepository;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class CreateWishRequestDto {
     private Long postId;
 
@@ -19,7 +24,6 @@ public class CreateWishRequestDto {
 
     public WishEntity toWish(UserEntity user, PostRepository postRepository) {
         PostEntity post = postRepository.findById(postId).get();
-                //.orElseThrow(() -> new EntityNotFoundException("Post not found with ID: " + postId));
 
         return WishEntity.builder()
                 .user(user)
