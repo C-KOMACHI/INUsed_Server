@@ -66,6 +66,7 @@
           console.error("Error fetching chat rooms: ", error);
         });
       },
+
       enterRoom: function(roomId, roomName) { // 채팅 방 들어가기
         localStorage.setItem('wschat.roomId',roomId); // 로컬에 채팅방 아이디 저장
         localStorage.setItem('wschat.roomName',roomName);  // 로컬에 채팅방 이름 저장
