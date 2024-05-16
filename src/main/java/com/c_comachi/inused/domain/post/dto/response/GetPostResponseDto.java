@@ -16,30 +16,11 @@ import java.time.LocalDateTime;
 
 @Getter
 public class GetPostResponseDto extends ResponseDto {
-    private String title;
-    private String content;
-    private Integer price;
-    private CategoryEntity category;
-    private Status productState;
-    private Integer wishCount;
-    private Integer viewCount;
-
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private LocalDateTime lastReposting;
+    private PostEntity post;
 
     private GetPostResponseDto(PostEntity post){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.title = post.getTitle();
-        this.content = post.getContent();
-        this.price = post.getPrice();
-        this.category = post.getCategory();
-        this.productState = post.getProductState();
-        this.updatedAt = post.getUpdatedAt();
-        this.lastReposting = post.getLastReposting();
-        this.wishCount = post.getWishCount();
-        this.viewCount = post.getViewCount();
-        this.createdAt = post.getCreatedAt();
+        this.post = post;
     }
 
     public static ResponseEntity<GetPostResponseDto> success(PostEntity post) {

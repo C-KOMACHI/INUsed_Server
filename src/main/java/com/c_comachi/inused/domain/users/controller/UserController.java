@@ -1,6 +1,5 @@
 package com.c_comachi.inused.domain.users.controller;
 
-import com.c_comachi.inused.domain.mail.dto.response.EmailCheckResponseDto;
 import com.c_comachi.inused.domain.users.dto.request.UserEditRequestDto;
 import com.c_comachi.inused.domain.users.dto.response.GetLoginUserResponseDto;
 import com.c_comachi.inused.domain.users.service.UserService;
@@ -14,7 +13,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;

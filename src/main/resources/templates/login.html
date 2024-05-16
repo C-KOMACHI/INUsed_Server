@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+    <script>
+        function handleLogin() {
+            // Get the email and password values from the input fields
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            // Make the API request to /api/v1/auth/login
+            // Here, you can use any method to make the request, such as fetch or XMLHttpRequest
+            // After receiving the response with a status of 200, you can extract the accessToken
+            // and store it in the LocalStorage
+            fetch('/api/v1/auth/login', {
+                method: 'POST',
+                body: JSON.stringify({ email: email, password: password }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.code === "SU") {
+                        // Store the accessToken in the LocalStorage
+                        localStorage.setItem('accessToken', "Bearer " + data.accessToken);
+                        console.log('accessToken stored in LocalStorage');
+                    } else {
+                        console.log('Login failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+</head>
+<body>
+<h1>Login Page</h1>
+<label for="email">Email:</label>
+<input type="text" id="email" name="email"><br><br>
+<label for="password">Password:</label>
+<input type="password" id="password" name="password"><br><br>
+<button onclick="handleLogin()">Login</button>
+</body>
+</html>

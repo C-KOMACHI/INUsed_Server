@@ -10,6 +10,8 @@ import com.c_comachi.inused.domain.post.repository.CategoryRepository;
 import com.c_comachi.inused.domain.post.repository.PostRepository;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
 import com.c_comachi.inused.domain.users.repository.UserRepository;
+import com.c_comachi.inused.global.exception.EntityNotFoundException;
+import com.c_comachi.inused.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import com.c_comachi.inused.domain.post.entity.PostEntity;
@@ -29,7 +31,7 @@ public class PostService {
     private final CategoryRepository categoryRepository;
 
     public ResponseEntity<? super GetPostResponseDto> getPost(Long postId){
-        PostEntity post = postsRepository.findById(postId).get();
+        PostEntity post = postsRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException(ErrorCode.POST_NOT_FOUND));
 
         post.setViewCount(post.getViewCount()+1);
         postsRepository.save(post);
