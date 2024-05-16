@@ -19,6 +19,7 @@ public class CorsConfig {
         config.setAllowCredentials(true);
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE"));
         config.addAllowedOrigin("http://localhost:5173");
+        config.addAllowedHeader("http://127.0.0.1:5173");
         config.addAllowedOrigin("https://inused.store");
         config.addAllowedOrigin("https://www.inused.store");
         config.addAllowedHeader("https://api.inused.store");
