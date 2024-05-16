@@ -63,7 +63,7 @@
             var _this = this;
             this.roomId = localStorage.getItem('wschat.roomId');
             this.roomName = localStorage.getItem('wschat.roomName');
-            this.token = localStorage.getItem('accessToken');
+            _this.token = localStorage.getItem('accessToken');
 
             axios.get('/chat/user', {
                 headers: {

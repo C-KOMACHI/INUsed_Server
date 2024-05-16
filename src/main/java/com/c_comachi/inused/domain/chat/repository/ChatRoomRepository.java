@@ -20,7 +20,8 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long> {
     //List<ChatRoom> findAllByOrderBylOrderByLastModifiedTimeDesc();
 
     @Query("SELECT cr FROM ChatRoom cr WHERE cr.sender = :user OR cr.receiver = :user ORDER BY cr.lastModifiedTime DESC")
-    List<ChatRoom> findAllByOrderByUserId(@Param("user") UserEntity user);
+    List<ChatRoom> findAllByUser(@Param("user") UserEntity user);
+
 
 
 }

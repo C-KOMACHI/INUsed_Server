@@ -47,7 +47,7 @@ public class ChatRoomService {
             throw new AuthenticationException(ErrorCode.EXPIRED_TOKEN);
         }
         UserEntity user = userRepository.findByEmail(userDetails.getUsername()).orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
-        List<ChatRoom> chatRooms = chatRoomRepository.findAllByOrderByUserId(user);
+        List<ChatRoom> chatRooms = chatRoomRepository.findAllByUser(user);
 
         return ViewAllChatRoomResponseDto.success(chatRooms);
     }

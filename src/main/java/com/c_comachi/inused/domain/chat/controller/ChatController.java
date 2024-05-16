@@ -3,6 +3,7 @@ package com.c_comachi.inused.domain.chat.controller;
 
 import com.c_comachi.inused.domain.chat.dto.request.ChatMessageRequestDto;
 import com.c_comachi.inused.domain.chat.service.ChatMessageService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 
 @RequiredArgsConstructor
 @Controller
+@Tag(name = "Chat" , description = "Chat 관련 API 모음")
 public class ChatController {
 
     private final ChatMessageService chatMessageService;
