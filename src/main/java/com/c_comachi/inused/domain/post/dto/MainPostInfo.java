@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class MainPostInfo {
+    private Long Id;
     private String title;
     private Integer price;
     private String content;
@@ -27,6 +28,7 @@ public class MainPostInfo {
     private boolean checkLiked;
 
     public MainPostInfo(PostEntity post, boolean checkLiked){
+        this.Id = post.getId();
         this.title = post.getTitle();
         this.price = post.getPrice();
         this.wishCount = post.getWishCount();
