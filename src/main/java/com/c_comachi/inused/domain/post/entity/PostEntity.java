@@ -87,6 +87,10 @@ public class PostEntity {
         this.viewCount = viewCount;
     }
 
+    public void setWishCount(Integer wishCount) {
+        this.wishCount = wishCount;
+    }
+
     public void update(UpdatePostRequestDto post, CategoryRepository categoryRepository) {
         CategoryEntity category = categoryRepository.findById(post.getCategoryId()).get();
 
