@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class MainPostInfo {
+    private Long Id;
     private String title;
     private Integer price;
     private String content;
@@ -26,6 +27,7 @@ public class MainPostInfo {
     private LocalDateTime lastReposting;
 
     public MainPostInfo(PostEntity post){
+        this.Id = post.getId();
         this.title = post.getTitle();
         this.price = post.getPrice();
         this.wishCount = post.getWishCount();
