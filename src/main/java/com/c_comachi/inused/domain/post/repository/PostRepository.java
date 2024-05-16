@@ -15,6 +15,9 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
     Optional<PostEntity> findById(Long id);
     List<PostEntity> findAllByOrderByLastRepostingDesc();
 
+
+    List<PostEntity> findAllByTitleContainingOrContentContainingOrderByLastRepostingDesc(String title, String content);
+
     boolean existsById(Long id);
 
 //    Optional<PostEntity> postOptional = postsRepository.findById(postId);

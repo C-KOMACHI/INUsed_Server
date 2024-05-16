@@ -1,5 +1,6 @@
 package com.c_comachi.inused.global.exception;
 
+import com.c_comachi.inused.global.common.ErrorCode;
 import lombok.Getter;
 
 @Getter
