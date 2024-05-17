@@ -15,7 +15,9 @@ public enum ErrorCode {
 
     USER_NOT_FOUND(400, "UN", "유저를 찾을 수 없습니다."),
     POST_NOT_FOUND(400, "PN", "글을 찾을 수 없습니다."),
-    CATEGORY_NOT_FOUND(400, "CN", "카테고리를 찾을 수 없습니다.");
+    CATEGORY_NOT_FOUND(400, "CN", "카테고리를 찾을 수 없습니다."),
+    INQUIRY_NOT_FOUND(400, "IN", "문의 내역을 찾을 수 없습니다."),
+    NOTICE_NOT_FOUND(400, "NN", "공지를 찾을 수 없습니다.");
 
     private final String code;
     private final String message;
