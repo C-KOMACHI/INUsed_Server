@@ -26,8 +26,9 @@ public class MainPostInfo {
     private LocalDateTime updatedAt;
     private LocalDateTime lastReposting;
     private boolean checkLiked;
+    private boolean checkMyPost;
 
-    public MainPostInfo(PostEntity post, boolean checkLiked){
+    public MainPostInfo(PostEntity post, boolean checkLiked, boolean checkMyPost){
         this.Id = post.getId();
         this.title = post.getTitle();
         this.price = post.getPrice();
@@ -44,5 +45,6 @@ public class MainPostInfo {
         this.nickname = post.getUser().getNickname();
         this.profileImage = post.getUser().getProfileImage();
         this.checkLiked = checkLiked;
+        this.checkMyPost = checkMyPost;
     }
 }
