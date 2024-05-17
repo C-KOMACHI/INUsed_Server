@@ -13,17 +13,17 @@ import java.util.List;
 
 @Getter
 @Setter
-public class AllGetPostResponseDto extends ResponseDto {
+public class GetAllPostResponseDto extends ResponseDto {
     private List<MainPostInfo> posts;
 
-    private AllGetPostResponseDto(List<MainPostInfo> posts){
+    private GetAllPostResponseDto(List<MainPostInfo> posts){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.posts = posts;
 
     }
 
-    public static ResponseEntity<? super AllGetPostResponseDto> success(List<MainPostInfo> posts){
-        AllGetPostResponseDto result = new AllGetPostResponseDto(posts);
+    public static ResponseEntity<? super GetAllPostResponseDto> success(List<MainPostInfo> posts){
+        GetAllPostResponseDto result = new GetAllPostResponseDto(posts);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }

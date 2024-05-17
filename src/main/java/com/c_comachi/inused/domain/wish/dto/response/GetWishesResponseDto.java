@@ -1,7 +1,6 @@
 package com.c_comachi.inused.domain.wish.dto.response;
 
 import com.c_comachi.inused.domain.post.dto.MainPostInfo;
-import com.c_comachi.inused.domain.post.dto.response.DeletePostResponseDto;
 import com.c_comachi.inused.global.common.ResponseCode;
 import com.c_comachi.inused.global.common.ResponseMessage;
 import com.c_comachi.inused.global.dto.ResponseDto;

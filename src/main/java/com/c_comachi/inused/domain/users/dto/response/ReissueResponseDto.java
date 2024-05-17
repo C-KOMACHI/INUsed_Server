@@ -9,10 +9,10 @@ import org.springframework.http.ResponseEntity;
 
 @Getter
 public class ReissueResponseDto extends ResponseDto {
-    private String grantType;
-    private String accessToken;
-    private String refreshToken;
-    private Long accessTokenExpiresIn;
+    private final String grantType;
+    private final String accessToken;
+    private final String refreshToken;
+    private final Long accessTokenExpiresIn;
 
     private ReissueResponseDto(TokenDto tokenDto){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
@@ -25,11 +25,6 @@ public class ReissueResponseDto extends ResponseDto {
     public static ResponseEntity<ReissueResponseDto> success(TokenDto tokenDto) {
         ReissueResponseDto result = new ReissueResponseDto(tokenDto);
         return ResponseEntity.status(HttpStatus.OK).body(result);
-    }
-
-    public static ResponseEntity<ResponseDto> validationFailed() {
-        ResponseDto result = new ResponseDto(ResponseCode.VALIDATION_FAILED, ResponseMessage.VALIDATION_FAILED);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }
 
     public static ResponseEntity<ResponseDto> mismatchedToken() {
