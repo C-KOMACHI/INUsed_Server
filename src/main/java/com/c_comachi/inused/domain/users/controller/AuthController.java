@@ -1,7 +1,6 @@
 package com.c_comachi.inused.domain.users.controller;
 
 import com.c_comachi.inused.domain.users.dto.request.LoginRequestDto;
-import com.c_comachi.inused.domain.users.dto.request.NicknameRequestDto;
 import com.c_comachi.inused.domain.users.dto.request.RegisterRequestDto;
 import com.c_comachi.inused.domain.users.dto.request.TokenRequestDto;
 import com.c_comachi.inused.domain.users.dto.request.*;
@@ -17,10 +16,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import com.c_comachi.inused.global.dto.ResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Auth", description = "Auth 관련 api 모음")
@@ -65,9 +65,9 @@ public class AuthController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "인증 보내기 성공", content = @Content(schema = @Schema(implementation = ReissueResponseDto.class))),
     })
-    @Operation(summary = "토큰 재발급")
+    @Operation(summary = "토큰 재발급", description = "header 에도 토큰 부탁드려요")
     @PatchMapping("/reissue")
-    public ResponseEntity<? super ReissueResponseDto> reissue(@RequestBody @Valid TokenRequestDto requestBody) {
+    public ResponseEntity<? super ReissueResponseDto> reissue(@RequestBody @Valid TokenRequestDto requestBody, @AuthenticationPrincipal UserDetails user) {
         ResponseEntity<? super ReissueResponseDto> response = authService.reissue(requestBody);
         return response;
     }
@@ -75,9 +75,9 @@ public class AuthController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "인증 보내기 성공", content = @Content(schema = @Schema(implementation = LogoutResponseDto.class))),
     })
-    @Operation(summary = "로그아웃")
+    @Operation(summary = "로그아웃", description = "header 에도 토큰 부탁드려요")
     @PatchMapping("/logout")
-    public ResponseEntity<? super LogoutResponseDto> logout(@RequestBody @Valid TokenRequestDto requestBody) {
+    public ResponseEntity<? super LogoutResponseDto> logout(@RequestBody @Valid TokenRequestDto requestBody, @AuthenticationPrincipal UserDetails user) {
         ResponseEntity<? super LogoutResponseDto> response = authService.logout(requestBody);
         return response;
     }

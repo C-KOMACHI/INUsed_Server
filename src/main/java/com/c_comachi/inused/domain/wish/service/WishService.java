@@ -61,7 +61,8 @@ public class WishService {
 
         for(WishEntity wishEntity : wishEntities) {
             PostEntity post = wishEntity.getPost();
-            MainPostInfo mainPostInfo = new MainPostInfo(post, true);
+            boolean checkMyPost = post.getUser().getEmail().equals(user.getUsername());
+            MainPostInfo mainPostInfo = new MainPostInfo(post, true, checkMyPost);
             mainPostInfos.add(mainPostInfo);
         }
 

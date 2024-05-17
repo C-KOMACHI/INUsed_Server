@@ -12,11 +12,11 @@ import org.springframework.http.ResponseEntity;
 @Getter
 public class GetLoginUserResponseDto extends ResponseDto  {
 
-    private String email;
-    private String nickname;
-    private String profileImage;
-    private Double fireTemperature;
-    private Authority authority;
+    private final String email;
+    private final String nickname;
+    private final String profileImage;
+    private final Double fireTemperature;
+    private final Authority authority;
 
     private GetLoginUserResponseDto(UserEntity userEntity){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
@@ -32,8 +32,4 @@ public class GetLoginUserResponseDto extends ResponseDto  {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    public static ResponseEntity<ResponseDto> notExistUser() {
-        ResponseDto result = new ResponseDto(ResponseCode.NOT_EXISTED_USER, ResponseMessage.NOT_EXISTED_USER);
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(result);
-    }
 }

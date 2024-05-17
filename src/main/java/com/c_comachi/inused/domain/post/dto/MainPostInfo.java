@@ -3,6 +3,7 @@ package com.c_comachi.inused.domain.post.dto;
 import com.c_comachi.inused.domain.post.entity.CategoryEntity;
 import com.c_comachi.inused.domain.post.entity.PostEntity;
 import com.c_comachi.inused.domain.post.entity.Status;
+import com.c_comachi.inused.domain.users.entity.UserEntity;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -20,14 +21,18 @@ public class MainPostInfo {
     private String tag;
     private String nickname;
     private String profileImage;
+    private Double fireTemperature;
 
     private CategoryEntity category;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime lastReposting;
     private boolean checkLiked;
+    private boolean checkMyPost;
 
-    public MainPostInfo(PostEntity post, boolean checkLiked){
+    public MainPostInfo(PostEntity post, boolean checkLiked, boolean checkMyPost){
+        UserEntity user = post.getUser();
+
         this.Id = post.getId();
         this.title = post.getTitle();
         this.price = post.getPrice();
@@ -41,8 +46,10 @@ public class MainPostInfo {
         this.tag = post.getTag();
         this.category = post.getCategory();
         this.content = post.getContent();
-        this.nickname = post.getUser().getNickname();
-        this.profileImage = post.getUser().getProfileImage();
+        this.nickname = user.getNickname();
+        this.profileImage = user.getProfileImage();
+        this.fireTemperature = user.getFireTemperature();
         this.checkLiked = checkLiked;
+        this.checkMyPost = checkMyPost;
     }
 }

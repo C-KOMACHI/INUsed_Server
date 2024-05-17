@@ -9,9 +9,9 @@ import org.springframework.http.ResponseEntity;
 
 @Getter
 public class LoginResponseDto extends ResponseDto {
-    private String accessToken;
-    private String refreshToken;
-    private Long accessTokenExpiresIn;
+    private final String accessToken;
+    private final String refreshToken;
+    private final Long accessTokenExpiresIn;
 
     private LoginResponseDto(TokenDto tokenDto){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);

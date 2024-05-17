@@ -1,12 +1,8 @@
 package com.c_comachi.inused.domain.post.controller;
 
-import com.c_comachi.inused.domain.notice.dto.response.SearchNoticeResponseDto;
-import com.c_comachi.inused.domain.notice.dto.response.ViewNoticeResponseDto;
 import com.c_comachi.inused.domain.post.dto.request.CreatePostRequestDto;
 import com.c_comachi.inused.domain.post.dto.request.UpdatePostRequestDto;
 import com.c_comachi.inused.domain.post.dto.response.*;
-import com.c_comachi.inused.domain.post.entity.Status;
-import com.c_comachi.inused.domain.post.repository.PostRepository;
 import com.c_comachi.inused.domain.post.service.PostService;
 import com.c_comachi.inused.global.dto.ResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,13 +14,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Tag(name = "Post" , description = "Post 관련 API 모음")
 @RequiredArgsConstructor
@@ -48,8 +40,8 @@ public class PostController {
     })
     @Operation(summary = "게시글 조회(단건 조회)")
     @GetMapping("/{postId}")
-    public ResponseEntity<? super GetPostResponseDto> getPost(@PathVariable("postId") Long postId) {
-        ResponseEntity<? super GetPostResponseDto> response = postService.getPost(postId);
+    public ResponseEntity<? super GetPostResponseDto> getPost(@PathVariable("postId") Long postId, @AuthenticationPrincipal UserDetails user) {
+        ResponseEntity<? super GetPostResponseDto> response = postService.getPost(postId, user);
         return response;
     }
 
@@ -64,12 +56,12 @@ public class PostController {
 }
 
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "삭제 성공", content = @Content(schema = @Schema(implementation = DeletePostResponseDto.class))),
+            @ApiResponse(responseCode = "200", description = "삭제 성공", content = @Content(schema = @Schema(implementation = ResponseDto.class))),
     })
     @Operation(summary = "게시글 삭제")
     @DeleteMapping("/{postId}/delete")
-    public ResponseEntity<? super DeletePostResponseDto> deletePost(@PathVariable("postId") Long postId) {
-        ResponseEntity<? super DeletePostResponseDto> response = postService.deletePost(postId);
+    public ResponseEntity<ResponseDto> deletePost(@PathVariable("postId") Long postId) {
+        ResponseEntity<ResponseDto> response = postService.deletePost(postId);
         return response;
     }
 
@@ -85,22 +77,43 @@ public class PostController {
     }
 
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = AllGetPostResponseDto.class))),
+            @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = GetAllPostResponseDto.class))),
     })
     @Operation(summary = "게시물 조회(전체 조회)")
     @GetMapping("")
-    public ResponseEntity<? super AllGetPostResponseDto> viewNotice(@AuthenticationPrincipal UserDetails user){
-        ResponseEntity<? super AllGetPostResponseDto> response = postService.getAllPost(user);
+    public ResponseEntity<? super GetAllPostResponseDto> viewNotice(@AuthenticationPrincipal UserDetails user){
+        ResponseEntity<? super GetAllPostResponseDto> response = postService.getAllPost(user);
         return response;
     }
 
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "검색 성공", content = @Content(schema = @Schema(implementation = AllGetPostResponseDto.class))),
+            @ApiResponse(responseCode = "200", description = "검색 성공", content = @Content(schema = @Schema(implementation = GetAllPostResponseDto.class))),
     })
     @Operation(summary = "게시물 검색")
     @GetMapping("/search")
-    public ResponseEntity<? super AllGetPostResponseDto> searchPost(@AuthenticationPrincipal UserDetails user,@RequestParam(value = "search") String search){
-        ResponseEntity<? super AllGetPostResponseDto> response = postService.searchPost(user, search);
+    public ResponseEntity<? super GetAllPostResponseDto> searchPost(@AuthenticationPrincipal UserDetails user, @RequestParam(value = "search") String search){
+        ResponseEntity<? super GetAllPostResponseDto> response = postService.searchPost(user, search);
+        return response;
+    }
+
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = GetAllPostResponseDto.class))),
+    })
+    @Operation(summary = "내 게시물 보기")
+    @GetMapping("/my-post")
+    public ResponseEntity<? super GetAllPostResponseDto> getMyPost(@AuthenticationPrincipal UserDetails user){
+        ResponseEntity<? super GetAllPostResponseDto> response = postService.getMyPost(user);
+        return response;
+    }
+
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = GetAllPostResponseDto.class))),
+    })
+    @Operation(summary = "카테고리별 게시글 보기")
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<? super GetAllPostResponseDto> getCategoryPost(@AuthenticationPrincipal UserDetails user,
+                                                                         @PathVariable(value = "categoryId") Long categoryId){
+        ResponseEntity<? super GetAllPostResponseDto> response = postService.getCategoryPost(user, categoryId);
         return response;
     }
 }
