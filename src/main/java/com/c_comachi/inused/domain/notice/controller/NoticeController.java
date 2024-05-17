@@ -37,8 +37,7 @@ public class NoticeController {
     @Operation(summary = "공지 조회(단건 조회)")
     @GetMapping("/{noticeId}")
     public ResponseEntity<? super SearchNoticeResponseDto> searchNotice(@PathVariable("noticeId") Long noticeId) {
-        ResponseEntity<? super SearchNoticeResponseDto> response = noticeService.searchNotice(noticeId);
-        return response;
+        return noticeService.searchNotice(noticeId);
     }
 
     @ApiResponses({
@@ -47,8 +46,7 @@ public class NoticeController {
     @Operation(summary = "공지 조회(전체 조회)")
     @GetMapping("")
     public ResponseEntity<? super ViewNoticeResponseDto> viewNotice(){
-        ResponseEntity<? super ViewNoticeResponseDto> response = noticeService.getNotices();
-        return response;
+        return noticeService.getNotices();
     }
 
 }

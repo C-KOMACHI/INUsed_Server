@@ -31,8 +31,7 @@ public class PostController {
     @Operation(summary = "게시글 생성")
     @PostMapping("/create")
     public ResponseEntity<? super CreatePostResponseDto> createPost(@RequestBody @Valid CreatePostRequestDto requestsDto, @AuthenticationPrincipal UserDetails user) {
-        ResponseEntity<? super CreatePostResponseDto> response = postService.createPost(user.getUsername(), requestsDto);
-        return response;
+        return postService.createPost(user.getUsername(), requestsDto);
     }
 
     @ApiResponses({
@@ -41,8 +40,7 @@ public class PostController {
     @Operation(summary = "게시글 조회(단건 조회)")
     @GetMapping("/{postId}")
     public ResponseEntity<? super GetPostResponseDto> getPost(@PathVariable("postId") Long postId, @AuthenticationPrincipal UserDetails user) {
-        ResponseEntity<? super GetPostResponseDto> response = postService.getPost(postId, user);
-        return response;
+        return postService.getPost(postId, user);
     }
 
     @ApiResponses({
@@ -51,8 +49,7 @@ public class PostController {
     @Operation(summary = "게시글 수정")
     @PatchMapping("/{postId}/update")
     public ResponseEntity<? super UpdatePostResponseDto> updatePost(@PathVariable("postId") Long postId, @RequestBody @Valid UpdatePostRequestDto requestDto) {
-        ResponseEntity<? super UpdatePostResponseDto> response = postService.updatePost(postId, requestDto);
-        return response;
+        return postService.updatePost(postId, requestDto);
 }
 
     @ApiResponses({
@@ -61,8 +58,7 @@ public class PostController {
     @Operation(summary = "게시글 삭제")
     @DeleteMapping("/{postId}/delete")
     public ResponseEntity<ResponseDto> deletePost(@PathVariable("postId") Long postId) {
-        ResponseEntity<ResponseDto> response = postService.deletePost(postId);
-        return response;
+        return postService.deletePost(postId);
     }
 
 
@@ -72,8 +68,7 @@ public class PostController {
     @Operation(summary = "게시글 끌올")
     @PatchMapping("/{postId}/reposting")
     public ResponseEntity<? super RePostResponseDto> rePost(@PathVariable("postId") Long postId) {
-        ResponseEntity<? super RePostResponseDto> response = postService.rePost(postId);
-        return response;
+        return postService.rePost(postId);
     }
 
     @ApiResponses({
@@ -82,8 +77,7 @@ public class PostController {
     @Operation(summary = "게시물 조회(전체 조회)")
     @GetMapping("")
     public ResponseEntity<? super GetAllPostResponseDto> viewNotice(@AuthenticationPrincipal UserDetails user){
-        ResponseEntity<? super GetAllPostResponseDto> response = postService.getAllPost(user);
-        return response;
+        return postService.getAllPost(user);
     }
 
     @ApiResponses({
@@ -92,8 +86,7 @@ public class PostController {
     @Operation(summary = "게시물 검색")
     @GetMapping("/search")
     public ResponseEntity<? super GetAllPostResponseDto> searchPost(@AuthenticationPrincipal UserDetails user, @RequestParam(value = "search") String search){
-        ResponseEntity<? super GetAllPostResponseDto> response = postService.searchPost(user, search);
-        return response;
+        return postService.searchPost(user, search);
     }
 
     @ApiResponses({
@@ -102,8 +95,7 @@ public class PostController {
     @Operation(summary = "내 게시물 보기")
     @GetMapping("/my-post")
     public ResponseEntity<? super GetAllPostResponseDto> getMyPost(@AuthenticationPrincipal UserDetails user){
-        ResponseEntity<? super GetAllPostResponseDto> response = postService.getMyPost(user);
-        return response;
+        return postService.getMyPost(user);
     }
 
     @ApiResponses({
@@ -113,7 +105,6 @@ public class PostController {
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<? super GetAllPostResponseDto> getCategoryPost(@AuthenticationPrincipal UserDetails user,
                                                                          @PathVariable(value = "categoryId") Long categoryId){
-        ResponseEntity<? super GetAllPostResponseDto> response = postService.getCategoryPost(user, categoryId);
-        return response;
+        return postService.getCategoryPost(user, categoryId);
     }
 }

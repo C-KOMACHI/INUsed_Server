@@ -57,8 +57,7 @@ public class ChatRoomController {
     @Operation(summary = "채팅방 조회 (전체 조회)")
     @GetMapping("/rooms")
     public ResponseEntity<? super ViewAllChatRoomResponseDto> ViewAllChatroom(@AuthenticationPrincipal UserDetails user) {
-        ResponseEntity<? super ViewAllChatRoomResponseDto> response = chatRoomService.findAllRoom(user);
-        return response;
+        return chatRoomService.findAllRoom(user);
     }
 
     @ApiResponses({
@@ -76,8 +75,7 @@ public class ChatRoomController {
     @Operation(summary = "채팅방 조회 (단건 조회)")
     @GetMapping("/room/{roomId}")
     public ResponseEntity<? super ViewChatRoomResponseDto> roomInfo(@PathVariable(value = "roomId") Long roomId) {
-        ResponseEntity<? super ViewChatRoomResponseDto> response = chatRoomService.findRoom(roomId);
-        return response;
+        return chatRoomService.findRoom(roomId);
     }
 
     @GetMapping("/user")

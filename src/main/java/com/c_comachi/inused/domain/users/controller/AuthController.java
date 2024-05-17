@@ -38,8 +38,7 @@ public class AuthController {
     @Operation(summary = "회원 가입")
     @PostMapping("/register")
     public ResponseEntity<? super RegisterResponseDto> register(@RequestBody @Valid RegisterRequestDto requestBody) {
-        ResponseEntity<? super RegisterResponseDto> response = authService.register(requestBody);
-        return response;
+        return authService.register(requestBody);
     }
 
     @ApiResponses({
@@ -48,8 +47,7 @@ public class AuthController {
     @Operation(summary = "로그인")
     @PostMapping("/login")
     public ResponseEntity<? super LoginResponseDto> login(@RequestBody @Valid LoginRequestDto requestBody) {
-        ResponseEntity<? super LoginResponseDto> response = authService.login(requestBody);
-        return response;
+        return authService.login(requestBody);
     }
 
     @ApiResponses({
@@ -58,8 +56,7 @@ public class AuthController {
     @Operation(summary = "비밀번호 찾기")
     @PatchMapping("/password-find")
     public ResponseEntity<? super PasswordFindResponseDto> passwordFind(@RequestBody @Valid PasswordFindRequestDto passwordFindRequestDto){
-        ResponseEntity<? super PasswordFindResponseDto> response = authService.passwordFinder(passwordFindRequestDto);
-        return response;
+        return authService.passwordFinder(passwordFindRequestDto);
     }
 
     @ApiResponses({
@@ -68,8 +65,7 @@ public class AuthController {
     @Operation(summary = "토큰 재발급", description = "header 에도 토큰 부탁드려요")
     @PatchMapping("/reissue")
     public ResponseEntity<? super ReissueResponseDto> reissue(@RequestBody @Valid TokenRequestDto requestBody, @AuthenticationPrincipal UserDetails user) {
-        ResponseEntity<? super ReissueResponseDto> response = authService.reissue(requestBody);
-        return response;
+        return authService.reissue(requestBody);
     }
 
     @ApiResponses({
@@ -78,8 +74,7 @@ public class AuthController {
     @Operation(summary = "로그아웃", description = "header 에도 토큰 부탁드려요")
     @PatchMapping("/logout")
     public ResponseEntity<? super LogoutResponseDto> logout(@RequestBody @Valid TokenRequestDto requestBody, @AuthenticationPrincipal UserDetails user) {
-        ResponseEntity<? super LogoutResponseDto> response = authService.logout(requestBody);
-        return response;
+        return authService.logout(requestBody);
     }
 
     @ApiResponses({
@@ -88,8 +83,7 @@ public class AuthController {
     @Operation(summary = "닉네임 중복 확인")
     @GetMapping("/nickname-check")
     public ResponseEntity<? super RegisterResponseDto> nicknameCheck(@RequestParam(value = "nickname") String nickname) {
-        ResponseEntity<? super RegisterResponseDto> response = authService.nicknameCheck(nickname);
-        return response;
+        return authService.nicknameCheck(nickname);
     }
 
 }

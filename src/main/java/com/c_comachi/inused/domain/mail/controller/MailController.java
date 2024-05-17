@@ -33,8 +33,7 @@ public class MailController {
     })
     @PostMapping("/verification-requests")
     public ResponseEntity<? super EmailCheckResponseDto> EmailCheck(@RequestBody @Valid MailRequestDto requestBody) throws MessagingException, UnsupportedEncodingException {
-        ResponseEntity<? super EmailCheckResponseDto> response = mailService.sendEmail(requestBody);
-        return response;
+        return mailService.sendEmail(requestBody);
     }
 
     @ApiResponses({
@@ -44,8 +43,7 @@ public class MailController {
     @GetMapping("/verifications")
     public ResponseEntity<? super EmailCheckResponseDto> verificationEmail(@RequestParam(value = "email") String email,
                                                                            @RequestParam(value = "authCode") String authCode) {
-        ResponseEntity<? super EmailCheckResponseDto> response = mailService.verifiedCode(email, authCode);
-        return response;
+        return mailService.verifiedCode(email, authCode);
     }
 
 }
