@@ -3,10 +3,8 @@ package com.c_comachi.inused.domain.users.entity;
 import com.c_comachi.inused.domain.users.dto.UserEditInfo;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,8 +31,9 @@ public class UserEntity {
     @Column(nullable = false, name = "profile_image")
     private String profileImage;
 
+    @Setter
     @Column(name = "fire_temperature", nullable = false)
-    private Double fireTemperature;
+    private Integer fireTemperature;
 
     @Enumerated(EnumType.STRING)
     private Authority authority;
@@ -49,7 +48,7 @@ public class UserEntity {
 
 
     @Builder
-    public UserEntity(String email, String password, String nickname, Double fireTemperature, Authority authority,LocalDateTime createdAt){
+    public UserEntity(String email, String password, String nickname, Integer fireTemperature, Authority authority,LocalDateTime createdAt){
         this.email = email;
         this.password = password;
         this.nickname = nickname;

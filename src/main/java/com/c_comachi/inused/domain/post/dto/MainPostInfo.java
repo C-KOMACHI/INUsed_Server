@@ -21,7 +21,7 @@ public class MainPostInfo {
     private String tag;
     private String nickname;
     private String profileImage;
-    private Double fireTemperature;
+    private Integer fireTemperature;
 
     private CategoryEntity category;
     private LocalDateTime createdAt;

@@ -15,7 +15,7 @@ public class GetLoginUserResponseDto extends ResponseDto  {
     private final String email;
     private final String nickname;
     private final String profileImage;
-    private final Double fireTemperature;
+    private final Integer fireTemperature;
     private final Authority authority;
 
     private GetLoginUserResponseDto(UserEntity userEntity){

@@ -35,7 +35,7 @@ public class RegisterRequestDto {
                 .email(email+EMAIL_ADDRESS)
                 .password(passwordEncoder.encode(password))
                 .nickname(nickname)
-                .fireTemperature(900.0) // 초기 온도 900
+                .fireTemperature(900) // 초기 온도 900
                 .authority(Authority.ROLE_USER)
                 .createdAt(LocalDateTime.now())
                 .build();
