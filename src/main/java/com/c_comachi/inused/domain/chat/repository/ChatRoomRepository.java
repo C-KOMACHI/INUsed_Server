@@ -17,12 +17,10 @@ import org.springframework.stereotype.Repository;
 public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long> {
     Optional<ChatRoom> findById(Long chatroomId);
 
-    //List<ChatRoom> findAllByOrderBylOrderByLastModifiedTimeDesc();
-
     @Query("SELECT cr FROM ChatRoom cr WHERE cr.sender = :user OR cr.receiver = :user ORDER BY cr.lastModifiedTime DESC")
     List<ChatRoom> findAllByUser(@Param("user") UserEntity user);
 
-
+    List<ChatRoom> findAllByReceiverEmailAndPost(String email, PostEntity post);
 
 }
 
