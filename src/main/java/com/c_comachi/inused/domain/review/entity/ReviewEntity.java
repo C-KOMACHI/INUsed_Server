@@ -36,23 +36,23 @@ public class ReviewEntity {
     private PostEntity post;
 
     @ManyToOne
-    @JoinColumn(name = "buyer_id")
-    private UserEntity buyer;
+    @JoinColumn(name = "sender_id")
+    private UserEntity sender;
 
     @ManyToOne
-    @JoinColumn(name = "seller_id")
-    private UserEntity seller;
+    @JoinColumn(name = "receiver_id")
+    private UserEntity receiver;
 
 
     @Builder
     public ReviewEntity(Long id,Integer manner,Integer appointment_time,Integer quality,
-                        PostEntity post,UserEntity buyer,UserEntity seller) {
+                        PostEntity post,UserEntity sender,UserEntity receiver) {
         this.id = id;
         this.manner = manner;
         this.appointment_time = appointment_time;
         this.quality = quality;
         this.post = post;
-        this.buyer = buyer;
-        this.seller = seller;
+        this.sender = sender;
+        this.receiver = receiver;
     }
 }
