@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -43,22 +44,13 @@ public class ChatRoomController {
     private final ChatMessageRepository chatMessageRepository;
     private final UserRepository userRepository;
 
-//    @GetMapping("/rooms")
-//    @ResponseBody
-//    public <? super ViewAllChatRoomResponseDto> viewAllRooms() {
-//
-//
-//        return chatRoomRepository.findAllByOrderByUserId();
-//    }
-
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "채팅방 조회(전체) 성공", content = @Content(schema = @Schema(implementation = ViewAllChatRoomResponseDto.class))),
     })
     @Operation(summary = "채팅방 조회 (전체 조회)")
     @GetMapping("/rooms")
     public ResponseEntity<? super ViewAllChatRoomResponseDto> ViewAllChatroom(@AuthenticationPrincipal UserDetails user) {
-        ResponseEntity<? super ViewAllChatRoomResponseDto> response = chatRoomService.findAllRoom(user);
-        return response;
+        return chatRoomService.findAllRoom(user);
     }
 
     @ApiResponses({
@@ -76,20 +68,19 @@ public class ChatRoomController {
     @Operation(summary = "채팅방 조회 (단건 조회)")
     @GetMapping("/room/{roomId}")
     public ResponseEntity<? super ViewChatRoomResponseDto> roomInfo(@PathVariable(value = "roomId") Long roomId) {
-        ResponseEntity<? super ViewChatRoomResponseDto> response = chatRoomService.findRoom(roomId);
-        return response;
+        return chatRoomService.findRoom(roomId);
     }
 
     @GetMapping("/user")
     @Operation(summary = "유저 정보 추출 (nickname 및 token)")
     @ResponseBody
-    public LoginInfo getUserInfo(){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    public LoginInfo getUserInfo(HttpServletRequest request){
+        String token = tokenProvider.resolveAccessToken(request);
+        Authentication auth = tokenProvider.getAuthentication(token);
         String email =  auth.getName();
         UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
         String nickname = user.getNickname();
-        TokenDto tokenDto = tokenProvider.generateTokenDto(auth);
-        String token = tokenDto.getAccessToken();
+
         return LoginInfo.builder().nickname(nickname).token(token).build();
     }
 

@@ -45,8 +45,7 @@ public class InquiryController {
     @GetMapping("/{userInquiryId}")
     public ResponseEntity<? super GetUserInquiryResponseDto> getUserInquiry(@PathVariable("userInquiryId") Long userInquiryId
                                                                             , @AuthenticationPrincipal UserDetails user) {
-        ResponseEntity<? super GetUserInquiryResponseDto> response = userInquiryService.getUserInquiry(userInquiryId, user.getUsername());
-        return response;
+        return userInquiryService.getUserInquiry(userInquiryId, user.getUsername());
     }
 
     @ApiResponses({
@@ -55,8 +54,7 @@ public class InquiryController {
     @Operation(summary = "문의 조회 (전체 조회)")
     @GetMapping("")
     public ResponseEntity<? super GetAllUserInquiryResponseDto> getUserInquiry(@AuthenticationPrincipal UserDetails user) {
-        ResponseEntity<? super GetAllUserInquiryResponseDto> response = userInquiryService.getAllUserInquiry(user.getUsername());
-        return response;
+        return userInquiryService.getAllUserInquiry(user.getUsername());
     }
 
     @ApiResponses({

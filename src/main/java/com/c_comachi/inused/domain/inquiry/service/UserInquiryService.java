@@ -11,7 +11,9 @@ import com.c_comachi.inused.domain.inquiry.repository.ManagerInquiryRepository;
 import com.c_comachi.inused.domain.inquiry.repository.UserInquiryRepository;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
 import com.c_comachi.inused.domain.users.repository.UserRepository;
+import com.c_comachi.inused.global.common.ErrorCode;
 import com.c_comachi.inused.global.dto.ResponseDto;
+import com.c_comachi.inused.global.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -38,7 +40,8 @@ public class UserInquiryService {
     }
 
     public ResponseEntity<? super GetAllUserInquiryResponseDto> getAllUserInquiry(String email) {
-        UserEntity user = userRepository.findByEmail(email).get();
+        UserEntity user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
         List<UserInquiryEntity> userInquiryList = userInquiryRepository.findListByUser(user);
 
         return GetAllUserInquiryResponseDto.success(userInquiryList);
@@ -50,14 +53,17 @@ public class UserInquiryService {
 
         try{
             if(!userInquiryRepository.existsById(userInquiryId)) return GetUserInquiryResponseDto.notExistedInquiry();
-            userInquiry = userInquiryRepository.findById(userInquiryId).get();
+            userInquiry = userInquiryRepository.findById(userInquiryId)
+                    .orElseThrow(() -> new EntityNotFoundException(ErrorCode.INQUIRY_NOT_FOUND));
 
             String userEmail = userInquiry.getUser().getEmail();
 
             if(!userEmail.equals(email)) return GetUserInquiryResponseDto.authorizationFailed();
 
             if(managerInquiryRepository.existsByUserInquiryId(userInquiry)){
-                ManagerInquiryEntity managerInquiry = managerInquiryRepository.findByUserInquiryId(userInquiry).get();
+                ManagerInquiryEntity managerInquiry = managerInquiryRepository.findByUserInquiryId(userInquiry)
+                        .orElseThrow(() -> new EntityNotFoundException(ErrorCode.INQUIRY_NOT_FOUND));
+
                 managerInquiryInfo = new ManagerInquiryInfo(managerInquiry);
             }
         } catch (Exception e){
@@ -73,7 +79,9 @@ public class UserInquiryService {
     }
 
     public void editInquiry(Long userInquiryId, UserInquiryEditInfo info) {
-        UserInquiryEntity userInquiry = userInquiryRepository.findById(userInquiryId).get();
+        UserInquiryEntity userInquiry = userInquiryRepository.findById(userInquiryId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.INQUIRY_NOT_FOUND));
+
         userInquiry.userInquiryEdit(info);
         userInquiryRepository.save(userInquiry);
     }

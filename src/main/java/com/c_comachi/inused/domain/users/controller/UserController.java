@@ -36,8 +36,7 @@ public class UserController {
     @Operation(summary = "회원 조회", description = "header 에 토큰 넣어서")
     @GetMapping("/get")
     public ResponseEntity<? super GetLoginUserResponseDto> getUser(@AuthenticationPrincipal UserDetails user) {
-        ResponseEntity<? super GetLoginUserResponseDto> response = userService.getLoginUser(user.getUsername());
-        return response;
+        return userService.getLoginUser(user.getUsername());
     }
 
 

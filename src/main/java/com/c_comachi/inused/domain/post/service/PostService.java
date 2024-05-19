@@ -42,7 +42,7 @@ public class PostService {
         post.setViewCount(post.getViewCount() + 1);
         postsRepository.save(post);
 
-        boolean checkLiked = wishRepository.existsByUserAndPost(post.getUser().getEmail(), postId);
+        boolean checkLiked = wishRepository.existsByUserAndPost(user.getUsername(), postId);
         boolean checkMyPost = post.getUser().getEmail().equals(user.getUsername());
         MainPostInfo mainPostInfo = new MainPostInfo(post, checkLiked, checkMyPost);
 

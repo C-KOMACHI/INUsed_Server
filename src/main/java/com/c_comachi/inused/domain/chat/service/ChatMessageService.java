@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ChatMessageService {
 
-    private final UserRepository userRepository;
     private final RedisTemplate<String, Object> redisTemplate;
     private final ChannelTopic channelTopic;
     private final ChatMessageRepository chatMessageRepository;
