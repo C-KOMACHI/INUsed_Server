@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Getter
 @NoArgsConstructor
 public class RegisterRequestDto {
-    @NotBlank
+    @NotBlank @Email
     private String email;
 
     @NotBlank
