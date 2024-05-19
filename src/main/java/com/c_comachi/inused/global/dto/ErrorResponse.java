@@ -5,9 +5,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Getter
@@ -39,15 +41,15 @@ public class ErrorResponse {
         return new ErrorResponse(code);
     }
 
-//    public static ErrorResponse of(MethodArgumentTypeMismatchException e) {
-//        String value = Optional.ofNullable(e.getValue())
-//                .map(Object::toString)
-//                .orElse("");
-//
-//        List<ErrorResponse.FieldError> errors = ErrorResponse.FieldError.of(
-//                e.getName(), value, e.getErrorCode());
-//        return new ErrorResponse(ErrorCode.INVALID_TYPE_VALUE, errors);
-//    }
+    public static ErrorResponse of(MethodArgumentTypeMismatchException e) {
+        String value = Optional.ofNullable(e.getValue())
+                .map(Object::toString)
+                .orElse("");
+
+        List<ErrorResponse.FieldError> errors = ErrorResponse.FieldError.of(
+                e.getName(), value, e.getErrorCode());
+        return new ErrorResponse(ErrorCode.INVALID_TYPE_VALUE, errors);
+    }
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
