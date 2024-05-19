@@ -3,19 +3,25 @@ package com.c_comachi.inused.domain.review.dto.request;
 import com.c_comachi.inused.domain.post.entity.PostEntity;
 import com.c_comachi.inused.domain.review.entity.ReviewEntity;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
 @Getter
 public class CreateReviewRequestDto {
 
+    @NotBlank
     private final Integer manner;
 
+    @NotBlank
     private final Integer appointment_time;
 
+    @NotBlank
     private final Integer quality;
 
+    @NotBlank
     private final Long postId;
 
+    @NotBlank
     private final Long receiverId;
 
 
