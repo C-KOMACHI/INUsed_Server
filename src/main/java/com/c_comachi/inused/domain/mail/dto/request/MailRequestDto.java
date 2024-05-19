@@ -7,6 +7,6 @@ import lombok.Getter;
 
 @Data
 public class MailRequestDto {
-    @NotBlank @Email
+    @NotBlank
     private String email;
 }
