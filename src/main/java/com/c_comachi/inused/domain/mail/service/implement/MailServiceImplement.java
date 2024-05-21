@@ -94,10 +94,6 @@ public class MailServiceImplement implements MailService {
             return EmailCheckResponseDto.validationFailed();
         }
 
-        // 이메일 존재하면 return 중복 이메일
-        if(userRepository.existsByEmail(email+EMAIL_ADDRESS)){
-            return EmailCheckResponseDto.duplicateEmail();
-        }
         //메일전송에 필요한 정보 설정
         MimeMessage emailForm = createEmailForm(email);
         //실제 메일 전송
