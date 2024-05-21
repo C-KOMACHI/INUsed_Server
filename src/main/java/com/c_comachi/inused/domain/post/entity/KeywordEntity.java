@@ -20,7 +20,7 @@ public class KeywordEntity {
     @Column(length = 20, nullable = false)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade  = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
     private UserEntity user;
 

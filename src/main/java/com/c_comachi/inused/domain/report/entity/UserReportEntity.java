@@ -31,11 +31,11 @@ public class UserReportEntity {
     @JoinColumn(name = "report_category_id")
     private ReportCategoryEntity reportCategory;
 
-    @OneToOne
+    @OneToOne(cascade  = CascadeType.REMOVE)
     @JoinColumn(name = "reporter_id")
     private UserEntity reporter;
 
-    @OneToOne
+    @OneToOne(cascade  = CascadeType.REMOVE)
     @JoinColumn(name = "reportee_id")
     private UserEntity reportee;
 

@@ -35,7 +35,7 @@ public class UserInquiryEntity {
     @Column(updatable = false, nullable = false, name = "created_at")
     private LocalDateTime createdAt;
 
-    @ManyToOne
+    @ManyToOne(cascade  = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
     private UserEntity user;
 

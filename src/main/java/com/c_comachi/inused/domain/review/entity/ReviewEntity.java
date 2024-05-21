@@ -31,15 +31,15 @@ public class ReviewEntity {
     @Column(nullable = false)
     private Integer quality;
 
-    @ManyToOne
+    @ManyToOne(cascade  = CascadeType.REMOVE)
     @JoinColumn(name = "post_id")
     private PostEntity post;
 
-    @ManyToOne
+    @ManyToOne(cascade  = CascadeType.REMOVE)
     @JoinColumn(name = "sender_id")
     private UserEntity sender;
 
-    @ManyToOne
+    @ManyToOne(cascade  = CascadeType.REMOVE)
     @JoinColumn(name = "receiver_id")
     private UserEntity receiver;
 
