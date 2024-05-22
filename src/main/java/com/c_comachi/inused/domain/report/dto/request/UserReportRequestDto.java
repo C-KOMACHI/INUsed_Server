@@ -18,13 +18,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access =  AccessLevel.PROTECTED)
 public class UserReportRequestDto {
     @Schema(description = "신고할 유저의 id")
-    @NotNull
     private Long reporteeUserId;
 
-    @NotNull
     private Long categoryId;
 
-    @NotNull
     private String content;
 
     public UserReportEntity toReport(UserRepository userRepository,

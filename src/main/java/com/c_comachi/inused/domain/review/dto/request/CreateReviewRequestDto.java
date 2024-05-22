@@ -9,19 +9,14 @@ import lombok.Getter;
 @Getter
 public class CreateReviewRequestDto {
 
-    @NotBlank
     private final Integer manner;
 
-    @NotBlank
     private final Integer appointment_time;
 
-    @NotBlank
     private final Integer quality;
 
-    @NotBlank
     private final Long postId;
 
-    @NotBlank
     private final Long receiverId;
 
 

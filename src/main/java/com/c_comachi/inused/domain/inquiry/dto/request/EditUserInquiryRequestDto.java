@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EditUserInquiryRequestDto {
 
-    @NotBlank
     private String title;
-    @NotBlank
     private String content;
 
     public UserInquiryEditInfo toUserInquiryEditInfo() {

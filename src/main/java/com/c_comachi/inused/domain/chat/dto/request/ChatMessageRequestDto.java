@@ -12,9 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ChatMessageRequestDto {
 
-    @NotBlank
     private Long roomId; // 방번호
-    @NotBlank
     private String sender; // 메시지 보낸사람
     private String message; // 메시지
 

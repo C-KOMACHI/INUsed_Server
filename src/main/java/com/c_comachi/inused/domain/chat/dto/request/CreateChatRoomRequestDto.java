@@ -5,8 +5,6 @@ import lombok.Data;
 
 @Data
 public class CreateChatRoomRequestDto {
-    @NotBlank
     private Long userId;
-    @NotBlank
     private Long postId;
 }

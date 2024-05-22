@@ -17,19 +17,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UpdatePostRequestDto {
 
-    @NotBlank
     private String title;
 
-    @NotBlank
     private String content;
 
     private String imageUrl;
 
-    @NotBlank
     private Integer price;
 
     //카테고리 설정 확인 필요. (기본값 설정?)
-    @NotBlank
     private  Long categoryId;
 
     private Status productState;
