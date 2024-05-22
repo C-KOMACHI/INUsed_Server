@@ -77,7 +77,12 @@ public class ChatRoomService {
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.POST_NOT_FOUND));
 
         ChatRoom chatRoom = new ChatRoom(sender, receiver, post);
-        chatRoomRepository.save(chatRoom);
+
+        if(!chatRoomRepository.existsBySenderAndReceiverAndPost(sender, receiver, post)){
+            chatRoomRepository.save(chatRoom);
+
+        }
+
         return chatRoom;
     }
 

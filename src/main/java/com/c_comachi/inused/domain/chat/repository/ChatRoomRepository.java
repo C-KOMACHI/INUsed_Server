@@ -22,5 +22,8 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long> {
 
     List<ChatRoom> findAllByReceiverEmailAndPost(String email, PostEntity post);
 
+    boolean existsBySenderAndReceiverAndPost(UserEntity sender, UserEntity receiver, PostEntity post);
+
+
 }
 
