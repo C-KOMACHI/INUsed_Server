@@ -6,6 +6,7 @@ build/
 !**/src/test/**/build/
 src/main/resources/application-local.yml
 src/main/resources/application.yml
+src/main/resources/firebase/inused-firebase-adminsdk-fmndq-871e73fc28.json
 
 ### STS ###
 .apt_generated
