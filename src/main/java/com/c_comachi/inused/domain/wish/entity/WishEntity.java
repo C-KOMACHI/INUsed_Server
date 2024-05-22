@@ -19,11 +19,11 @@ public class WishEntity {
     @Column(name = "wish_id", nullable = false)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade  = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @ManyToOne
+    @ManyToOne(cascade  = CascadeType.REMOVE)
     @JoinColumn(name = "post_id")
     private PostEntity post;
 

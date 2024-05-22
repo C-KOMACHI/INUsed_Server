@@ -24,15 +24,15 @@ public class ChatRoom {
     @Column(name = "chat_id", nullable = false)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade  = CascadeType.REMOVE)
     @JoinColumn(name = "sender_id")
     private UserEntity sender;
 
-    @ManyToOne
+    @ManyToOne(cascade  = CascadeType.REMOVE)
     @JoinColumn(name = "receiver_id")
     private UserEntity receiver;
 
-    @ManyToOne
+    @ManyToOne(cascade  = CascadeType.REMOVE)
     @JoinColumn(name = "post_id")
     private PostEntity post;
 

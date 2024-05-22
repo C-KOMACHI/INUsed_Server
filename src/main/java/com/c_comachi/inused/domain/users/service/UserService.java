@@ -6,6 +6,7 @@ import com.c_comachi.inused.domain.users.entity.UserEntity;
 import com.c_comachi.inused.domain.users.repository.UserRepository;
 import com.c_comachi.inused.global.common.ErrorCode;
 import com.c_comachi.inused.global.exception.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ public class UserService{
 
     private  final UserRepository userRepository;
 
+    @Transactional
     public ResponseEntity<? super GetLoginUserResponseDto> getLoginUser(String email) {
 
         UserEntity userEntity = null;
@@ -26,6 +28,7 @@ public class UserService{
         return GetLoginUserResponseDto.success(userEntity);
     }
 
+    @Transactional
     public void editUser(String email, UserEditInfo info) {
         UserEntity user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
@@ -33,9 +36,11 @@ public class UserService{
         userRepository.save(user);
     }
 
+    @Transactional
     public void deleteUser(String email) {
         UserEntity userEntity = userRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
+
         userRepository.delete(userEntity);
     }
 

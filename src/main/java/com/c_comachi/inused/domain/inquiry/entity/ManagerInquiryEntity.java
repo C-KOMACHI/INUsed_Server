@@ -31,7 +31,7 @@ public class ManagerInquiryEntity {
     @Column(updatable = false, nullable = false, name = "created_at")
     private LocalDateTime createdAt;
 
-    @OneToOne
+    @OneToOne(cascade  = CascadeType.REMOVE)
     @JoinColumn(name = "inquiry_id")
     private UserInquiryEntity inquiry;
 

@@ -56,7 +56,7 @@ public class PostEntity {
     @Column(name = "last_reposting")
     private LocalDateTime lastReposting;
 
-    @ManyToOne
+    @ManyToOne(cascade  = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
     private UserEntity user;
 

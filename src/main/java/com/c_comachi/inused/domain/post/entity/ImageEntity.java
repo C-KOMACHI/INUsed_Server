@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name="post_image")
 public class ImageEntity {
     @Id
-    @ManyToOne
+    @ManyToOne(cascade  = CascadeType.REMOVE)
     @JoinColumn(name = "post_id")
     private PostEntity post;
 
