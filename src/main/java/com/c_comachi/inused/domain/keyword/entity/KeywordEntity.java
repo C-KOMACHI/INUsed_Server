@@ -1,4 +1,4 @@
-package com.c_comachi.inused.domain.post.entity;
+package com.c_comachi.inused.domain.keyword.entity;
 
 import com.c_comachi.inused.domain.users.entity.UserEntity;
 import jakarta.persistence.*;
