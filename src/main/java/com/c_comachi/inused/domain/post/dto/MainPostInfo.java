@@ -4,9 +4,12 @@ import com.c_comachi.inused.domain.post.entity.CategoryEntity;
 import com.c_comachi.inused.domain.post.entity.PostEntity;
 import com.c_comachi.inused.domain.post.entity.Status;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
+import com.c_comachi.inused.global.Time;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 @Data
 public class MainPostInfo {
@@ -25,13 +28,14 @@ public class MainPostInfo {
 
     private CategoryEntity category;
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
     private LocalDateTime lastReposting;
+    private String ago;
     private boolean checkLiked;
     private boolean checkMyPost;
 
     public MainPostInfo(PostEntity post, boolean checkLiked, boolean checkMyPost){
         UserEntity user = post.getUser();
+
 
         this.Id = post.getId();
         this.title = post.getTitle();
@@ -40,7 +44,6 @@ public class MainPostInfo {
         this.viewCount = post.getViewCount();
         this.imageUrl = post.getImageUrl();
         this.createdAt = post.getCreatedAt();
-        this.updatedAt = post.getUpdatedAt();
         this.lastReposting = post.getLastReposting();
         this.productState = post.getProductState();
         this.tag = post.getTag();
@@ -51,5 +54,7 @@ public class MainPostInfo {
         this.fireTemperature = user.getFireTemperature();
         this.checkLiked = checkLiked;
         this.checkMyPost = checkMyPost;
+        this.ago = Time.calculateTime(Date.from(post.getLastReposting().atZone(ZoneId.systemDefault()).toInstant()));
+
     }
 }
