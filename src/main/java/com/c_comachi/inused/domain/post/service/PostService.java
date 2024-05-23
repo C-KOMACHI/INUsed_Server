@@ -108,6 +108,16 @@ public class PostService {
         return GetAllPostResponseDto.success(mainPostInfos);
     }
 
+    public ResponseEntity<? super GetAllPostResponseDto> getUserPost(Long userId, UserDetails userDetails){
+        List<PostEntity> posts = postsRepository.findAllByUserId(userId);
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
+
+        List<MainPostInfo> mainPostInfos = postsToMainPosts(posts, userDetails);
+
+        return GetAllPostResponseDto.success(mainPostInfos);
+    }
+
     public ResponseEntity<? super GetAllPostResponseDto> getCategoryPost(UserDetails user, Long categoryId){
         List<PostEntity> posts = postsRepository.findAllByCategoryId(categoryId);
         List<MainPostInfo> mainPostInfos = postsToMainPosts(posts, user);
