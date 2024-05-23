@@ -3,6 +3,7 @@ package com.c_comachi.inused.domain.post.repository;
 import com.c_comachi.inused.domain.post.entity.PostEntity;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import javax.swing.text.html.Option;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface PostRepository extends JpaRepository<PostEntity, Long> {
+public interface PostRepository extends JpaRepository<PostEntity, Long>, JpaSpecificationExecutor<PostEntity> {
     List<PostEntity> findAllByOrderByCreatedAtDesc();
     Optional<PostEntity> findById(Long id);
     List<PostEntity> findAllByOrderByLastRepostingDesc();

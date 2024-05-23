@@ -117,4 +117,5 @@ public class PostController {
                                                                          @PathVariable(value = "categoryId") Long categoryId){
         return postService.getCategoryPost(user, categoryId);
     }
+
 }
