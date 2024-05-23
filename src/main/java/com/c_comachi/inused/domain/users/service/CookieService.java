@@ -16,8 +16,11 @@ public class CookieService {
                 .path("/")
                 .maxAge(14 * 24 * 60 * 60 * 1000)
                 .secure(true)
-                .domain("https://www.inused.store")
-                .domain("https://inused.store")
+                .domain("www.inused.store")
+                .domain("inused.store")
+                .domain("localhost")
+                .domain("api.inused.store")
+                .domain("127.0.0.1")
                 .httpOnly(true)
                 .sameSite("none")
                 .build();
