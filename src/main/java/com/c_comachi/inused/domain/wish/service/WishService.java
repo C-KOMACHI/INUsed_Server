@@ -56,7 +56,7 @@ public class WishService {
 
     @Transactional
     public ResponseEntity<? super GetWishesResponseDto> getWish(UserDetails user) {
-        List<WishEntity> wishEntities = wishRepository.findAllByUserEmail(user.getUsername());
+        List<WishEntity> wishEntities = wishRepository.findAllByUserEmailOrderByIdDesc(user.getUsername());
         List<MainPostInfo> mainPostInfos = new ArrayList<>();
 
         for(WishEntity wishEntity : wishEntities) {
