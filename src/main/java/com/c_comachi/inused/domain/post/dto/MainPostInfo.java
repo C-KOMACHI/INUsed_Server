@@ -3,6 +3,7 @@ package com.c_comachi.inused.domain.post.dto;
 import com.c_comachi.inused.domain.post.entity.CategoryEntity;
 import com.c_comachi.inused.domain.post.entity.PostEntity;
 import com.c_comachi.inused.domain.post.entity.Status;
+import com.c_comachi.inused.domain.users.dto.UserInfo;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
 import com.c_comachi.inused.global.Time;
 import lombok.Data;
@@ -22,9 +23,7 @@ public class MainPostInfo {
     private Integer viewCount;
     private String imageUrl;
     private String tag;
-    private String nickname;
-    private String profileImage;
-    private Integer fireTemperature;
+    private UserInfo user;
 
     private CategoryEntity category;
     private LocalDateTime createdAt;
@@ -49,9 +48,7 @@ public class MainPostInfo {
         this.tag = post.getTag();
         this.category = post.getCategory();
         this.content = post.getContent();
-        this.nickname = user.getNickname();
-        this.profileImage = user.getProfileImage();
-        this.fireTemperature = user.getFireTemperature();
+        this.user = new UserInfo(user);
         this.checkLiked = checkLiked;
         this.checkMyPost = checkMyPost;
         this.ago = Time.calculateTime(Date.from(post.getLastReposting().atZone(ZoneId.systemDefault()).toInstant()));
