@@ -9,6 +9,7 @@ public interface ResponseMessage {
     String DUPLICATE_EMAIL = "Duplicate email";
     String DUPLICATE_NICKNAME = "Duplicate nickname";
     String  UNHEALTHY_NICKNAME = "Unhealthy nickname";
+    String BAD_EMAIL = "Bad Email";
     String NOT_EXISTED_USER = "Not Existed user";
     String MISMATCHED_TOKEN = "Mismatched Token";
     String SAME_PASSWORD = "Same Password";

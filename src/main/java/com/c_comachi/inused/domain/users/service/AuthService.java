@@ -12,6 +12,7 @@ import com.c_comachi.inused.domain.users.dto.response.RegisterResponseDto;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
 import com.c_comachi.inused.domain.users.jwt.TokenProvider;
 import com.c_comachi.inused.domain.users.repository.UserRepository;
+import com.c_comachi.inused.global.exception.EntityNotFoundException;
 import com.c_comachi.inused.global.exception.InvalidValueException;
 import com.c_comachi.inused.global.service.RedisService;
 import java.util.Optional;
@@ -53,7 +54,7 @@ public class AuthService {
         try {
             String email = requestDto.getEmail() + EMAIL_ADDRESS;
             if (!isValidEmail(email)) {
-                throw new InvalidValueException(ErrorCode.INCORRECT_EMAIL);
+               return RegisterResponseDto.badEmail();
             }
 
             boolean existedEmail = userRepository.existsByEmail(email);

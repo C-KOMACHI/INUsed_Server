@@ -9,8 +9,9 @@ public interface ResponseCode {
     String VALIDATION_FAILED = "VF";
     String DUPLICATE_EMAIL = "DE ";
     String DUPLICATE_NICKNAME = "DN";
-    String  UNHEALTHY_NICKNAME = "UN";
+    String UNHEALTHY_NICKNAME = "UN";
     String NOT_EXISTED_USER = "NU";
+    String BAD_EMAIL = "BE";
     String MISMATCHED_TOKEN = "MT";
     String SAME_PASSWORD = "SP";
     String NOT_EXISTED_NOTICE = "NN";
