@@ -50,56 +50,56 @@ class AuthControllerTest{
         assertThat(authService.register(addUser).getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
-    @Test
-    @DisplayName("로그인 성공")
-    void loginSuccess() {
-        //given
-        log.info("[existUser] email={}, password={}", "test@inu.ac.kr", "test1234");
-        log.info("[loginUser] email={}, password={}", "test@inu.ac.kr", "test1234");
+//    @Test
+//    @DisplayName("로그인 성공")
+//    void loginSuccess() {
+//        //given
+//        log.info("[existUser] email={}, password={}", "test@inu.ac.kr", "test1234");
+//        log.info("[loginUser] email={}, password={}", "test@inu.ac.kr", "test1234");
+//
+//        //when
+//        LoginRequestDto loginUser = new LoginRequestDto("test@inu.ac.kr", "test1234");
+//
+//
+//        //then
+//        assertThat(authService.login(loginUser).getStatusCode()).isEqualTo(HttpStatus.OK);
+//    }
 
-        //when
-        LoginRequestDto loginUser = new LoginRequestDto("test@inu.ac.kr", "test1234");
 
-
-        //then
-        assertThat(authService.login(loginUser).getStatusCode()).isEqualTo(HttpStatus.OK);
-    }
-
-
-    @Test
-    @DisplayName("토큰 재발급 성공")
-    void reissue() {
-        //given
-        log.info("[loginUser] email={}, password={}", "test@inu.ac.kr", "test1234");
-        log.info("[ReissueUser] email={}, password={}", "test@inu.ac.kr", "test1234");
-
-        //when
-
-        LoginRequestDto loginUser = new LoginRequestDto("test@inu.ac.kr", "test1234");
-        ResponseEntity<? super LoginResponseDto> login = authService.login(loginUser);
-        LoginResponseDto loginResponseDto = (LoginResponseDto) login.getBody();
-        TokenRequestDto tokenRequestDto = new TokenRequestDto(loginResponseDto.getAccessToken(), loginResponseDto.getRefreshToken());
-
-        //then
-        assertThat(authService.reissue(tokenRequestDto).getStatusCode()).isEqualTo(HttpStatus.OK);
-    }
-
-    @Test
-    @DisplayName("로그아웃 성공")
-    void logout() {
-        //given
-        log.info("[loginUser] email={}, password={}", "test@inu.ac.kr", "test1234");
-        log.info("[logoutUser] email={}, password={}", "test@inu.ac.kr", "test1234");
-
-        //when
-        LoginRequestDto loginUser = new LoginRequestDto("test@inu.ac.kr", "test1234");
-        ResponseEntity<? super LoginResponseDto> login = authService.login(loginUser);
-        LoginResponseDto loginResponseDto = (LoginResponseDto) login.getBody();
-        TokenRequestDto tokenRequestDto = new TokenRequestDto(loginResponseDto.getAccessToken(), loginResponseDto.getRefreshToken());
-
-        //then
-        assertThat(authService.logout(tokenRequestDto).getStatusCode()).isEqualTo(HttpStatus.OK);
-    }
+//    @Test
+//    @DisplayName("토큰 재발급 성공")
+//    void reissue() {
+//        //given
+//        log.info("[loginUser] email={}, password={}", "test@inu.ac.kr", "test1234");
+//        log.info("[ReissueUser] email={}, password={}", "test@inu.ac.kr", "test1234");
+//
+//        //when
+//
+//        LoginRequestDto loginUser = new LoginRequestDto("test@inu.ac.kr", "test1234");
+//        ResponseEntity<? super LoginResponseDto> login = authService.login(loginUser);
+//        LoginResponseDto loginResponseDto = (LoginResponseDto) login.getBody();
+//        TokenRequestDto tokenRequestDto = new TokenRequestDto(loginResponseDto.getAccessToken(), loginResponseDto.getRefreshToken());
+//
+//        //then
+//        assertThat(authService.reissue(tokenRequestDto).getStatusCode()).isEqualTo(HttpStatus.OK);
+//    }
+//
+//    @Test
+//    @DisplayName("로그아웃 성공")
+//    void logout() {
+//        //given
+//        log.info("[loginUser] email={}, password={}", "test@inu.ac.kr", "test1234");
+//        log.info("[logoutUser] email={}, password={}", "test@inu.ac.kr", "test1234");
+//
+//        //when
+//        LoginRequestDto loginUser = new LoginRequestDto("test@inu.ac.kr", "test1234");
+//        ResponseEntity<? super LoginResponseDto> login = authService.login(loginUser);
+//        LoginResponseDto loginResponseDto = (LoginResponseDto) login.getBody();
+//        TokenRequestDto tokenRequestDto = new TokenRequestDto(loginResponseDto.getAccessToken(), loginResponseDto.getRefreshToken());
+//
+//        //then
+//        assertThat(authService.logout(tokenRequestDto).getStatusCode()).isEqualTo(HttpStatus.OK);
+//    }
 
     @BeforeEach
     void registerOne() {

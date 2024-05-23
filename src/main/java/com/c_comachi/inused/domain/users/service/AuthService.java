@@ -13,6 +13,9 @@ import com.c_comachi.inused.domain.users.jwt.TokenProvider;
 import com.c_comachi.inused.domain.users.repository.UserRepository;
 import com.c_comachi.inused.global.service.RedisService;
 import java.util.Optional;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -36,6 +39,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final TokenProvider tokenProvider;
     private final RedisService redisService;
+    private final CookieService cookieService;
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final String EMAIL_ADDRESS = "@inu.ac.kr";
 
@@ -63,7 +67,7 @@ public class AuthService {
     }
 
     @Transactional
-    public ResponseEntity<? super LoginResponseDto> login(LoginRequestDto loginRequestDto) {
+    public ResponseEntity<? super LoginResponseDto> login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
         TokenDto tokenDto = null;
 
         try {
@@ -85,6 +89,8 @@ public class AuthService {
             long refreshTokenExpirationMillis = tokenProvider.getRefreshTokenExpirationMillis();
             redisService.setValues(authentication.getName(), tokenDto.getRefreshToken(), Duration.ofMillis(refreshTokenExpirationMillis));
 
+            cookieService.setHeader(response, tokenDto); // 쿠키에 refreshToken 저장
+
         } catch (UsernameNotFoundException | BadCredentialsException | LockedException e) {
             return LoginResponseDto.loginFailed();
         } catch (Exception exception){
@@ -97,22 +103,27 @@ public class AuthService {
     }
 
     @Transactional
-    public ResponseEntity<? super ReissueResponseDto> reissue(TokenRequestDto tokenRequestDto) {
+    public ResponseEntity<? super ReissueResponseDto> reissue(HttpServletRequest request, HttpServletResponse response, String refreshToken) {
         TokenDto tokenDto = null;
+        String accessToken = tokenProvider.resolveAccessToken(request);
+
+        if (refreshToken == null) {
+            refreshToken = tokenProvider.resolveRefreshToken(request);
+        }
 
         try {
             // 1. Refresh Token 검증
-            if (verifiedRefreshToken(tokenRequestDto)) {
+            if (!tokenProvider.validateToken(refreshToken)) {
                 return ResponseDto.validationFailed(); // VF
             }
             // 2. Access Token 에서 User ID 가져오기
-            Authentication authentication = tokenProvider.getAuthentication(tokenRequestDto.getAccessToken());
+            Authentication authentication = tokenProvider.getAuthentication(accessToken);
 
             // 3. 저장소에서 User ID 를 기반으로 Refresh Token 값 가져옴
-            String refreshToken = redisService.getValues(authentication.getName());
+            String redisRefreshToken = redisService.getValues(authentication.getName());
 
             // 4. Refresh Token 일치하는지 검사
-            if (!refreshToken.equals(tokenRequestDto.getRefreshToken())) {
+            if (!redisRefreshToken.equals(refreshToken)) {
                 return ReissueResponseDto.mismatchedToken(); // MT
             }
 
@@ -122,6 +133,7 @@ public class AuthService {
             // 6. 저장소 정보 업데이트
             long refreshTokenExpirationMillis = tokenProvider.getRefreshTokenExpirationMillis();
             redisService.setValues(authentication.getName(), tokenDto.getRefreshToken(), Duration.ofMillis(refreshTokenExpirationMillis));
+            cookieService.setHeader(response, tokenDto); // 쿠키에 refreshToken 저장
 
         } catch(RuntimeException runtimeException) {
             return ReissueResponseDto.loggedOutUser();
