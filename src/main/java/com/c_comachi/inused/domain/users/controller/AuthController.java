@@ -9,6 +9,7 @@ import com.c_comachi.inused.domain.users.dto.response.LogoutResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.PasswordFindResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.RegisterResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.ReissueResponseDto;
+import com.c_comachi.inused.domain.users.jwt.TokenProvider;
 import com.c_comachi.inused.domain.users.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,6 +17,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -46,8 +49,8 @@ public class AuthController {
     })
     @Operation(summary = "로그인")
     @PostMapping("/login")
-    public ResponseEntity<? super LoginResponseDto> login(@RequestBody @Valid LoginRequestDto requestBody) {
-        return authService.login(requestBody);
+    public ResponseEntity<? super LoginResponseDto> login(@RequestBody @Valid LoginRequestDto requestBody, HttpServletResponse response) {
+        return authService.login(requestBody, response);
     }
 
     @ApiResponses({
@@ -64,8 +67,9 @@ public class AuthController {
     })
     @Operation(summary = "토큰 재발급", description = "header 에도 토큰 부탁드려요")
     @PatchMapping("/reissue")
-    public ResponseEntity<? super ReissueResponseDto> reissue(@RequestBody @Valid TokenRequestDto requestBody, @AuthenticationPrincipal UserDetails user) {
-        return authService.reissue(requestBody);
+    public ResponseEntity<? super ReissueResponseDto> reissue(HttpServletRequest request, HttpServletResponse response,
+                                                              @RequestHeader(name = TokenProvider.REFRESH_HEADER, required = false) String refreshToken) {
+        return authService.reissue(request, response, refreshToken);
     }
 
     @ApiResponses({

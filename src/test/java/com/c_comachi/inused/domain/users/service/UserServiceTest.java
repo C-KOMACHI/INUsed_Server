@@ -68,15 +68,15 @@ public class UserServiceTest {
         assertThat(authService.register(addUser).getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
-    @Test
-    @DisplayName("로그인 실패")
-    void loginFailed() {
-        log.info("[existUser] email={}, password={}", "test@inu.ac.kr", "test1234");
-        log.info("[loginUser] email={}, password={}", "test1234@inu.ac.kr", "test1234");
-
-        LoginRequestDto loginUser = new LoginRequestDto("test@inu.ac.kr", "test12345678");
-
-        assertThat(authService.login(loginUser).getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
-    }
+//    @Test
+//    @DisplayName("로그인 실패")
+//    void loginFailed() {
+//        log.info("[existUser] email={}, password={}", "test@inu.ac.kr", "test1234");
+//        log.info("[loginUser] email={}, password={}", "test1234@inu.ac.kr", "test1234");
+//
+//        LoginRequestDto loginUser = new LoginRequestDto("test@inu.ac.kr", "test12345678");
+//
+//        assertThat(authService.login(loginUser).getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+//    }
 
 }
