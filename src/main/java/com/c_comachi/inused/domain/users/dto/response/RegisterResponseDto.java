@@ -29,8 +29,8 @@ public class RegisterResponseDto extends ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }
 
-    public static ResponseEntity<ResponseDto> unhealthyNickname() {
-        ResponseDto result = new ResponseDto(ResponseCode.UNHEALTHY_NICKNAME, ResponseMessage.UNHEALTHY_NICKNAME);
+    public static ResponseEntity<ResponseDto> badEmail() {
+        ResponseDto result = new ResponseDto(ResponseCode.BAD_EMAIL, ResponseMessage.BAD_EMAIL);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }
 }

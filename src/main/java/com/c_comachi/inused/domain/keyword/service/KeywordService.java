@@ -1,6 +1,7 @@
 package com.c_comachi.inused.domain.keyword.service;
 
 import com.c_comachi.inused.domain.keyword.dto.KeywordInfo;
+import com.c_comachi.inused.domain.keyword.dto.KeywordPost;
 import com.c_comachi.inused.domain.keyword.dto.request.CreateKeywordRequestDto;
 import com.c_comachi.inused.domain.keyword.dto.request.DeleteKeywordRequestDto;
 import com.c_comachi.inused.domain.keyword.dto.response.GetKeyWordResponseDto;
@@ -79,11 +80,19 @@ public class KeywordService {
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
 
         List<KeywordEntity> keywordEntities = keywordRepository.findAllByUser(user);
+        List<KeywordPost> keywordPosts = new ArrayList<>();
 
         Specification<PostEntity> spec = titleContainsKeywords(keywordEntities);
         List<PostEntity> postEntities = postRepository.findAll(spec);
 
-        return GetKeywordPostResponseDto.success(postEntities);
+        for(PostEntity post: postEntities){
+            for(KeywordEntity keyword : keywordEntities){
+                if(post.getTitle().contains(keyword.getName()))
+                    keywordPosts.add(new KeywordPost(post, keyword.getName()));
+            }
+        }
+
+        return GetKeywordPostResponseDto.success(keywordPosts);
     }
 
     public static Specification<PostEntity> titleContainsKeywords(List<KeywordEntity> keywords) {
@@ -92,6 +101,7 @@ public class KeywordService {
             for (KeywordEntity keyword : keywords) {
                 predicates.add(cb.like(cb.lower(root.get("title")), "%" + keyword.getName().toLowerCase() + "%"));
             }
+            query.orderBy(cb.desc(root.get("lastReposting"))); // 내림차순 정렬
             return cb.or(predicates.toArray(new Predicate[0]));
         };
     }

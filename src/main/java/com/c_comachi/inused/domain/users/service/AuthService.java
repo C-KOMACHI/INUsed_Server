@@ -5,12 +5,15 @@ import com.c_comachi.inused.domain.users.dto.response.LogoutResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.PasswordFindResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.ReissueResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.TokenDto;
+import com.c_comachi.inused.global.common.ErrorCode;
 import com.c_comachi.inused.global.dto.ResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.LoginResponseDto;
 import com.c_comachi.inused.domain.users.dto.response.RegisterResponseDto;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
 import com.c_comachi.inused.domain.users.jwt.TokenProvider;
 import com.c_comachi.inused.domain.users.repository.UserRepository;
+import com.c_comachi.inused.global.exception.EntityNotFoundException;
+import com.c_comachi.inused.global.exception.InvalidValueException;
 import com.c_comachi.inused.global.service.RedisService;
 import java.util.Optional;
 
@@ -30,6 +33,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
@@ -48,6 +53,10 @@ public class AuthService {
 
         try {
             String email = requestDto.getEmail() + EMAIL_ADDRESS;
+            if (!isValidEmail(email)) {
+               return RegisterResponseDto.badEmail();
+            }
+
             boolean existedEmail = userRepository.existsByEmail(email);
             if (existedEmail) return RegisterResponseDto.duplicateEmail();
 
@@ -209,6 +218,13 @@ public class AuthService {
 
     private boolean verifiedRefreshToken(TokenRequestDto tokenRequestDto) {
         return !tokenProvider.validateToken(tokenRequestDto.getRefreshToken());
+    }
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
 }

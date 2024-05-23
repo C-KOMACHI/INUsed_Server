@@ -13,15 +13,17 @@ import java.util.List;
 
 @Getter
 public class GetKeyWordResponseDto extends ResponseDto {
-    private List<KeywordInfo> keywordInfos;
+    private List<KeywordInfo> keywords;
+    private Integer keywordNum;
 
-    public GetKeyWordResponseDto(List<KeywordInfo> keywordInfos) {
+    public GetKeyWordResponseDto(List<KeywordInfo> keywords) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.keywordInfos = keywordInfos;
+        this.keywords = keywords;
+        this.keywordNum = keywords.size();
     }
 
-    public static ResponseEntity<GetKeyWordResponseDto> success(List<KeywordInfo> keywordInfos){
-        GetKeyWordResponseDto result = new GetKeyWordResponseDto(keywordInfos);
+    public static ResponseEntity<GetKeyWordResponseDto> success(List<KeywordInfo> keywords){
+        GetKeyWordResponseDto result = new GetKeyWordResponseDto(keywords);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }
