@@ -6,6 +6,8 @@ import com.c_comachi.inused.domain.users.entity.UserEntity;
 import com.c_comachi.inused.global.common.ResponseCode;
 import com.c_comachi.inused.global.common.ResponseMessage;
 import com.c_comachi.inused.global.dto.ResponseDto;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -17,8 +19,8 @@ public class SearchNoticeResponseDto extends ResponseDto {
     private String title;
     private String content;
     private String image;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
     private SearchNoticeResponseDto(NoticeEntity noticeEntity){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
