@@ -13,12 +13,14 @@ public class KeywordPost {
     private final String title;
     private final String imageUrl;
     private final String keyword;
+    private final Integer price;
     private final String ago;
 
     public KeywordPost(PostEntity post, String keyword) {
         this.postId = post.getId();
         this.title = post.getTitle();
         this.imageUrl = post.getImageUrl();
+        this.price = post.getPrice();
         this.keyword = keyword;
         this.ago = Time.calculateTime(Date.from(post.getLastReposting().atZone(ZoneId.systemDefault()).toInstant()));
     }
