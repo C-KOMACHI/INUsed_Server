@@ -11,6 +11,7 @@ public enum ErrorCode {
     DUPLICATED_EMAIL(400, "DE", "이미 존재하는 E-mail입니다."),
     UNAUTHORIZED_REDIRECT_URI(400, "AU_003", "인증되지 않은 REDIRECT_URI입니다."),
     BAD_LOGIN(400, "BL", "잘못된 아이디 또는 패스워드입니다."),
+    DUPLICATED_KEYWORD(400, "DK", "중복된 키워드 입니다."),
     EXPIRED_TOKEN(401, "ET", "만료된 토큰입니다."),
 
     USER_NOT_FOUND(400, "UN", "유저를 찾을 수 없습니다."),

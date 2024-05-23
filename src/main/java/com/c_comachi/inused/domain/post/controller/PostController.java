@@ -101,10 +101,21 @@ public class PostController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = GetAllPostResponseDto.class))),
     })
+    @Operation(summary = "타인 게시물 보기")
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<? super GetAllPostResponseDto> getUserPost(@PathVariable(value = "userId") Long userId,
+                                                                     @AuthenticationPrincipal UserDetails userDetails){
+        return postService.getUserPost(userId, userDetails);
+    }
+
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = GetAllPostResponseDto.class))),
+    })
     @Operation(summary = "카테고리별 게시글 보기")
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<? super GetAllPostResponseDto> getCategoryPost(@AuthenticationPrincipal UserDetails user,
                                                                          @PathVariable(value = "categoryId") Long categoryId){
         return postService.getCategoryPost(user, categoryId);
     }
+
 }
