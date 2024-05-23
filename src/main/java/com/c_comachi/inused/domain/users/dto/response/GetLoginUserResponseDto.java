@@ -1,5 +1,6 @@
 package com.c_comachi.inused.domain.users.dto.response;
 
+import com.c_comachi.inused.domain.users.dto.UserInfo;
 import com.c_comachi.inused.domain.users.entity.Authority;
 import com.c_comachi.inused.domain.users.entity.UserEntity;
 import com.c_comachi.inused.global.common.ResponseCode;
@@ -12,19 +13,12 @@ import org.springframework.http.ResponseEntity;
 @Getter
 public class GetLoginUserResponseDto extends ResponseDto  {
 
-    private final String email;
-    private final String nickname;
-    private final String profileImage;
-    private final Integer fireTemperature;
-    private final Authority authority;
+    private final UserInfo user;
+
 
     private GetLoginUserResponseDto(UserEntity userEntity){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.email = userEntity.getEmail();
-        this.nickname = userEntity.getNickname();
-        this.profileImage = userEntity.getProfileImage();
-        this.fireTemperature = userEntity.getFireTemperature();
-        this.authority = userEntity.getAuthority();
+        this.user = new UserInfo(userEntity);
     }
 
     public static ResponseEntity<GetLoginUserResponseDto> success(UserEntity user) {
