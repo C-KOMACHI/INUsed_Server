@@ -19,5 +19,6 @@ public interface WishRepository extends JpaRepository<WishEntity, Long> {
     boolean existsByUserAndPost(@Param("email") String email, @Param("postId") Long postId);
 
     List<WishEntity> findAllByUserEmail(String email);
+    List<WishEntity> findAllByUserId(Long userId);
 
 }

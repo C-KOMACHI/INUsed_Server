@@ -69,4 +69,26 @@ public class WishService {
         return GetWishesResponseDto.success(mainPostInfos);
     }
 
+    @Transactional
+    public ResponseEntity<? super GetWishesResponseDto> getUserWishes(Long userId, UserDetails user) {
+
+        if(!userRepository.existsById(userId)){
+            throw new EntityNotFoundException(ErrorCode.USER_NOT_FOUND);
+        }
+
+        List<WishEntity> wishEntities = wishRepository.findAllByUserId(userId);
+        List<MainPostInfo> mainPostInfos = new ArrayList<>();
+
+        for(WishEntity wishEntity : wishEntities) {
+            PostEntity post = wishEntity.getPost();
+            boolean checkMyPost = post.getUser().getEmail().equals(user.getUsername());
+            boolean checkLiked = wishRepository.existsByUserAndPost(user.getUsername(), post.getId());
+            MainPostInfo mainPostInfo = new MainPostInfo(post, checkLiked, checkMyPost);
+            mainPostInfos.add(mainPostInfo);
+        }
+
+        return GetWishesResponseDto.success(mainPostInfos);
+
+    }
+
 }

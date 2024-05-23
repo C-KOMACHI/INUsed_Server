@@ -43,4 +43,14 @@ public class WishController {
         return response;
     }
 
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "생성 성공", content = @Content(schema = @Schema(implementation = GetWishesResponseDto.class))),
+    })
+    @Operation(summary = "타인 관심 조회")
+    @GetMapping("/{userId}")
+    public ResponseEntity<? super GetWishesResponseDto> getUserWishes(@PathVariable(value = "userId") Long userId, @AuthenticationPrincipal UserDetails userDetails) {
+        ResponseEntity<? super GetWishesResponseDto> response = wishService.getUserWishes(userId, userDetails);
+        return response;
+    }
+
 }
