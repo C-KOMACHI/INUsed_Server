@@ -1,7 +1,7 @@
 package com.c_comachi.inused.domain.users.controller;
 
 import com.c_comachi.inused.domain.users.dto.request.UserEditRequestDto;
-import com.c_comachi.inused.domain.users.dto.response.GetLoginUserResponseDto;
+import com.c_comachi.inused.domain.users.dto.response.GetUserResponseDto;
 import com.c_comachi.inused.domain.users.service.UserService;
 import com.c_comachi.inused.global.dto.ResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,12 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "User" , description = "User 관련 api 모음")
 @RestController
@@ -31,12 +26,21 @@ public class UserController {
     private final UserService userService;
 
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "인증 보내기 성공", content = @Content(schema = @Schema(implementation = GetLoginUserResponseDto.class))),
+            @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = GetUserResponseDto.class))),
     })
-    @Operation(summary = "회원 조회", description = "header 에 토큰 넣어서")
+    @Operation(summary = "내 정보 조회", description = "header 에 토큰 넣어서")
     @GetMapping("/get")
-    public ResponseEntity<? super GetLoginUserResponseDto> getUser(@AuthenticationPrincipal UserDetails user) {
+    public ResponseEntity<? super GetUserResponseDto> getUser(@AuthenticationPrincipal UserDetails user) {
         return userService.getLoginUser(user.getUsername());
+    }
+
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = GetUserResponseDto.class))),
+    })
+    @Operation(summary = "특정 회원 조회")
+    @GetMapping("/get/{userId}")
+    public ResponseEntity<? super GetUserResponseDto> getUser(@PathVariable(value = "userId") Long userId) {
+        return userService.getUser(userId);
     }
 
 
