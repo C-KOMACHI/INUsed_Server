@@ -18,7 +18,7 @@ public interface WishRepository extends JpaRepository<WishEntity, Long> {
     @Query("SELECT CASE WHEN COUNT(we) > 0 THEN TRUE ELSE FALSE END FROM WishEntity we WHERE we.user.email = :email AND we.post.id = :postId")
     boolean existsByUserAndPost(@Param("email") String email, @Param("postId") Long postId);
 
-    List<WishEntity> findAllByUserEmail(String email);
+    List<WishEntity> findAllByUserEmailOrderByIdDesc(String email);
     List<WishEntity> findAllByUserId(Long userId);
 
 }
