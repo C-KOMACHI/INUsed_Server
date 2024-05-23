@@ -6,13 +6,11 @@ import lombok.Getter;
 
 @Getter
 public class KeywordInfo {
-    private Long keywordId;
-    private String keyword;
-    private UserInfo user;
+    private final Long keywordId;
+    private final String keyword;
 
     public KeywordInfo(KeywordEntity keyword) {
         this.keywordId = keyword.getId();
         this.keyword = keyword.getName();
-        this.user = new UserInfo(keyword.getUser());
     }
 }
