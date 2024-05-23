@@ -17,7 +17,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CreateWishRequestDto {
-    @NotBlank
+
     private Long postId;
 
     public CreateWishRequestDto(Long postId) {

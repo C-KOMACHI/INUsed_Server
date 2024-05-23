@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 public class UserEditRequestDto {
 
     String profileImage;
-    @NotBlank
     String nickname;
 
     public UserEditInfo toUserEditInfo() {

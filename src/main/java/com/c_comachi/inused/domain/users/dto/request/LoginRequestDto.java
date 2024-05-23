@@ -12,9 +12,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 @NoArgsConstructor
 public class LoginRequestDto {
 
-    @NotBlank @Email
+    @Email
     private String email;
-    @NotBlank
     private String password;
 
     public UsernamePasswordAuthenticationToken toAuthentication() {

@@ -13,9 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CreateUserInquiryRequestDto {
 
-    @NotBlank
     private String title;
-    @NotBlank
     private String content;
 
     public CreateUserInquiryRequestDto(String title, String content){

@@ -12,13 +12,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Getter
 @NoArgsConstructor
 public class RegisterRequestDto {
-    @NotBlank
     private String email;
 
-    @NotBlank
     private String nickname;
 
-    @NotBlank
     private String password;
 
 
