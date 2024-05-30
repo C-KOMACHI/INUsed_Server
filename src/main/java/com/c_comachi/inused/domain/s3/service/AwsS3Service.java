@@ -14,6 +14,7 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -24,6 +25,7 @@ public class AwsS3Service {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
+    @Transactional
     public AwsS3 upload(MultipartFile multipartFile, String dirName) throws IOException {
         File file = convertMultipartFileToFile(multipartFile)
                 .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File convert fail"));
@@ -61,6 +63,7 @@ public class AwsS3Service {
         file.delete();
     }
 
+    @Transactional
     public Optional<File> convertMultipartFileToFile(MultipartFile multipartFile) throws IOException {
         File file = new File(System.getProperty("user.dir") + "/" + multipartFile.getOriginalFilename());
 
@@ -73,6 +76,7 @@ public class AwsS3Service {
         return Optional.empty();
     }
 
+    @Transactional
     public void remove(S3RemoveRequestDto awsS3) {
         if (!amazonS3.doesObjectExist(bucket, awsS3.getKey())) {
             throw new AmazonS3Exception("Object " +awsS3.getKey()+ " does not exist!");

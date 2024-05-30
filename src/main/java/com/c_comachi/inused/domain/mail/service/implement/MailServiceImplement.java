@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.UnsupportedEncodingException;
 import java.time.Duration;
@@ -87,6 +88,7 @@ public class MailServiceImplement implements MailService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<? super EmailCheckResponseDto> sendEmail(MailRequestDto requestBody) throws MessagingException, UnsupportedEncodingException {
         String email = requestBody.getEmail();
 
@@ -105,6 +107,7 @@ public class MailServiceImplement implements MailService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<? super EmailCheckResponseDto> verifiedCode(String email, String authCode){
         String redisAuthCode = redisService.getValues(email);
         boolean authResult = redisService.checkExistsValue(redisAuthCode) && redisAuthCode.equals(authCode);
@@ -116,7 +119,7 @@ public class MailServiceImplement implements MailService {
         return EmailCheckResponseDto.success();
     }
 
-    public String createHtml(){
+    private String createHtml(){
         String msgOfEmail = "<div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; border-radius: 10px;'>";
         msgOfEmail += "<div style='text-align: center; margin-bottom: 20px;'>";
         msgOfEmail += "<h2 style='color: #007bff;'>회원가입 인증 코드</h2>";

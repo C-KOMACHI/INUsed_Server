@@ -10,6 +10,7 @@ import com.c_comachi.inused.domain.users.repository.UserRepository;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +20,7 @@ public class ReportService {
     private final UserReportRepository userReportRepository;
     private final ReportCategoryRepository reportCategoryRepository;
 
+    @Transactional
     public void reportUser(UserReportRequestDto userReportRequestDto, String email){
         UserReportEntity reportEntity = userReportRequestDto.toReport(userRepository, reportCategoryRepository, email);
         userReportRepository.save(reportEntity);
