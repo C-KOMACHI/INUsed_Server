@@ -161,250 +161,99 @@
  ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂chat
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ChatController.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ChatRoomController.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜RoomController.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ChatMessageRequestDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CreateChatRoomRequestDto.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ViewAllChatRoomResponseDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ViewChatRoomResponseDto.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂entity
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ChatMessage.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ChatRoom.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ChatMessageRepository.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ChatRoomRepository.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ChatMessageService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ChatRoomService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜LoginInfo.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂inquiry
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜InquiryController.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CreateUserInquiryRequestDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜EditUserInquiryRequestDto.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂response
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GetAllUserInquiryResponseDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GetUserInquiryResponseDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ManagerInquiryInfo.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserInquiryEditInfo.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂entity
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ManagerInquiryEntity.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserInquiryEntity.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ManagerInquiryRepository.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserInquiryRepository.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserInquiryService.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂keyword
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜KeywordController.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CreateKeywordRequestDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DeleteKeywordRequestDto.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂response
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GetKeywordPostResponseDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GetKeyWordResponseDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜KeywordInfo.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜KeywordPost.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂entity
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜KeywordEntity.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜KeywordRepository.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜KeywordService.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂mail
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜MailController.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MailRequestDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜MailVerificationRequestDto.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜EmailCheckResponseDto.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂implement
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜MailServiceImplement.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜MailService.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂notice
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜NoticeController.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SearchNoticeResponseDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ViewNoticeResponseDto.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂entity
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜NoticeEntity.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜NoticeRepository.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜NoticeService.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂post
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜PostController.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CreatePostRequestDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UpdatePostRequestDto.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂response
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CreatePostResponseDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GetAllPostResponseDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GetPostResponseDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RePostResponseDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UpdatePostResponseDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜MainPostInfo.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂entity
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CategoryEntity.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ImageEntity.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PostEntity.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Status.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CategoryRepository.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜PostRepository.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜PostService.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂report
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ReportController.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂request
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserReportRequestDto.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂entity
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ManagerReportEntity.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportCategoryEntity.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserReportEntity.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportCategoryRepository.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserReportRepository.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ReportService.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂review
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ReviewController.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CreateReviewRequestDto.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜StartReviewResponseDto.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂entity
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ReviewEntity.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ReviewRepository.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ReviewService.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂s3
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜AwsS3Controller.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜S3RemoveRequestDto.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂response
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜S3UploadResponseDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜AwsS3.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜AwsS3Service.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂users
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AuthController.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserController.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LoginRequestDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜NicknameRequestDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PasswordFindRequestDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RegisterRequestDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TokenRequestDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserEditRequestDto.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂response
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GetUserResponseDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LoginResponseDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LogoutResponseDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PasswordFindResponseDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RegisterResponseDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReissueResponseDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TokenDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomUserDetails.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜UserEditInfo.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserInfo.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂entity
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Authority.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserEntity.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂jwt
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JwtAccessDeniedHandler.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JwtAuthenticationEntryPoint.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JwtAuthenticationFilter.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JwtSecurityConfig.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TokenProvider.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserRepository.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AuthService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CookieService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomUserDetailsService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserService.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂util
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SecurityUtil.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂wish
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WishController.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CreateWishRequestDto.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GetWishesResponseDto.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂entity
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WishEntity.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WishRepository.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WishService.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂global
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂common
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ErrorCode.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ResponseCode.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ResponseMessage.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂config
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AwsS3Config.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CorsConfig.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RedisConfig.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SwaggerConfig.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜WebSecurityConfig.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WebSockConfig.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ErrorResponse.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ResponseDto.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TimeDto.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂exception
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AuthenticationException.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BusinessException.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜EntityNotFoundException.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜InvalidValueException.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂handler
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GlobalExceptionHandler.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜StompHandler.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RedisPublisher.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RedisService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜RedisSubscriber.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Time.java
- ┃ ┃ ┃ ┃ ┃ ┗ 📜InusedApplication.java
  ┃ ┣ 📂resources
  ┃ ┃ ┣ 📂static
- ┃ ┃ ┃ ┗ 📜favicon.ico
  ┃ ┃ ┣ 📂templates
- ┃ ┃ ┃ ┣ 📜login.html
- ┃ ┃ ┃ ┣ 📜room.html
- ┃ ┃ ┃ ┗ 📜roomdetail.html
- ┃ ┃ ┗ 📜application-prod.yml
- ┃ ┣ 📜package.json
- ┃ ┣ 📜README.md
- ┃ ┗ 📜yarn.lock
  ┗ 📂test
  ┃ ┗ 📂java
  ┃ ┃ ┗ 📂com
@@ -413,14 +262,8 @@
  ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂users
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AuthControllerTest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜MailControllerTest.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MailServiceTest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserServiceTest.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📂global
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜RedisCrudTest.java
- ┃ ┃ ┃ ┃ ┃ ┗ 📜InusedApplicationTests.java
 ```
 
 ---
@@ -460,5 +303,5 @@
 
 ## 5. API 명세서
 
-###  [REST Docs](https://inused.store/swagger-ui/index.html)
+###  [Swagger](https://inused.store/swagger-ui/index.html)
 
