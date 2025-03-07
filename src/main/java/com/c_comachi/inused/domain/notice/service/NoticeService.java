@@ -9,6 +9,7 @@ import com.c_comachi.inused.global.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 public class NoticeService {
     private final NoticeRepository noticeRepository;
 
+    @Transactional
     public ResponseEntity<? super SearchNoticeResponseDto> searchNotice(Long noticeId){
         NoticeEntity notice = null;
 
@@ -32,6 +34,7 @@ public class NoticeService {
         return SearchNoticeResponseDto.success(notice);
     }
 
+    @Transactional
     public ResponseEntity<? super ViewNoticeResponseDto> getNotices(){
         List<NoticeEntity> notices = noticeRepository.findAllByOrderByCreatedAtDesc();
         return ViewNoticeResponseDto.success(notices);

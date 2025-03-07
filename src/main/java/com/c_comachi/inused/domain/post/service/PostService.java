@@ -75,6 +75,7 @@ public class PostService {
         return ResponseDto.suc();
     }
 
+    @Transactional
     public ResponseEntity<? super RePostResponseDto> rePost(Long postId){
         PostEntity post = postsRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.POST_NOT_FOUND));
@@ -87,6 +88,7 @@ public class PostService {
         return RePostResponseDto.success();
     }
 
+    @Transactional
     public ResponseEntity<? super GetAllPostResponseDto> getAllPost(UserDetails user){
         List<PostEntity> posts = postsRepository.findAllByOrderByLastRepostingDesc();
         List<MainPostInfo> mainPostInfos = postsToMainPosts(posts, user);
@@ -94,6 +96,7 @@ public class PostService {
         return GetAllPostResponseDto.success(mainPostInfos);
     }
 
+    @Transactional
     public ResponseEntity<? super GetAllPostResponseDto> searchPost(UserDetails user, String search){
         List<PostEntity> posts = postsRepository.findAllByTitleContainingOrContentContainingOrderByLastRepostingDesc(search, search);
         List<MainPostInfo> mainPostInfos = postsToMainPosts(posts, user);
@@ -101,6 +104,7 @@ public class PostService {
         return GetAllPostResponseDto.success(mainPostInfos);
     }
 
+    @Transactional
     public ResponseEntity<? super GetAllPostResponseDto> getMyPost(UserDetails user){
         List<PostEntity> posts = postsRepository.findAllByUserEmail(user.getUsername());
         List<MainPostInfo> mainPostInfos = postsToMainPosts(posts, user);
@@ -108,6 +112,7 @@ public class PostService {
         return GetAllPostResponseDto.success(mainPostInfos);
     }
 
+    @Transactional
     public ResponseEntity<? super GetAllPostResponseDto> getUserPost(Long userId, UserDetails userDetails){
         List<PostEntity> posts = postsRepository.findAllByUserId(userId);
         UserEntity user = userRepository.findById(userId)
@@ -118,6 +123,7 @@ public class PostService {
         return GetAllPostResponseDto.success(mainPostInfos);
     }
 
+    @Transactional
     public ResponseEntity<? super GetAllPostResponseDto> getCategoryPost(UserDetails user, Long categoryId){
         List<PostEntity> posts = postsRepository.findAllByCategoryId(categoryId);
         List<MainPostInfo> mainPostInfos = postsToMainPosts(posts, user);
@@ -125,6 +131,7 @@ public class PostService {
         return GetAllPostResponseDto.success(mainPostInfos);
     }
 
+    @Transactional
     public List<MainPostInfo> postsToMainPosts(List<PostEntity> posts, UserDetails user){
         List<MainPostInfo> mainPostInfos = new ArrayList<>();
 

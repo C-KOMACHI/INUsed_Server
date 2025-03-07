@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final ChatRoomRepository chatRoomRepository;
 
+    @Transactional
     public void createReview(CreateReviewRequestDto requestDto, UserDetails user){
         UserEntity sender = userRepository.findByEmail(user.getUsername())
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
@@ -45,6 +47,7 @@ public class ReviewService {
         reviewRepository.save(review);
     }
 
+    @Transactional
     public ResponseEntity<? super StartReviewResponseDto> startReview(Long postId, UserDetails user){
         PostEntity post = postRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.POST_NOT_FOUND));
@@ -53,7 +56,7 @@ public class ReviewService {
         return StartReviewResponseDto.success(chatRooms, post.getTitle(), post.getImageUrl());
     }
 
-    public Integer calculateManner(CreateReviewRequestDto requestDto){
+    private Integer calculateManner(CreateReviewRequestDto requestDto){
         int sum = requestDto.getManner() + requestDto.getAppointment_time() + requestDto.getQuality();
         return (sum - 9) * 2;
     }

@@ -26,6 +26,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,7 @@ public class KeywordService {
     private final KeywordRepository keywordRepository;
     private final PostRepository postRepository;
 
+    @Transactional
     public ResponseEntity<ResponseDto> createKeyword(CreateKeywordRequestDto keywordRequestDto, UserDetails userDetails) {
         UserEntity user = userRepository.findByEmail(userDetails.getUsername())
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
@@ -52,6 +54,7 @@ public class KeywordService {
         return ResponseDto.suc();
     }
 
+    @Transactional
     public ResponseEntity<ResponseDto> deleteKeyword(DeleteKeywordRequestDto requestDto) {
         KeywordEntity keyword = keywordRepository.findById(requestDto.getKeywordId())
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND));
@@ -61,6 +64,7 @@ public class KeywordService {
         return ResponseDto.suc();
     }
 
+    @Transactional
     public ResponseEntity<? super GetKeyWordResponseDto> getKeyword(UserDetails userDetails){
         UserEntity user = userRepository.findByEmail(userDetails.getUsername())
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
@@ -75,6 +79,7 @@ public class KeywordService {
         return GetKeyWordResponseDto.success(keywordInfos);
     }
 
+    @Transactional
     public ResponseEntity<? super GetKeywordPostResponseDto> getKeywordPost(UserDetails userDetails){
         UserEntity user = userRepository.findByEmail(userDetails.getUsername())
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
@@ -95,7 +100,7 @@ public class KeywordService {
         return GetKeywordPostResponseDto.success(keywordPosts);
     }
 
-    public static Specification<PostEntity> titleContainsKeywords(List<KeywordEntity> keywords) {
+    public Specification<PostEntity> titleContainsKeywords(List<KeywordEntity> keywords) {
         return (Root<PostEntity> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             for (KeywordEntity keyword : keywords) {

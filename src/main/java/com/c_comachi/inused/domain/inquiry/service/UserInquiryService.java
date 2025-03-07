@@ -17,6 +17,7 @@ import com.c_comachi.inused.global.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class UserInquiryService {
     private final ManagerInquiryRepository managerInquiryRepository;
 
 
+    @Transactional
     public void createInquiry(CreateUserInquiryRequestDto createUserInquiryRequestDto, String email){
         UserInquiryEntity userInquiryEntity = null;
         try{
@@ -39,6 +41,7 @@ public class UserInquiryService {
         }
     }
 
+    @Transactional
     public ResponseEntity<? super GetAllUserInquiryResponseDto> getAllUserInquiry(String email) {
         UserEntity user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
@@ -47,6 +50,7 @@ public class UserInquiryService {
         return GetAllUserInquiryResponseDto.success(userInquiryList);
     }
 
+    @Transactional
     public ResponseEntity<? super GetUserInquiryResponseDto> getUserInquiry(Long userInquiryId, String email){
         UserInquiryEntity userInquiry = null;
         ManagerInquiryInfo managerInquiryInfo = null;
@@ -73,11 +77,12 @@ public class UserInquiryService {
         return GetUserInquiryResponseDto.success(userInquiry, managerInquiryInfo);
     }
 
-
+    @Transactional
     public void deleteInquiry(Long userInquiryId){
         userInquiryRepository.deleteById(userInquiryId);
     }
 
+    @Transactional
     public void editInquiry(Long userInquiryId, UserInquiryEditInfo info) {
         UserInquiryEntity userInquiry = userInquiryRepository.findById(userInquiryId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.INQUIRY_NOT_FOUND));

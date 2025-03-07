@@ -20,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -36,20 +38,21 @@ public class WishService {
         PostEntity post = postRepository.findById(requestsDto.getPostId())
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.POST_NOT_FOUND));
 
-        // 좋아요 정보가 없으면 추가
-        if(!wishRepository.existsByUserAndPost(user.getUsername(), requestsDto.getPostId())) {
+        Optional<WishEntity> Wish = wishRepository.findByUserAndPost(userEntity, post);
+
+        if(!Wish.isPresent()) {
             WishEntity wish = requestsDto.toWish(userEntity ,postRepository);
             post.setWishCount(post.getWishCount()+1);
             wishRepository.save(wish);
             postRepository.save(post);
+
+            return ResponseDto.suc();
         }
-        // 좋아요 정보가 있으면 삭제
-        else if(wishRepository.existsByUserAndPost(user.getUsername(), requestsDto.getPostId())) {
-            WishEntity wish = wishRepository.findByUserIdAndPostId(userEntity.getId(),requestsDto.getPostId()).get();
-            post.setWishCount(post.getWishCount()-1);
-            wishRepository.deleteById(wish.getId());
-            postRepository.save(post);
-        }
+
+        post.setWishCount(post.getWishCount()-1);
+        wishRepository.deleteById(Wish.get().getId());
+        postRepository.save(post);
+
 
         return ResponseDto.suc();
     }
@@ -57,16 +60,8 @@ public class WishService {
     @Transactional
     public ResponseEntity<? super GetWishesResponseDto> getWish(UserDetails user) {
         List<WishEntity> wishEntities = wishRepository.findAllByUserEmailOrderByIdDesc(user.getUsername());
-        List<MainPostInfo> mainPostInfos = new ArrayList<>();
 
-        for(WishEntity wishEntity : wishEntities) {
-            PostEntity post = wishEntity.getPost();
-            boolean checkMyPost = post.getUser().getEmail().equals(user.getUsername());
-            MainPostInfo mainPostInfo = new MainPostInfo(post, true, checkMyPost);
-            mainPostInfos.add(mainPostInfo);
-        }
-
-        return GetWishesResponseDto.success(mainPostInfos);
+        return GetWishesResponseDto.success(getMainPostInfosByWishList(wishEntities, user));
     }
 
     @Transactional
@@ -77,18 +72,19 @@ public class WishService {
         }
 
         List<WishEntity> wishEntities = wishRepository.findAllByUserId(userId);
-        List<MainPostInfo> mainPostInfos = new ArrayList<>();
 
-        for(WishEntity wishEntity : wishEntities) {
-            PostEntity post = wishEntity.getPost();
-            boolean checkMyPost = post.getUser().getEmail().equals(user.getUsername());
-            boolean checkLiked = wishRepository.existsByUserAndPost(user.getUsername(), post.getId());
-            MainPostInfo mainPostInfo = new MainPostInfo(post, checkLiked, checkMyPost);
-            mainPostInfos.add(mainPostInfo);
-        }
+        return GetWishesResponseDto.success(getMainPostInfosByWishList(wishEntities, user));
+    }
 
-        return GetWishesResponseDto.success(mainPostInfos);
-
+    public List<MainPostInfo> getMainPostInfosByWishList(List<WishEntity> wishEntities, UserDetails user) {
+        return wishEntities.stream()
+                .map(wishEntity -> {
+                    PostEntity post = wishEntity.getPost();
+                    boolean checkMyPost = post.getUser().getEmail().equals(user.getUsername());
+                    boolean checkLiked = wishRepository.existsByUserAndPost(user.getUsername(), post.getId());
+                    return new MainPostInfo(post, checkLiked, checkMyPost);
+                })
+                .collect(Collectors.toList());
     }
 
 }
