@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/3ee7890f-e50a-46a1-961d-207c0a96efd8)<p align="center">
+<p align="center">
   <img src="https://github.com/C-KOMACHI/INUsed/blob/master/public/Logo.png" alt="Logo" width="500">
 </p>
 
