@@ -1,4 +1,4 @@
-<p align="center">
+![image](https://github.com/user-attachments/assets/3ee7890f-e50a-46a1-961d-207c0a96efd8)<p align="center">
   <img src="https://github.com/C-KOMACHI/INUsed/blob/master/public/Logo.png" alt="Logo" width="500">
 </p>
 
@@ -108,11 +108,10 @@
 - 화면 흐름도, 피그마, 유스케이스 등을 문서로 작성하여 이를 토대로 프로젝트의 이해도를 서로 끌어올렸습니다.
 
 ### 화면 흐름도
-
+[화면 흐름도](https://github.com/C-KOMACHI/INUsed_Server/raw/refs/heads/main/docs/C%EC%BD%94%EB%A7%88%EC%B9%98_%ED%99%94%EB%A9%B4%ED%9D%90%EB%A6%84%EB%8F%84.docx)
 
 ### 유스케이스
-
-
+[유스케이스](https://github.com/C-KOMACHI/INUsed_Server/raw/refs/heads/main/docs/C%EC%BD%94%EB%A7%88%EC%B9%98_%EC%9C%A0%EC%8A%A4%EC%BC%80%EC%9D%B4%EC%8A%A4_%EC%B5%9C%EC%A2%85%EC%88%98%EC%A0%95%EB%B3%B8.docx)
 
 ---
 
@@ -146,6 +145,7 @@
 ---
 
 ## 2. Entity Relationship Diagram
+![image](https://github.com/user-attachments/assets/9469d76f-0817-44b4-bddd-41d70ce91ac7)
 
 ---
 
